@@ -213,6 +213,7 @@ public sealed class ScriptWriter
         for (int i = 0; i < section.Lines.Count; i++)
         {
             var (command, arguments) = StringUtilities.ParseCommandLine(section.Lines[i]);
+            string currentFile = section.SourceFiles[i];
             int orderValue = Array.IndexOf(tagOrder, command);
 
             if (orderValue < 0)
@@ -230,18 +231,14 @@ public sealed class ScriptWriter
                     // Add item number * 10
                     if (arguments.Count > 0)
                     {
-                        int itemNumber = ParseNumericArgument(arguments[0]);
-
-                        if (itemNumber >= 0)
+                        if (TryParseNumericArgument(arguments[0], out int itemNumber, currentFile) && itemNumber >= 0)
                             orderValue += itemNumber * 10;
                     }
 
                     // If combo, add piece number
                     if (command.Contains("Combo") && arguments.Count > 1)
                     {
-                        int pieceNumber = ParseNumericArgument(arguments[1]);
-
-                        if (pieceNumber >= 0)
+                        if (TryParseNumericArgument(arguments[1], out int pieceNumber, currentFile) && pieceNumber >= 0)
                             orderValue += pieceNumber;
                     }
                 }
@@ -259,9 +256,10 @@ public sealed class ScriptWriter
         foreach (int index in sortedIndices)
         {
             string line = section.Lines[index];
+            string currentFile = section.SourceFiles[index];
             var (command, arguments) = StringUtilities.ParseCommandLine(line);
 
-            if (!CompileCommand(scriptData, section, command, arguments))
+            if (!CompileCommand(scriptData, section, command, arguments, currentFile))
                 return false;
         }
 
@@ -322,7 +320,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private bool CompileCommand(ScriptData scriptData, ScriptSection section, string command, List<string> arguments)
+    private bool CompileCommand(ScriptData scriptData, ScriptSection section, string command, List<string> arguments, string currentFile)
     {
         try
         {
@@ -333,55 +331,55 @@ public sealed class ScriptWriter
                     return true;
 
                 case "FMV=":
-                    return CompileFMV(section, arguments);
+                    return CompileFMV(section, arguments, currentFile);
 
                 case "Level=":
-                    return CompileLevel(scriptData, section, arguments);
+                    return CompileLevel(scriptData, section, arguments, currentFile);
 
                 case "Cut=":
-                    return CompileCut(section, arguments);
+                    return CompileCut(section, arguments, currentFile);
 
                 case "ResidentCut=":
-                    return CompileResidentCut(section, arguments);
+                    return CompileResidentCut(section, arguments, currentFile);
 
                 case "Layer1=":
                 case "Layer2=":
-                    return CompileLayer(section, command, arguments);
+                    return CompileLayer(section, command, arguments, currentFile);
 
                 case "UVRotate=":
-                    return CompileUVRotate(section, arguments);
+                    return CompileUVRotate(section, arguments, currentFile);
 
                 case "Legend=":
                     return CompileLegend(section, arguments);
 
                 case "LensFlare=":
-                    return CompileLensFlare(section, arguments);
+                    return CompileLensFlare(section, arguments, currentFile);
 
                 case "Mirror=":
-                    return CompileMirror(section, arguments);
+                    return CompileMirror(section, arguments, currentFile);
 
                 case "Fog=":
-                    return CompileFog(section, arguments);
+                    return CompileFog(section, arguments, currentFile);
 
                 case "AnimatingMIP=":
-                    return CompileAnimatingMIP(section, arguments);
+                    return CompileAnimatingMIP(section, arguments, currentFile);
 
                 case "LoadCamera=":
-                    return CompileLoadCamera(section, arguments);
+                    return CompileLoadCamera(section, arguments, currentFile);
 
                 case "ResetHUB=":
-                    return CompileResetHub(section, arguments);
+                    return CompileResetHub(section, arguments, currentFile);
 
                 case "Key=":
                 case "Puzzle=":
                 case "Pickup=":
                 case "Examine=":
-                    return CompileInventoryItem(section, command, arguments);
+                    return CompileInventoryItem(section, command, arguments, currentFile);
 
                 case "KeyCombo=":
                 case "PuzzleCombo=":
                 case "PickupCombo=":
-                    return CompileInventoryCombo(section, command, arguments);
+                    return CompileInventoryCombo(section, command, arguments, currentFile);
 
                 case "YoungLara=":
                     if (IsEnabled(arguments))
@@ -455,7 +453,7 @@ public sealed class ScriptWriter
         }
     }
 
-    private static bool CompileFMV(ScriptSection section, List<string> arguments)
+    private bool CompileFMV(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 2)
         {
@@ -463,7 +461,14 @@ public sealed class ScriptWriter
             return false;
         }
 
-        if (!int.TryParse(arguments[0], out int index) || !int.TryParse(arguments[1], out int trigger))
+        if (!TryParseNumericArgument(arguments[0], out int index, currentFile) ||
+            !TryParseNumericArgument(arguments[1], out int trigger, currentFile))
+        {
+            Logger.LogError("Invalid arguments for FMV command");
+            return false;
+        }
+
+        if (index < 0 || trigger < 0)
         {
             Logger.LogError("Invalid arguments for FMV command");
             return false;
@@ -477,7 +482,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileLevel(ScriptData scriptData, ScriptSection section, List<string> arguments)
+    private bool CompileLevel(ScriptData scriptData, ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 2)
         {
@@ -489,7 +494,7 @@ public sealed class ScriptWriter
         // LevelName should already be set from the Name= command
         section.LevelPath = arguments[0];
 
-        if (!int.TryParse(arguments[1], out int cd) || cd < 0 || cd > 255)
+        if (!TryParseNumericArgument(arguments[1], out int cd, currentFile) || cd < 0 || cd > 255)
         {
             Logger.LogError("CD value out of range (0-255) for Level command");
             return false;
@@ -504,7 +509,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileCut(ScriptSection section, List<string> arguments)
+    private bool CompileCut(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 1)
         {
@@ -512,7 +517,7 @@ public sealed class ScriptWriter
             return false;
         }
 
-        if (!int.TryParse(arguments[0], out int cutNumber) || cutNumber < 0 || cutNumber > 31)
+        if (!TryParseNumericArgument(arguments[0], out int cutNumber, currentFile) || cutNumber < 0 || cutNumber > 31)
         {
             Logger.LogError("Cut value out of range (0-31)");
             return false;
@@ -523,7 +528,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileResidentCut(ScriptSection section, List<string> arguments)
+    private bool CompileResidentCut(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 2)
         {
@@ -531,13 +536,13 @@ public sealed class ScriptWriter
             return false;
         }
 
-        if (!int.TryParse(arguments[0], out int slot) || slot < 1 || slot > 4)
+        if (!TryParseNumericArgument(arguments[0], out int slot, currentFile) || slot < 1 || slot > 4)
         {
             Logger.LogError("Slot value out of range (1-4) for ResidentCut");
             return false;
         }
 
-        if (!int.TryParse(arguments[1], out int cutNumber))
+        if (!TryParseNumericArgument(arguments[1], out int cutNumber, currentFile) || cutNumber < 0)
         {
             Logger.LogError("Invalid cut number for ResidentCut");
             return false;
@@ -549,7 +554,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileLayer(ScriptSection section, string command, List<string> arguments)
+    private bool CompileLayer(ScriptSection section, string command, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 4)
         {
@@ -567,7 +572,7 @@ public sealed class ScriptWriter
 
         for (int i = 0; i < 4; i++)
         {
-            if (!int.TryParse(arguments[i], out int value))
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile) || value < 0)
             {
                 Logger.LogError($"Invalid argument {i} for {command}");
                 return false;
@@ -579,7 +584,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileUVRotate(ScriptSection section, List<string> arguments)
+    private bool CompileUVRotate(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 1)
         {
@@ -587,7 +592,7 @@ public sealed class ScriptWriter
             return false;
         }
 
-        if (!int.TryParse(arguments[0], out int value))
+        if (!TryParseNumericArgument(arguments[0], out int value, currentFile) || value < 0)
         {
             Logger.LogError("Invalid argument for UVRotate");
             return false;
@@ -622,7 +627,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileLensFlare(ScriptSection section, List<string> arguments)
+    private bool CompileLensFlare(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 6)
         {
@@ -636,7 +641,7 @@ public sealed class ScriptWriter
         // First 3 arguments are coordinates (divide by 256)
         for (int i = 0; i < 3; i++)
         {
-            if (!int.TryParse(arguments[i], out int value))
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile))
             {
                 Logger.LogError($"Invalid coordinate {i} for LensFlare");
                 return false;
@@ -649,7 +654,7 @@ public sealed class ScriptWriter
         // Last 3 arguments are RGB colors
         for (int i = 3; i < 6; i++)
         {
-            if (!int.TryParse(arguments[i], out int value))
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile) || value < 0)
             {
                 Logger.LogError($"Invalid color {i} for LensFlare");
                 return false;
@@ -661,7 +666,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private bool CompileMirror(ScriptSection section, List<string> arguments)
+    private bool CompileMirror(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 2)
         {
@@ -680,9 +685,7 @@ public sealed class ScriptWriter
 
         section.CompiledBytes.Add((byte)room);
 
-        int surface = ParseNumericArgument(arguments[1]);
-
-        if (surface < 0)
+        if (!TryParseNumericArgument(arguments[1], out int surface, currentFile) || surface < 0)
         {
             Logger.LogError("Invalid surface value for Mirror");
             return false;
@@ -693,7 +696,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileFog(ScriptSection section, List<string> arguments)
+    private bool CompileFog(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 3)
         {
@@ -705,7 +708,7 @@ public sealed class ScriptWriter
 
         for (int i = 0; i < 3; i++)
         {
-            if (!int.TryParse(arguments[i], out int value))
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile) || value < 0)
             {
                 Logger.LogError($"Invalid color {i} for Fog");
                 return false;
@@ -717,7 +720,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileAnimatingMIP(ScriptSection section, List<string> arguments)
+    private bool CompileAnimatingMIP(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 2)
         {
@@ -725,13 +728,13 @@ public sealed class ScriptWriter
             return false;
         }
 
-        if (!int.TryParse(arguments[0], out int slot) || slot < 1 || slot > 16)
+        if (!TryParseNumericArgument(arguments[0], out int slot, currentFile) || slot < 1 || slot > 16)
         {
             Logger.LogError("First argument out of range (1-16) for AnimatingMIP");
             return false;
         }
 
-        if (!int.TryParse(arguments[1], out int distance) || distance < 0 || distance > 15)
+        if (!TryParseNumericArgument(arguments[1], out int distance, currentFile) || distance < 0 || distance > 15)
         {
             Logger.LogError("Second argument out of range (0-15) for AnimatingMIP");
             return false;
@@ -745,7 +748,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileLoadCamera(ScriptSection section, List<string> arguments)
+    private bool CompileLoadCamera(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 7)
         {
@@ -758,7 +761,7 @@ public sealed class ScriptWriter
         // First 6 arguments are 32-bit integers
         for (int i = 0; i < 6; i++)
         {
-            if (!int.TryParse(arguments[i], out int value))
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile))
             {
                 Logger.LogError($"Invalid argument {i} for LoadCamera");
                 return false;
@@ -768,7 +771,7 @@ public sealed class ScriptWriter
         }
 
         // Last argument is a byte
-        if (!int.TryParse(arguments[6], out int lastValue))
+        if (!TryParseNumericArgument(arguments[6], out int lastValue, currentFile) || lastValue < 0)
         {
             Logger.LogError("Invalid last argument for LoadCamera");
             return false;
@@ -779,7 +782,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private static bool CompileResetHub(ScriptSection section, List<string> arguments)
+    private bool CompileResetHub(ScriptSection section, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 1)
         {
@@ -787,7 +790,7 @@ public sealed class ScriptWriter
             return false;
         }
 
-        if (!int.TryParse(arguments[0], out int value))
+        if (!TryParseNumericArgument(arguments[0], out int value, currentFile) || value < 0)
         {
             Logger.LogError("Invalid argument for ResetHUB");
             return false;
@@ -800,7 +803,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private bool CompileInventoryItem(ScriptSection section, string command, List<string> arguments)
+    private bool CompileInventoryItem(ScriptSection section, string command, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 8)
         {
@@ -862,9 +865,7 @@ public sealed class ScriptWriter
         // Add 6 word arguments
         for (int i = 2; i < 8; i++)
         {
-            int value = ParseNumericArgument(arguments[i]);
-
-            if (value < 0)
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile) || value < 0)
             {
                 Logger.LogError($"Invalid argument {i} for {command}");
                 return false;
@@ -876,7 +877,7 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private bool CompileInventoryCombo(ScriptSection section, string command, List<string> arguments)
+    private bool CompileInventoryCombo(ScriptSection section, string command, List<string> arguments, string currentFile)
     {
         if (arguments.Count != 9)
         {
@@ -939,9 +940,7 @@ public sealed class ScriptWriter
         // Add 6 word arguments
         for (int i = 3; i < 9; i++)
         {
-            int value = ParseNumericArgument(arguments[i]);
-
-            if (value < 0)
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile) || value < 0)
             {
                 Logger.LogError($"Invalid argument {i} for {command}");
                 return false;
@@ -953,41 +952,41 @@ public sealed class ScriptWriter
         return true;
     }
 
-    private int ParseNumericArgument(string arg)
+    private bool TryParseNumericArgument(string arg, out int value, string? currentFile = null)
     {
+        value = -1;
+
         // Handle hexadecimal values starting with $
         if (arg.StartsWith('$'))
         {
             string hexValue = arg[1..];
-
-            if (int.TryParse(hexValue, NumberStyles.HexNumber, null, out int result))
-                return result;
-
-            return -1;
+            return int.TryParse(hexValue, NumberStyles.HexNumber, null, out value);
         }
 
         // Handle hexadecimal values starting with &H
         if (arg.StartsWith("&H", StringComparison.OrdinalIgnoreCase))
         {
             string hexValue = arg[2..];
-
-            if (int.TryParse(hexValue, NumberStyles.HexNumber, null, out int result))
-                return result;
-
-            return -1;
+            return int.TryParse(hexValue, NumberStyles.HexNumber, null, out value);
         }
 
         // Handle regular decimal values
-        if (int.TryParse(arg, out int value))
-            return value;
+        if (int.TryParse(arg, out value))
+            return true;
 
         // Handle constants
-        var define = _globals.Defines.FirstOrDefault(d => d.Name.Equals(arg, StringComparison.OrdinalIgnoreCase));
+        // VB6 compatibility: Defines are file-scoped. We must match the file name.
+        var define = _globals.Defines.FirstOrDefault(d =>
+            d.Name.Equals(arg, StringComparison.OrdinalIgnoreCase) &&
+            (currentFile == null || string.Equals(d.FileName, currentFile, StringComparison.OrdinalIgnoreCase)));
 
         if (define is not null)
-            return define.Value;
+        {
+            value = define.Value;
+            return true;
+        }
 
-        return -1;
+        return false;
     }
 
     private static bool IsEnabled(List<string> arguments)

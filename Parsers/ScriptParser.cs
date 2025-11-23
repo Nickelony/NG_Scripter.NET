@@ -111,14 +111,37 @@ public sealed class ScriptParser
         while (_scriptData.IncludeStack.Count > 0)
         {
             var currentFile = _scriptData.IncludeStack[^1];
-            var lines = File.ReadAllLines(currentFile.FileName, Encoding.GetEncoding(1252));
+            _globals.CurrentSourceFile = currentFile.FileName;
 
-            Logger.LogVerbose($"------------ PARSING FILE <{Path.GetFileName(currentFile.FileName)}> ----------");
+            string[] lines;
 
-            for (int i = 0; i < lines.Length; i++)
+            try
             {
-                lineNumber++;
-                _globals.CurrentLineNumber = lineNumber;
+                lines = File.ReadAllLines(currentFile.FileName, Encoding.GetEncoding(1252));
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.AddError(_globals.Errors, 0, true, $"Error reading file {currentFile.FileName}: {ex.Message}");
+                return false;
+            }
+
+            if (currentFile.LineNumber == 0)
+                Logger.LogVerbose($"------------ PARSING FILE <{Path.GetFileName(currentFile.FileName)}> ----------");
+
+            bool fileCompleted = true;
+
+            for (int i = currentFile.LineNumber; i < lines.Length; i++)
+            {
+                currentFile.LineNumber = i + 1; // Advance line number
+                lineNumber++; // Global line number (approximate, or should we track per file?)
+
+                // VB6 tracks global line number for errors?
+                // Glob.NLinea seems to be per file in VB6?
+                // "Glob.NLinea = NLinea" inside the loop.
+                // Let's use the file's line number for error reporting if possible, but _globals.CurrentLineNumber is used.
+                // For now, let's keep lineNumber incrementing globally or reset it?
+                // VB6 resets NLinea = 0 for each file.
+                _globals.CurrentLineNumber = currentFile.LineNumber;
 
                 // Handle line continuation with '>' character
                 string rawLine = lines[i];
@@ -137,7 +160,7 @@ public sealed class ScriptParser
                         if (i + 1 < lines.Length)
                         {
                             i++;
-                            lineNumber++;
+                            currentFile.LineNumber = i + 1;
                             rawLine += " " + lines[i].Trim();
                         }
                         else
@@ -160,8 +183,84 @@ public sealed class ScriptParser
                 // Process #define directives (can appear anywhere)
                 if (line.StartsWith("#DEFINE", StringComparison.OrdinalIgnoreCase))
                 {
-                    _defineManager.ProcessDefineLine(line, lineNumber, rawLine);
+                    _defineManager.ProcessDefineLine(line, _globals.CurrentLineNumber, rawLine);
                     continue;
+                }
+
+                // Process #FIRST_ID directives (IDE-only, ignore in compiler)
+                if (line.StartsWith("#FIRST_ID", StringComparison.OrdinalIgnoreCase))
+                {
+                    Logger.LogVerbose($"Ignoring #FIRST_ID directive at line {_globals.CurrentLineNumber}");
+                    continue;
+                }
+
+                // Process #INCLUDE directives
+                if (line.StartsWith("#INCLUDE", StringComparison.OrdinalIgnoreCase))
+                {
+                    string includePath;
+
+                    // Try to find quotes first (VB6 requires quotes)
+                    int firstQuote = line.IndexOf('"');
+                    int lastQuote = line.LastIndexOf('"');
+
+                    if (firstQuote >= 0 && lastQuote > firstQuote)
+                    {
+                        includePath = line.Substring(firstQuote + 1, lastQuote - firstQuote - 1);
+                    }
+                    else
+                    {
+                        // Fallback to space splitting if no quotes
+                        var parts = line.Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries);
+
+                        if (parts.Length < 2)
+                        {
+                            ErrorHandler.AddError(_globals.Errors, _globals.CurrentLineNumber, true, "Missing file name in #INCLUDE directive");
+                            return false;
+                        }
+
+                        includePath = parts[1];
+                    }
+
+                    // Handle relative paths
+                    string resolvedPath = includePath;
+
+                    if (!Path.IsPathRooted(includePath))
+                    {
+                        string? dir = Path.GetDirectoryName(currentFile.FileName);
+
+                        if (!string.IsNullOrEmpty(dir))
+                            resolvedPath = Path.Combine(dir, includePath);
+                    }
+
+                    if (!File.Exists(resolvedPath))
+                    {
+                        // Fallback to VB6 behavior: TRLE\Script\<filename>
+                        // VB6 ignores the path part of the include directive and always looks in the Script folder
+                        string fileName = Path.GetFileName(includePath);
+                        string scriptDir = Path.Combine(trleFolderPath, "Script");
+                        string vb6Path = Path.Combine(scriptDir, fileName);
+
+                        if (File.Exists(vb6Path))
+                        {
+                            resolvedPath = vb6Path;
+                            Logger.LogVerbose($"Found include file using VB6 fallback path: {resolvedPath}");
+                        }
+                        else
+                        {
+                            ErrorHandler.AddError(_globals.Errors, _globals.CurrentLineNumber, true, $"Include file not found: {includePath}");
+                            return false;
+                        }
+                    }
+
+                    // Push to stack
+                    _scriptData.IncludeStack.Add(new FileInclude
+                    {
+                        FileName = resolvedPath,
+                        LineNumber = 0
+                    });
+
+                    fileCompleted = false;
+                    break; // Break inner loop to process new file
                 }
 
                 // Check if it's a new section
@@ -268,10 +367,12 @@ public sealed class ScriptParser
                 }
             }
 
-            // Remove current file from stack
-            _scriptData.IncludeStack.RemoveAt(_scriptData.IncludeStack.Count - 1);
-
-            Logger.LogVerbose($"------------ END FILE <{Path.GetFileName(currentFile.FileName)}> ----------");
+            if (fileCompleted)
+            {
+                // Remove current file from stack
+                _scriptData.IncludeStack.RemoveAt(_scriptData.IncludeStack.Count - 1);
+                Logger.LogVerbose($"------------ END FILE <{Path.GetFileName(currentFile.FileName)}> ----------");
+            }
         }
 
         // Collect NG level commands from all sections
@@ -294,6 +395,13 @@ public sealed class ScriptParser
 
     private bool ProcessOptionsCommand(string command, List<string> arguments, int lineNumber)
     {
+        // Special handling for ImportFile= command (always handle, even if definitions missing)
+        if (command.Equals("ImportFile=", StringComparison.OrdinalIgnoreCase))
+        {
+            RegisterImportFileCommand(arguments, lineNumber);
+            return true;
+        }
+
         // Check if this is an NG command (not a classic command)
         if (IsNGCommand(command))
         {
@@ -537,6 +645,104 @@ public sealed class ScriptParser
             PluginId = pluginId,
             PluginName = pluginName
         });
+    }
+
+    /// <summary>
+    /// Registers an ImportFile= command.
+    /// Format: ImportFile= IdImport, PathFile, FileType, ImportType
+    /// </summary>
+    private void RegisterImportFileCommand(List<string> arguments, int lineNumber)
+    {
+        if (arguments.Count < 4)
+        {
+            ErrorHandler.AddError(_globals.Errors, lineNumber, true,
+                "Wrong number of arguments for ImportFile= command. Expected: Id, Path, Type, Mode");
+
+            return;
+        }
+
+        // 1. Parse ID
+        if (!_expressionEvaluator.TryEvaluate(arguments[0], out int importId))
+        {
+            ErrorHandler.AddError(_globals.Errors, lineNumber, true,
+                $"Invalid Import ID: {arguments[0]}");
+
+            return;
+        }
+
+        // 2. Parse File Path
+        string filePath = arguments[1].Trim();
+
+        if (filePath.StartsWith('"') && filePath.EndsWith('"'))
+            filePath = filePath[1..^1];
+
+        // Resolve path relative to current script file
+        string currentDir = Path.GetDirectoryName(_globals.CurrentSourceFile) ?? string.Empty;
+        string fullPath = Path.Combine(currentDir, filePath);
+
+        if (!File.Exists(fullPath))
+        {
+            // Try relative to TRLE folder
+            string trleDir = Path.GetDirectoryName(Path.GetDirectoryName(_scriptData.IncludeStack[0].FileName)) ?? string.Empty;
+            fullPath = Path.Combine(trleDir, filePath);
+
+            if (!File.Exists(fullPath))
+            {
+                ErrorHandler.AddError(_globals.Errors, lineNumber, true,
+                    $"Import file not found: {filePath}");
+
+                return;
+            }
+        }
+
+        // 3. Parse File Type (ignored for now, but we should parse it to validate)
+        // It's usually a constant like FTYPE_...
+        if (!_expressionEvaluator.TryEvaluate(arguments[2], out int fileType))
+        {
+            ErrorHandler.AddError(_globals.Errors, lineNumber, true,
+               $"Invalid File Type: {arguments[2]}");
+
+            return;
+        }
+
+        // 4. Parse Import Mode (IMPORT_...)
+        if (!_expressionEvaluator.TryEvaluate(arguments[3], out int importModeVal))
+        {
+            ErrorHandler.AddError(_globals.Errors, lineNumber, true,
+               $"Invalid Import Mode: {arguments[3]}");
+
+            return;
+        }
+
+        var importMode = (NGImportMode)importModeVal;
+
+        // Read file data
+        byte[] fileData;
+
+        try
+        {
+            fileData = File.ReadAllBytes(fullPath);
+        }
+        catch (Exception ex)
+        {
+            ErrorHandler.AddError(_globals.Errors, lineNumber, true,
+                $"Error reading import file: {ex.Message}");
+
+            return;
+        }
+
+        // Create ImportFile entry
+        var importFile = new NGImportFile
+        {
+            ImportId = importId,
+            FileName = Path.GetFileName(filePath),
+            ImportMode = importMode,
+            FileType = fileType,
+            Data = fileData
+        };
+
+        _scriptData.NGData.ImportFiles.Add(importFile);
+        Logger.LogVerbose($"Registered ImportFile: {importFile.FileName} (ID: {importId}, Size: {fileData.Length})");
     }
 
     /// <summary>

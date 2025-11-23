@@ -49,7 +49,7 @@ public class NGImportFile
     public int ImportId { get; set; }
     public string FileName { get; set; } = string.Empty;
     public NGImportMode ImportMode { get; set; }
-    public int CompressMode { get; set; }
+    public int FileType { get; set; }
     public byte[] Data { get; set; } = [];
 }
 

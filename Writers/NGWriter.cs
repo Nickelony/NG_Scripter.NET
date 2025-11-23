@@ -240,42 +240,99 @@ public sealed class NGWriter
 
     private static bool WriteImportFile(List<short> allWords, NGImportFile importFile)
     {
-        int wordCountIndex = allWords.Count;
+        // Calculate total words for this chunk
+        // VB6: TotWords = 49 + Numero / 2 (where Numero is file size rounded up to even)
+        // 49 words = 2 (Size) + 1 (Tag) + 1 (Id) + 1 (TypeImport) + 1 (TypeFile) + 1 (NumeroId) + 40 (Name) + 2 (FileSize)
+        int fileSize = importFile.Data.Length;
+        int dataWords = (fileSize + 1) / 2;
+        int totalChunkWords = 49 + dataWords;
 
-        // Reserve space for word count
-        allWords.Add(0);
+        // 1. Chunk Size (2 words: High|0x8000, Low)
+        // VB6: AddDwordSizeInVet(TotWords, VetCommand, TotCommand)
+        short sizeLow = (short)(totalChunkWords & 0xFFFF);
+        short sizeHigh = (short)((totalChunkWords >> 16) & 0xFFFF);
+        sizeHigh |= unchecked((short)0x8000); // Set bit 15 to indicate DWORD size
 
-        // Add tag for import file
-        allWords.Add(unchecked((short)NGTagType.ImportFile));
+        allWords.Add(sizeHigh);
+        allWords.Add(sizeLow);
 
-        // Add import ID
+        // 2. Tag
+        allWords.Add(unchecked((short)NGTagType.ImportFile)); // 0x801F
+
+        // 3. ID
         allWords.Add((short)importFile.ImportId);
 
-        // Add import mode and compression
+        // 4. TypeImport
         allWords.Add((short)importFile.ImportMode);
-        allWords.Add((short)importFile.CompressMode);
 
-        // Add file size in bytes
-        int fileSize = importFile.Data.Length;
+        // 5. TypeFile
+        allWords.Add((short)importFile.FileType);
 
+        // 6. NumeroId (extracted from filename)
+        int numeroId = GetFileNumber(importFile.FileName);
+        allWords.Add((short)numeroId);
+
+        // 7. Name (40 words = 80 bytes)
+        // VB6 appends Chr(0) to name before converting
+        string name = importFile.FileName + "\0";
+        var nameWords = ConvertStringToWords(name, 40);
+        allWords.AddRange(nameWords);
+
+        // 8. File Size (2 words: Low, High)
         allWords.Add((short)(fileSize & 0xFFFF));
         allWords.Add((short)((fileSize >> 16) & 0xFFFF));
 
-        // Add file data (convert bytes to words)
-        for (int i = 0; i < importFile.Data.Length; i += 2)
+        // 9. Data
+        for (int i = 0; i < fileSize; i += 2)
         {
             byte low = importFile.Data[i];
-            byte high = (i + 1 < importFile.Data.Length) ? importFile.Data[i + 1] : (byte)0;
-
+            byte high = (i + 1 < fileSize) ? importFile.Data[i + 1] : (byte)0;
             allWords.Add((short)(low | (high << 8)));
         }
-
-        // Update word count
-        allWords[wordCountIndex] = (short)(allWords.Count - wordCountIndex);
 
         Logger.LogVerbose($"\tImport file: {importFile.FileName} ({fileSize} bytes)");
 
         return true;
+    }
+
+    private static int GetFileNumber(string fileName)
+    {
+        // Extract number at the end of filename (before extension)
+        // Example: MyFile123.dat -> 123
+        string name = Path.GetFileNameWithoutExtension(fileName);
+        string numberStr = "";
+
+        for (int i = name.Length - 1; i >= 0; i--)
+        {
+            if (char.IsDigit(name[i]))
+                numberStr = name[i] + numberStr;
+            else
+                break;
+        }
+
+        if (string.IsNullOrEmpty(numberStr))
+            return 0;
+
+        return int.Parse(numberStr);
+    }
+
+    private static List<short> ConvertStringToWords(string text, int totalWords)
+    {
+        var words = new List<short>();
+        byte[] bytes = Encoding.GetEncoding(1252).GetBytes(text);
+
+        int totalBytes = totalWords * 2;
+        byte[] paddedBytes = new byte[totalBytes];
+
+        Array.Copy(bytes, paddedBytes, Math.Min(bytes.Length, totalBytes));
+
+        for (int i = 0; i < totalBytes; i += 2)
+        {
+            short word = (short)(paddedBytes[i] | (paddedBytes[i + 1] << 8));
+            words.Add(word);
+        }
+
+        return words;
     }
 
     private static bool AppendWordsToFile(string filePath, List<short> words)

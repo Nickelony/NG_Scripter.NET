@@ -63,6 +63,15 @@ public sealed class DefineManager
         else
         {
             _userDefines[name] = value;
+
+            // Add to global defines list for ScriptWriter and other components
+            _globals.Defines.Add(new DefineRecord
+            {
+                Name = name,
+                Value = value,
+                FileName = Path.GetFileName(_globals.CurrentSourceFile)
+            });
+
             Logger.LogVerboseIf(_globals.Verbose, $"  #define {name} = {value}");
         }
 
