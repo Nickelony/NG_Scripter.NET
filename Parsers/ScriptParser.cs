@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using TRNGScriptCompiler.Models;
 using TRNGScriptCompiler.Utilities;
@@ -63,7 +64,7 @@ public sealed class ScriptParser
         // Load global constants from scripter_constants.txt
         // Look for it in the compiler's directory first, then in NG_Scripter directory
         string? constantsPath = null;
-        var compilerDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        var compilerDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         if (compilerDir is not null)
         {
@@ -71,20 +72,6 @@ public sealed class ScriptParser
 
             if (File.Exists(localConstantsPath))
                 constantsPath = localConstantsPath;
-        }
-
-        // Try VB6 NG_Scripter directory as fallback
-        if (constantsPath is null)
-        {
-            var parentDir = Directory.GetParent(trleFolderPath);
-
-            if (parentDir is not null)
-            {
-                var ngScripterPath = Path.Combine(parentDir.FullName, "Progetti", "NG_Scripter", "scripter_constants.txt");
-
-                if (File.Exists(ngScripterPath))
-                    constantsPath = ngScripterPath;
-            }
         }
 
         if (constantsPath is not null)

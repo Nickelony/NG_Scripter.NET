@@ -103,7 +103,7 @@ try
 		Console.WriteLine();
 
 		Console.ForegroundColor = ConsoleColor.Green;
-		Console.WriteLine("✓ Compilation completed successfully!");
+		Console.WriteLine("Compilation completed successfully!");
 
 		Console.ResetColor();
 
@@ -114,7 +114,7 @@ try
 		Console.WriteLine();
 
 		Console.ForegroundColor = ConsoleColor.Red;
-		Console.WriteLine("✗ Compilation failed with errors.");
+		Console.WriteLine("Compilation failed with errors.");
 
 		Console.ResetColor();
 

@@ -44,7 +44,8 @@ public sealed class ConstantsLoader
                     continue;
                 }
 
-                if (trimmed.Equals("<END_CONSTANTS>", StringComparison.OrdinalIgnoreCase))
+                if (trimmed.Equals("<END>", StringComparison.OrdinalIgnoreCase) ||
+                    trimmed.Equals("<END_CONSTANTS>", StringComparison.OrdinalIgnoreCase))
                 {
                     inConstantsSection = false;
                     continue;
