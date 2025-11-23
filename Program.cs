@@ -5,8 +5,8 @@ using TRNGScriptCompiler.Utilities;
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 Console.WriteLine("=========================================");
-Console.WriteLine("   TRNG Script Compiler (C# Edition)");
-Console.WriteLine("   Converted from VB6 to C#");
+Console.WriteLine("   TRNG Script Compiler (C# Edition)     ");
+Console.WriteLine("       Converted from  VB6 to C#         ");
 Console.WriteLine("=========================================");
 Console.WriteLine();
 
@@ -20,7 +20,7 @@ try
 	{
 		// Interactive mode
 		Console.Write("Enter TRLE folder path: ");
-		trleFolderPath = Console.ReadLine()?.Trim() ?? "";
+		trleFolderPath = Console.ReadLine()?.Trim() ?? string.Empty;
 
 		if (string.IsNullOrEmpty(trleFolderPath))
 		{

@@ -1,7 +1,7 @@
 using TRNGScriptCompiler.Models;
 using TRNGScriptCompiler.Parsers;
-using TRNGScriptCompiler.Writers;
 using TRNGScriptCompiler.Utilities;
+using TRNGScriptCompiler.Writers;
 
 namespace TRNGScriptCompiler.Compiler;
 
@@ -63,7 +63,7 @@ public class TRNGCompiler
                 }
 
                 // Parse language file
-                var languageParser = new LanguageParser(_globals);
+                var languageParser = new LanguageParser();
 
                 if (!languageParser.ParseLanguageFile(languagePath, out LanguageData? languageData) || languageData is null)
                 {
@@ -99,8 +99,6 @@ public class TRNGCompiler
             }
 
             // Write all language.dat files
-            var languageWriter = new LanguageWriter(_globals);
-
             foreach (var (fileName, data) in compiledLanguages)
             {
                 string languageDatPath = Path.Combine(scriptFolder,
@@ -108,7 +106,7 @@ public class TRNGCompiler
 
                 Logger.Log($"\tSaving: {Path.GetFileName(languageDatPath)}");
 
-                if (!languageWriter.WriteLanguageDat(languageDatPath, data))
+                if (!LanguageWriter.WriteLanguageDat(languageDatPath, data))
                     Logger.LogError($"Failed to write {Path.GetFileName(languageDatPath)}");
             }
 

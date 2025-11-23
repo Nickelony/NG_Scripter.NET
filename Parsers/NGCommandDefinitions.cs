@@ -1,9 +1,10 @@
+using System.Globalization;
 using TRNGScriptCompiler.Models;
 
 namespace TRNGScriptCompiler.Parsers;
 
 /// <summary>
-/// Hardcoded NG command definitions from scripter_constants.txt
+/// Hardcoded NG command definitions from scripter_constants.txt.
 /// Format: CommandCode#MaxOccurrences#CommandName=:ArgType1:ArgType2:...#BoolEnabled#BoolDisabled
 /// </summary>
 public static class NGCommandDefinitions
@@ -11,7 +12,7 @@ public static class NGCommandDefinitions
     public static Dictionary<string, NGCommandDefinition> GetAllDefinitions()
     {
         var definitions = new Dictionary<string, NGCommandDefinition>(StringComparer.OrdinalIgnoreCase);
-        
+
         // Parse all command definitions
         var rawDefinitions = new[]
         {
@@ -60,61 +61,61 @@ public static class NGCommandDefinitions
             "43#255#*Plugin=:Word:String:Long:Array",
             "44#1#LaraStartPos=:Word:Word",
             "45#160#StaticMIP=:Word:Word:Word:Word:Word",
-            "46#999#TriggerGroupWord=:Word:Word:Word:Word:Array",  // Word-sized version (legacy) - Re-enabled for optimization
+            "46#999#TriggerGroupWord=:Word:Word:Word:Word:Array", // Word-sized version (legacy) - Re-enabled for optimization
             "47#1#*CryptPersonalKey=:Long",
-            "200#1#*FlagsOption=:Word",  // Internal - main flags
-            "201#1#FlagsLevel=:Word",     // Internal - level flags
+            "200#1#*FlagsOption=:Word", // Internal - main flags
+            "201#1#FlagsLevel=:Word", // Internal - level flags
         };
-        
+
         foreach (var def in rawDefinitions)
         {
             var parsed = ParseDefinition(def);
+
             if (parsed is not null)
-            {
                 definitions[parsed.Name] = parsed;
-            }
         }
-        
+
         return definitions;
     }
-    
+
     private static NGCommandDefinition? ParseDefinition(string definition)
     {
         // Format: Code#MaxOccurrences#[*]Name=:Type1:Type2:...#BoolEnabled#BoolDisabled
         var parts = definition.Split('#');
-        if (parts.Length < 3) return null;
-        
-        if (!int.TryParse(parts[0], out int code)) return null;
-        if (!int.TryParse(parts[1], out int maxOccurrences)) return null;
-        
+
+        if (parts.Length < 3)
+            return null;
+
+        if (!int.TryParse(parts[0], out int code))
+            return null;
+
+        if (!int.TryParse(parts[1], out int maxOccurrences))
+            return null;
+
         var commandPart = parts[2];
         var colonIndex = commandPart.IndexOf(':');
-        if (colonIndex == -1) return null;
-        
-        var nameWithEquals = commandPart.Substring(0, commandPart.IndexOf('=') + 1);
-        var isOptionsOnly = nameWithEquals.StartsWith("*");
-        var name = isOptionsOnly ? nameWithEquals.Substring(1) : nameWithEquals;
-        
+
+        if (colonIndex == -1)
+            return null;
+
+        var nameWithEquals = commandPart[..(commandPart.IndexOf('=') + 1)];
+        var isOptionsOnly = nameWithEquals.StartsWith('*');
+        var name = isOptionsOnly ? nameWithEquals[1..] : nameWithEquals;
+
         // Parse argument types
-        var typesPart = commandPart.Substring(colonIndex + 1);
+        var typesPart = commandPart[(colonIndex + 1)..];
         var typeStrings = typesPart.Split(':', StringSplitOptions.RemoveEmptyEntries);
         var argumentTypes = new List<NGArgumentType>();
-        
+
         foreach (var typeStr in typeStrings)
-        {
             argumentTypes.Add(ParseArgumentType(typeStr));
-        }
-        
+
         // Parse bool flags if present
         int boolEnabled = 0, boolDisabled = 0;
-        if (parts.Length >= 4 && TryParseHexOrDec(parts[3], out boolEnabled))
-        {
-            if (parts.Length >= 5)
-            {
-                TryParseHexOrDec(parts[4], out boolDisabled);
-            }
-        }
-        
+
+        if (parts.Length >= 4 && TryParseHexOrDec(parts[3], out boolEnabled) && parts.Length >= 5)
+            TryParseHexOrDec(parts[4], out boolDisabled);
+
         return new NGCommandDefinition
         {
             Name = name,
@@ -127,7 +128,7 @@ public static class NGCommandDefinitions
             BoolDisabledValue = boolDisabled
         };
     }
-    
+
     private static NGArgumentType ParseArgumentType(string typeStr)
     {
         return typeStr.ToUpperInvariant() switch
@@ -146,14 +147,15 @@ public static class NGCommandDefinitions
             _ => NGArgumentType.None
         };
     }
-    
+
     private static bool TryParseHexOrDec(string value, out int result)
     {
-        if (value.StartsWith("$") || value.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+        if (value.StartsWith('$') || value.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
         {
-            var hexValue = value.StartsWith("$") ? value.Substring(1) : value.Substring(2);
-            return int.TryParse(hexValue, System.Globalization.NumberStyles.HexNumber, null, out result);
+            var hexValue = value.StartsWith('$') ? value[1..] : value[2..];
+            return int.TryParse(hexValue, NumberStyles.HexNumber, null, out result);
         }
+
         return int.TryParse(value, out result);
     }
 }
