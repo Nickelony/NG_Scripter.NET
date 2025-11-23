@@ -96,14 +96,14 @@ public sealed class ScriptParser
         var objectsHPath = Path.Combine(trleFolderPath, "Objects.h");
         _objectsHParser.LoadObjectsH(objectsHPath);
 
-		// Discover and load plugins from the TRLE root directory
-		_pluginManager.DiscoverPlugins(trleFolderPath);
+        // Discover and load plugins from the TRLE root directory
+        _pluginManager.DiscoverPlugins(trleFolderPath);
 
-		foreach (var plugin in _pluginManager.GetDiscoveredPlugins())
-			_pluginManager.LoadPluginConstants(plugin);
+        foreach (var plugin in _pluginManager.GetDiscoveredPlugins())
+            _pluginManager.LoadPluginConstants(plugin);
 
-		// Initialize script data
-		_scriptData.Options.Flags = ScriptMainFlags.None;
+        // Initialize script data
+        _scriptData.Options.Flags = ScriptMainFlags.None;
         _scriptData.Options.InputTimeOut = 0;
         _scriptData.Options.Security = 0;
 

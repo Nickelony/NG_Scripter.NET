@@ -1,7 +1,7 @@
 using TRNGScriptCompiler.Models;
 using TRNGScriptCompiler.Parsers;
-using TRNGScriptCompiler.Writers;
 using TRNGScriptCompiler.Utilities;
+using TRNGScriptCompiler.Writers;
 
 namespace TRNGScriptCompiler.Compiler;
 
