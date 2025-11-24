@@ -346,7 +346,25 @@ public sealed class ScriptParser
                             var ngCommand = _ngParser.ParseNGCommand(command, arguments, lineNumber, false);
 
                             if (ngCommand is not null)
-                                section.NGCommands.Commands.Add(ngCommand);
+                            {
+                                // Check if this is a boolean flag command (Code 0)
+                                // These commands update the LevelFlags but are NOT added to the command list
+                                if (ngCommand.CommandCode == 0)
+                                {
+                                    // Find definition to get flag values
+                                    if (NGCommandDefinitions.GetAllDefinitions().TryGetValue(command, out var def))
+                                    {
+                                        bool isEnabled = (bool)ngCommand.Arguments[0];
+                                        int flagValue = isEnabled ? def.BoolEnabledValue : def.BoolDisabledValue;
+
+                                        section.NGCommands.LevelFlags |= (NGLevelFlags)flagValue;
+                                    }
+                                }
+                                else
+                                {
+                                    section.NGCommands.Commands.Add(ngCommand);
+                                }
+                            }
                         }
                         else
                         {
@@ -413,7 +431,45 @@ public sealed class ScriptParser
             var ngCommand = _ngParser.ParseNGCommand(command, arguments, lineNumber, true);
 
             if (ngCommand is not null)
-                _scriptData.NGData.OptionsCommands.Commands.Add(ngCommand);
+            {
+                // Check if this is a boolean flag command (Code 0)
+                // These commands update the OptionFlags but are NOT added to the command list
+                if (ngCommand.CommandCode == 0)
+                {
+                    // Find definition to get flag values
+                    if (NGCommandDefinitions.GetAllDefinitions().TryGetValue(command, out var def))
+                    {
+                        bool isEnabled = (bool)ngCommand.Arguments[0];
+                        int flagValue = isEnabled ? def.BoolEnabledValue : def.BoolDisabledValue;
+
+                        _scriptData.NGData.OptionsCommands.OptionFlags |= (NGMainFlags)flagValue;
+                    }
+                }
+                else
+                {
+                    _scriptData.NGData.OptionsCommands.Commands.Add(ngCommand);
+
+                    // Check for Settings= command to enable encryption
+                    if (command.Equals("Settings=", StringComparison.OrdinalIgnoreCase) && ngCommand.Arguments.Count > 0)
+                    {
+                        if (ngCommand.Arguments[0] is int settingsValue)
+                        {
+                            // SET_CRYPT_SCRIPT = 8
+                            if ((settingsValue & 8) != 0)
+                                _scriptData.NGData.EnableScriptEncryption = true;
+
+                            _scriptData.NGData.NGSettings = settingsValue;
+                        }
+                        else if (ngCommand.Arguments[0] is short settingsShort)
+                        {
+                            if ((settingsShort & 8) != 0)
+                                _scriptData.NGData.EnableScriptEncryption = true;
+
+                            _scriptData.NGData.NGSettings = settingsShort;
+                        }
+                    }
+                }
+            }
 
             return true;
         }
@@ -447,12 +503,13 @@ public sealed class ScriptParser
                 break;
 
             case "InputTimeOut=":
-                if (arguments.Count > 0 && int.TryParse(arguments[0], out int timeout))
+            case "InputTimeout=":
+                if (arguments.Count > 0 && _expressionEvaluator.TryEvaluate(arguments[0], out int timeout))
                     _scriptData.Options.InputTimeOut = timeout;
                 break;
 
             case "Security=":
-                if (arguments.Count > 0 && int.TryParse(arguments[0], out int security))
+                if (arguments.Count > 0 && _expressionEvaluator.TryEvaluate(arguments[0], out int security))
                     _scriptData.Options.Security = security;
                 break;
 
@@ -568,6 +625,7 @@ public sealed class ScriptParser
             or "FlyCheat="
             or "DemoDisc="
             or "InputTimeOut="
+            or "InputTimeout="
             or "Security=")
         {
             return false;

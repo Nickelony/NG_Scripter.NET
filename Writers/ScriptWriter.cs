@@ -865,7 +865,7 @@ public sealed class ScriptWriter
         // Add 6 word arguments
         for (int i = 2; i < 8; i++)
         {
-            if (!TryParseNumericArgument(arguments[i], out int value, currentFile) || value < 0)
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile))
             {
                 Logger.LogError($"Invalid argument {i} for {command}");
                 return false;
@@ -940,7 +940,7 @@ public sealed class ScriptWriter
         // Add 6 word arguments
         for (int i = 3; i < 9; i++)
         {
-            if (!TryParseNumericArgument(arguments[i], out int value, currentFile) || value < 0)
+            if (!TryParseNumericArgument(arguments[i], out int value, currentFile))
             {
                 Logger.LogError($"Invalid argument {i} for {command}");
                 return false;

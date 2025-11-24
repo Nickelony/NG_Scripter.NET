@@ -411,8 +411,9 @@ public sealed class NGParser
             {
                 int val = (int)command.Arguments[i];
 
-                // Check if it fits in 16 bits (0 to 65535)
-                if ((val & 0xFFFF0000) != 0)
+                // Check if it fits in 16 bits (signed or unsigned)
+                // 0 to 65535 OR -32768 to -1
+                if ((val & 0xFFFF0000) != 0 && (val & 0xFFFF0000) != unchecked((int)0xFFFF0000))
                     return false;
             }
         }
@@ -424,7 +425,7 @@ public sealed class NGParser
             {
                 int val = (int)item;
 
-                if ((val & 0xFFFF0000) != 0)
+                if ((val & 0xFFFF0000) != 0 && (val & 0xFFFF0000) != unchecked((int)0xFFFF0000))
                     return false;
             }
         }
@@ -434,7 +435,7 @@ public sealed class NGParser
         command.CommandCode = (NGCommandCode)46;
 
         // Find definition for TriggerGroupWord
-        if (_commandDefinitions.TryGetValue("TriggerGroupWord", out var def))
+        if (_commandDefinitions.TryGetValue("TriggerGroupWord=", out var def))
         {
             optimizedDefinition = def;
             return true;

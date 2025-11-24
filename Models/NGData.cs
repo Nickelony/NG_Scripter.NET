@@ -21,8 +21,6 @@ public class NGCommandGroup
     public List<NGCommand> Commands { get; set; } = [];
     public NGMainFlags OptionFlags { get; set; }
     public NGLevelFlags LevelFlags { get; set; }
-    public int NGSettings { get; set; } // Settings= command value
-    public List<short> CompiledBytes { get; set; } = [];
 }
 
 /// <summary>

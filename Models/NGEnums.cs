@@ -60,9 +60,14 @@ public enum NGTagType
 public enum NGMainFlags
 {
     None = 0,
-    NoFloor = 0x0001,
-    Bar = 0x0002,
-    // Add more as discovered from VB6 code
+    Diagnostic = 0x0001,
+    // 0x0002 unused?
+    // 0x0004 unused?
+    CRS = 0x0008,
+    ForceBumpMappingEnabled = 0x0010,
+    ForceBumpMappingDisabled = 0x0020,
+    ShowLaraInTitle = 0x0040,
+    NewSoundEngineDisabled = 0x0080
 }
 
 /// <summary>
@@ -72,7 +77,14 @@ public enum NGMainFlags
 public enum NGLevelFlags
 {
     None = 0,
-    // Flags added based on VB6 code analysis
+    // 0x0001 unused?
+    // 0x0002 unused?
+    ForceVolumetricFXEnabled = 0x0004,
+    ForceVolumetricFXDisabled = 0x0008,
+    // 0x0010 unused?
+    // 0x0020 unused?
+    CutScene = 0x0040,
+    PreserveInventory = 0x0080
 }
 
 /// <summary>

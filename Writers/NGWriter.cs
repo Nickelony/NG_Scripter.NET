@@ -125,6 +125,7 @@ public sealed class NGWriter
         byte[] xorTable = [27, 48, 38, 153, 58, 77, 42, 58, 66, 45, 55, 22, 55];
 
         // Random data size: 20-28 words (40-56 bytes)
+        // VB6: TotDati = Casuale(9) + 20
         int totalWords = random.Next(20, 29);
         int totalBytes = totalWords * 2;
         byte[] dataBytes = new byte[totalBytes];
@@ -135,11 +136,13 @@ public sealed class NGWriter
             if (i % 2 == 0)
             {
                 // Even positions: 4 or 6
+                // VB6: If (Casuale(2) = 1) Then 6 Else 4
                 dataBytes[i] = (byte)(random.Next(2) == 1 ? 6 : 4);
             }
             else
             {
-                // Odd positions: random value < 16
+                // Odd positions: random value 0-15
+                // VB6: Casuale(16) returns 0-15
                 dataBytes[i] = (byte)random.Next(16);
             }
         }
@@ -147,7 +150,6 @@ public sealed class NGWriter
         // Embed verification data at specific positions:
         // Index 5: number of levels (from main script data)
         // VB6: VetBytes(5) = BaseScriptDat.TotLivelli
-        // We use the count of Level= commands which corresponds to LevelNames.Count
         dataBytes[5] = (byte)scriptData.LevelNames.Count;
 
         // Index 12: copy of script options flags (from main script data)
@@ -156,7 +158,7 @@ public sealed class NGWriter
 
         // Index 19: copy of NG settings
         // VB6: VetBytes(19) = BaseScriptDat.Options.NG_Settings
-        dataBytes[19] = (byte)ngData.OptionsCommands.NGSettings;
+        dataBytes[19] = (byte)ngData.NGSettings;
 
         // Calculate checksum (sum of all bytes except first)
         int checksum = 0;

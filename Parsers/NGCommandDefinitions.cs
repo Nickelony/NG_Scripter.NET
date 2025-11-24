@@ -65,6 +65,17 @@ public static class NGCommandDefinitions
             "47#1#*CryptPersonalKey=:Long",
             "200#1#*FlagsOption=:Word", // Internal - main flags
             "201#1#FlagsLevel=:Word", // Internal - level flags
+            "202#199#*ImportFile=:Word:String:Word:Word",
+
+            // Boolean flags from scripter_constants.txt
+            "0#1#*Diagnostic=:Bool#$0001",
+            "0#1#*CRS=:Bool#$0008",
+            "0#1#*ForceBumpMapping=:Bool#$0010#$0020",
+            "0#1#*ShowLaraInTitle=:Bool#$0040",
+            "0#1#*NewSoundEngine=:Bool#$0000#$0080",
+            "0#1#ForceVolumetricFX=:Bool#$0004#$0008",
+            "0#1#CutScene=:Bool#$0040",
+            "0#1#PreserveInventory=:Bool#$0080"
         };
 
         foreach (var def in rawDefinitions)
