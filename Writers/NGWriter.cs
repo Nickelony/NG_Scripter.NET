@@ -324,7 +324,10 @@ public sealed class NGWriter
         byte[] bytes = Encoding.GetEncoding(1252).GetBytes(text);
 
         int totalBytes = totalWords * 2;
+
+        // VB6 uses String * 80 (fixed-length string) which pads with spaces (0x20)
         byte[] paddedBytes = new byte[totalBytes];
+        Array.Fill(paddedBytes, (byte)0x20);
 
         Array.Copy(bytes, paddedBytes, Math.Min(bytes.Length, totalBytes));
 

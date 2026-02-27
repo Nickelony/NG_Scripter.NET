@@ -70,13 +70,47 @@ public static class LanguageWriter
                     if (text.StartsWith('@'))
                     {
                         string fileName = text[1..];
-                        string scriptDir = Path.GetDirectoryName(outputPath) ?? string.Empty;
+
+                        // Try to find the file relative to the language file first
+                        string scriptDir = !string.IsNullOrEmpty(languageData.LanguageFile)
+                            ? Path.GetDirectoryName(languageData.LanguageFile) ?? string.Empty
+                            : Path.GetDirectoryName(outputPath) ?? string.Empty;
+
                         string fullPath = Path.Combine(scriptDir, fileName);
+
+                        // If not found, try looking in a "script" subdirectory if we are not already in one
+                        // VB6 logic: NomeTxt = Trim(MyPref.PathTrleNow) & "\script\" & NomeTxt
+                        if (!File.Exists(fullPath))
+                        {
+                            string altPath = Path.Combine(scriptDir, "script", fileName);
+
+                            if (File.Exists(altPath))
+                            {
+                                fullPath = altPath;
+                            }
+                            else
+                            {
+                                // Also try relative to output path as fallback
+                                string outDir = Path.GetDirectoryName(outputPath) ?? string.Empty;
+                                string outPath = Path.Combine(outDir, fileName);
+
+                                if (File.Exists(outPath))
+                                    fullPath = outPath;
+                            }
+                        }
 
                         if (File.Exists(fullPath))
                         {
-                            text = File.ReadAllText(fullPath, Encoding.GetEncoding(1252));
-                            text = text.Replace("\r\n", "\n");
+                            // Auto-detect encoding (defaults to UTF-8, falls back to system default)
+                            text = File.ReadAllText(fullPath);
+
+                            // VB6 trims trailing whitespace from each line when loading files
+                            text = string.Join("\n", text.Split(["\r\n", "\n"], StringSplitOptions.None)
+                                .Select(line => line.TrimEnd()));
+                        }
+                        else
+                        {
+                            Logger.LogWarning($"Could not find referenced file: {fileName}. Searched in {scriptDir}");
                         }
                     }
 

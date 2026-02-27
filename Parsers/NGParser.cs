@@ -15,6 +15,7 @@ public sealed class NGParser
     private LanguageData? _languageData;
     private ExpressionEvaluator? _expressionEvaluator;
     private int _lastPluginId; // Track plugin ID for Customize/Parameters commands
+    private Func<int, int>? _pluginIdConverter; // Converts define-ID → script-assigned-ID for TriggerGroup
 
     public NGParser(CompilerGlobals globals)
     {
@@ -27,6 +28,13 @@ public sealed class NGParser
 
     public void SetLanguageData(LanguageData languageData)
         => _languageData = languageData;
+
+    /// <summary>
+    /// Set plugin ID converter for TriggerGroup plugin ID translation.
+    /// The converter takes a define-ID and returns the script-assigned ID.
+    /// </summary>
+    public void SetPluginIdConverter(Func<int, int> converter)
+        => _pluginIdConverter = converter;
 
     /// <summary>
     /// Reset occurrence counts for all commands (called when starting a new level).
@@ -78,6 +86,11 @@ public sealed class NGParser
         // Parse arguments based on definition
         if (!ParseArguments(definition, arguments, command))
             return null;
+
+        // Convert plugin IDs in TriggerGroup DWORD arguments
+        // VB6: ConvertiIdPluginTrigger translates define-IDs to script-assigned-IDs
+        if ((int)command.CommandCode == 21)
+            ConvertTriggerGroupPluginIds(command);
 
         // OPTIMIZATION: TriggerGroup (21) -> TriggerGroupWord (46)
         // If all arguments fit in 16 bits, use the legacy Word-sized command to save space
@@ -165,6 +178,11 @@ public sealed class NGParser
                 return false;
             }
         }
+
+        // VB6 backward compatibility: GlobalTrigger (code 22) with 6 args auto-adds -1 as 7th arg
+        // (the PerformOnFalse TriggerGroup ID was added later)
+        if ((int)definition.Code == 22 && arguments.Count == 6 && definition.ArgumentTypes.Count == 7)
+            arguments.Add("-1");
 
         // Handle variable-length array types
         bool hasVariableArray = definition.ArgumentTypes.Any(t => t
@@ -287,6 +305,13 @@ public sealed class NGParser
                     if (str.StartsWith('"') && str.EndsWith('"'))
                         str = str[1..^1];
 
+                    // VB6: "*" or "IGNORE" → -1 (0xFFFF as word)
+                    if (str == "*" || str.Equals("IGNORE", StringComparison.OrdinalIgnoreCase))
+                    {
+                        command.Arguments.Add("*"); // Store as special marker
+                        return true;
+                    }
+
                     command.Arguments.Add(str);
                     return true;
 
@@ -395,12 +420,74 @@ public sealed class NGParser
         return true;
     }
 
+    /// <summary>
+    /// Convert plugin IDs in TriggerGroup DWORD arguments.
+    /// VB6 equivalent: ConvertiIdPluginTrigger - translates define-IDs to script-assigned-IDs.
+    /// For TriggerGroup, the first DWORD of each triplet (positions 1,4,7,10,13...) may have
+    /// a plugin ID in the high word (bits 16-23) that needs to be converted.
+    /// </summary>
+    private void ConvertTriggerGroupPluginIds(NGCommand command)
+    {
+        if (_pluginIdConverter is null)
+            return;
+
+        // Args layout: [0]=ID(Word), [1]=Long, [2]=Long, [3]=Long, [4]=ArrayLong
+        // Triplet positions in data values (after ID): 0, 3, 6, 9...
+        // → arg indices 1, 4(first array), 4(fourth array)...
+
+        // Convert fixed Long args at positions 1 (first of first triplet)
+        ConvertPluginIdInArg(command, 1);
+
+        // Convert array args: first of each triplet (indices 0, 3, 6, 9...)
+        if (command.Arguments.Count > 4 && command.Arguments[4] is List<object> array)
+        {
+            for (int i = 0; i < array.Count; i += 3)
+            {
+                int val = (int)array[i];
+                int highWord = (val >> 16) & 0xFFFF;
+
+                if (highWord > 0)
+                {
+                    int newId = _pluginIdConverter(highWord);
+
+                    if (newId != highWord)
+                    {
+                        array[i] = (val & 0xFFFF) | (newId << 16);
+                        Logger.LogVerbose($"\t\tConverted plugin ID for exported trigger: {highWord} -> {newId}");
+                    }
+                }
+            }
+        }
+    }
+
+    private void ConvertPluginIdInArg(NGCommand command, int argIndex)
+    {
+        if (argIndex >= command.Arguments.Count)
+            return;
+
+        int val = (int)command.Arguments[argIndex];
+        int highWord = (val >> 16) & 0xFFFF;
+
+        if (highWord > 0 && _pluginIdConverter is not null)
+        {
+            int newId = _pluginIdConverter(highWord);
+
+            if (newId != highWord)
+            {
+                command.Arguments[argIndex] = (val & 0xFFFF) | (newId << 16);
+                Logger.LogVerbose($"\t\tConverted plugin ID for exported trigger: {highWord} -> {newId}");
+            }
+        }
+    }
+
     private bool TryOptimizeTriggerGroup(NGCommand command, out NGCommandDefinition optimizedDefinition)
     {
         optimizedDefinition = default!;
 
-        // Check if all arguments fit in 16 bits (unsigned Word 0-65535)
-        // Arg 0 is ID (Word) - already checked
+        // Check if all arguments fit in 16 bits with no plugin ID in bits 16-23.
+        // VB6 checks: (Valore And &HFF0000) — if bits 16-23 are set, keep as DWORD TriggerGroup.
+        // This means even -1 (0xFFFFFFFF) blocks optimization because it has bits 16-23 set.
+        // Arg 0 is ID (Word) - always fits
         // Arg 1, 2, 3 are Longs in Code 21
         // Arg 4 is ArrayLong in Code 21
 
@@ -411,9 +498,8 @@ public sealed class NGParser
             {
                 int val = (int)command.Arguments[i];
 
-                // Check if it fits in 16 bits (signed or unsigned)
-                // 0 to 65535 OR -32768 to -1
-                if ((val & 0xFFFF0000) != 0 && (val & 0xFFFF0000) != unchecked((int)0xFFFF0000))
+                // VB6: If (Valore And &HFF0000) Then TestPlugin = True
+                if ((val & 0x00FF0000) != 0)
                     return false;
             }
         }
@@ -425,7 +511,7 @@ public sealed class NGParser
             {
                 int val = (int)item;
 
-                if ((val & 0xFFFF0000) != 0 && (val & 0xFFFF0000) != unchecked((int)0xFFFF0000))
+                if ((val & 0x00FF0000) != 0)
                     return false;
             }
         }
@@ -527,8 +613,17 @@ public sealed class NGParser
 
             case NGArgumentType.String:
                 // Get string index from language data
-                int strIndex = GetStringIndex((string)arg);
-                words.Add((short)strIndex);
+                // "*" or "IGNORE" produces -1 (0xFFFF)
+                if ((string)arg == "*")
+                {
+                    words.Add(unchecked((short)-1));
+                }
+                else
+                {
+                    int strIndex = GetStringIndex((string)arg);
+                    words.Add((short)strIndex);
+                }
+
                 break;
 
             case NGArgumentType.Array:

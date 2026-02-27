@@ -42,6 +42,37 @@ public sealed class ScriptParser
 
         // Pass components to NG parser
         _ngParser.SetExpressionEvaluator(_expressionEvaluator);
+
+        // Set up plugin ID converter for TriggerGroup commands
+        // VB6: ConvertiIdPluginTrigger translates define-IDs to script-assigned IDs
+        _ngParser.SetPluginIdConverter(ConvertPluginIdForTrigger);
+    }
+
+    /// <summary>
+    /// Converts a plugin define-ID to the script-assigned plugin ID.
+    /// VB6 equivalent: ConvertiIdPluginTrigger.
+    /// </summary>
+    private int ConvertPluginIdForTrigger(int defineId)
+    {
+        // Step 1: Find the plugin name from the define-ID
+        if (!_defineManager.TryGetPluginNameById(defineId, out string pluginName))
+            return defineId; // Not found in define table, return as-is
+
+        // Step 2: Find the script-assigned ID from Plugin= commands
+        foreach (var plugin in _scriptData.NGData.Plugins)
+        {
+            if (plugin.PluginName.Equals(pluginName, StringComparison.OrdinalIgnoreCase))
+            {
+                if (plugin.PluginId != defineId)
+                    Logger.LogVerbose($"\t\tConverted TriggerGroup plugin ID: {defineId} ({pluginName}) -> {plugin.PluginId}");
+
+                return plugin.PluginId;
+            }
+        }
+
+        // Plugin not found in Plugin= commands
+        Logger.LogWarning($"Plugin '{pluginName}' (define-ID {defineId}) not found in Plugin= commands");
+        return defineId;
     }
 
     /// <summary>
@@ -790,10 +821,12 @@ public sealed class ScriptParser
         }
 
         // Create ImportFile entry
+        // VB6 stores the raw relative path argument as NomeFile (e.g. "audio\track007.wav"),
+        // NOT just the base filename. This matters for the 80-byte name field in the NG header.
         var importFile = new NGImportFile
         {
             ImportId = importId,
-            FileName = Path.GetFileName(filePath),
+            FileName = filePath,
             ImportMode = importMode,
             FileType = fileType,
             Data = fileData

@@ -132,4 +132,23 @@ public sealed class DefineManager
     /// </summary>
     public bool TryGetPluginId(string pluginName, out int pluginId)
         => _pluginDefines.TryGetValue(pluginName, out pluginId);
+
+    /// <summary>
+    /// Try to get a plugin name by its define ID (reverse lookup).
+    /// VB6 equivalent: searching TablePluginDefine by ID to get name.
+    /// </summary>
+    public bool TryGetPluginNameById(int pluginId, out string pluginName)
+    {
+        foreach (var kvp in _pluginDefines)
+        {
+            if (kvp.Value == pluginId)
+            {
+                pluginName = kvp.Key;
+                return true;
+            }
+        }
+
+        pluginName = string.Empty;
+        return false;
+    }
 }

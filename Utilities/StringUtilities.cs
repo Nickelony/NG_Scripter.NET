@@ -103,6 +103,9 @@ public static class StringUtilities
                     text = text[(colonIndex + 1)..].Trim(' ');
                 }
             }
+
+            // VB6 does a final Trim(Buffer) after tag processing
+            text = text.Trim(' ');
         }
 
         return true;
@@ -158,14 +161,36 @@ public static class StringUtilities
 
     /// <summary>
     /// Normalizes a line by trimming and removing comments.
+    /// Matches VB6 NormalizzaLinea: removes ";" and "//" comments,
+    /// replaces CRLF and tabs with spaces, collapses double spaces.
+    /// VB6 behavior: if ";" is found, it is always used as the comment marker
+    /// (even if "//" appears earlier). "//" is only checked when ";" is absent.
     /// </summary>
     public static string NormalizeLine(string line)
     {
-        // Remove comments (everything after ;)
+        // Remove comments — VB6 checks ";" first; only if not found, checks "//"
         int commentIndex = line.IndexOf(';');
+
+        if (commentIndex < 0)
+            commentIndex = line.IndexOf("//", StringComparison.Ordinal);
 
         if (commentIndex >= 0)
             line = line[..commentIndex];
+
+        // Replace CRLF with space (VB6: Replace(Buffer, vbCrLf, " "))
+        line = line.Replace("\r\n", " ");
+
+        // Replace tabs with spaces (VB6: Replace(Buffer, vbTab, " "))
+        line = line.Replace('\t', ' ');
+
+        // Collapse double spaces (VB6: loop that removes consecutive spaces)
+        int length;
+
+        do
+        {
+            length = line.Length;
+            line = line.Replace("  ", " ");
+        } while (line.Length < length);
 
         return line.Trim();
     }
