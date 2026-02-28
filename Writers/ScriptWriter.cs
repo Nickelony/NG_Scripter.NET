@@ -141,13 +141,6 @@ public sealed class ScriptWriter
         }
     }
 
-    private bool HasNGCommands(ScriptData scriptData) // Keep this for now
-    {
-        return scriptData.NGData.OptionsCommands.Commands.Count > 0 ||
-               scriptData.NGData.LevelCommands.Any(l => l.Commands.Count > 0) ||
-               scriptData.NGData.ImportFiles.Count > 0;
-    }
-
     private static void WriteExtensions(BinaryWriter writer, List<string> extensions)
     {
         // Match VB6 logic: concatenate all extensions with null separator, then pad to 20 bytes
@@ -210,10 +203,9 @@ public sealed class ScriptWriter
         };
 
         // Calculate order values for sorting
-        for (int i = 0; i < section.Lines.Count; i++)
+        foreach (var scriptLine in section.Lines)
         {
-            var (command, arguments) = StringUtilities.ParseCommandLine(section.Lines[i]);
-            string currentFile = section.SourceFiles[i];
+            var (command, arguments) = StringUtilities.ParseCommandLine(scriptLine.Text);
             int orderValue = Array.IndexOf(tagOrder, command);
 
             if (orderValue < 0)
@@ -231,43 +223,39 @@ public sealed class ScriptWriter
                     // Add item number * 10
                     if (arguments.Count > 0)
                     {
-                        if (TryParseNumericArgument(arguments[0], out int itemNumber, currentFile) && itemNumber >= 0)
+                        if (TryParseNumericArgument(arguments[0], out int itemNumber, scriptLine.SourceFile) && itemNumber >= 0)
                             orderValue += itemNumber * 10;
                     }
 
                     // If combo, add piece number
                     if (command.Contains("Combo") && arguments.Count > 1)
                     {
-                        if (TryParseNumericArgument(arguments[1], out int pieceNumber, currentFile) && pieceNumber >= 0)
+                        if (TryParseNumericArgument(arguments[1], out int pieceNumber, scriptLine.SourceFile) && pieceNumber >= 0)
                             orderValue += pieceNumber;
                     }
                 }
             }
 
-            section.LineOrder.Add(orderValue);
+            scriptLine.SortOrder = orderValue;
         }
 
         // Sort lines by order
-        var sortedIndices = Enumerable.Range(0, section.Lines.Count)
-            .OrderBy(i => section.LineOrder[i])
-            .ToList();
+        var sortedLines = section.Lines.OrderBy(l => l.SortOrder).ToList();
 
         // Compile each command
-        foreach (int index in sortedIndices)
+        foreach (var scriptLine in sortedLines)
         {
-            string line = section.Lines[index];
-            string currentFile = section.SourceFiles[index];
-            var (command, arguments) = StringUtilities.ParseCommandLine(line);
+            var (command, arguments) = StringUtilities.ParseCommandLine(scriptLine.Text);
 
-            if (!CompileCommand(scriptData, section, command, arguments, currentFile))
+            if (!CompileCommand(scriptData, section, command, arguments, scriptLine.SourceFile))
                 return false;
         }
 
         // Validate LoadCamera is present for levels
         if (section.SectionType == ScriptSectionType.Level)
         {
-            bool hasLoadCamera = section.Lines.Any(line =>
-                StringUtilities.ParseCommandLine(line).command == "LoadCamera=");
+            bool hasLoadCamera = section.Lines.Any(sl =>
+                StringUtilities.ParseCommandLine(sl.Text).command == "LoadCamera=");
 
             if (!hasLoadCamera)
             {
@@ -382,61 +370,61 @@ public sealed class ScriptWriter
                     return CompileInventoryCombo(section, command, arguments, currentFile);
 
                 case "YoungLara=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.YoungLara;
 
                     return true;
 
                 case "Horizon=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.Horizon;
 
                     return true;
 
                 case "Starfield=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.StarField;
 
                     return true;
 
                 case "Lightning=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.Lightning;
 
                     return true;
 
                 case "Train=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.Train;
 
                     return true;
 
                 case "Pulse=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.Pulse;
 
                     return true;
 
                 case "Timer=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.Timer;
 
                     return true;
 
                 case "RemoveAmulet=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.RemoveAmulet;
 
                     return true;
 
                 case "NoLevel=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.NoLevel;
 
                     return true;
 
                 case "ColAddHorizon=":
-                    if (IsEnabled(arguments))
+                    if (StringUtilities.IsEnabled(arguments))
                         section.Flags |= ScriptLevelFlags.ColAddHorizon;
 
                     return true;
@@ -989,14 +977,6 @@ public sealed class ScriptWriter
         return false;
     }
 
-    private static bool IsEnabled(List<string> arguments)
-    {
-        if (arguments.Count == 0)
-            return false;
-
-        return string.Equals(arguments[0], "ENABLED", StringComparison.OrdinalIgnoreCase);
-    }
-
     private int GetStringIndex(string text)
     {
         // Handle immediate index (#123)
@@ -1013,10 +993,7 @@ public sealed class ScriptWriter
         if (text.StartsWith('!'))
         {
             if (int.TryParse(text[1..], out int ngIndex))
-            {
-                // NG strings use 32768 + index (0x8000 bit set)
                 return 32768 + ngIndex;
-            }
 
             Logger.LogError($"Invalid NG index format: {text}");
             return -1;
@@ -1039,18 +1016,16 @@ public sealed class ScriptWriter
         }
 
         // Search in normal strings
-        for (int i = 0; i < _languageData.Strings.Count; i++)
-        {
-            if (string.Equals(_languageData.Strings[i], text, StringComparison.Ordinal))
-                return i;
-        }
+        int index = _languageData.FindStringIndex(text);
+
+        if (index >= 0)
+            return index;
 
         // Search in NG Extra strings
-        for (int i = 0; i < _languageData.ExtraStrings.Count; i++)
-        {
-            if (string.Equals(_languageData.ExtraStrings[i].Text, text, StringComparison.Ordinal))
-                return 32768 + _languageData.ExtraStrings[i].Index;
-        }
+        index = _languageData.FindExtraStringIndex(text);
+
+        if (index >= 0)
+            return index;
 
         Logger.LogWarning($"String not found in language file: {text}");
         return -1;

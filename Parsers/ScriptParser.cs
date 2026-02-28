@@ -15,6 +15,7 @@ public sealed class ScriptParser
     private readonly ObjectsHParser _objectsHParser;
     private readonly DefineManager _defineManager;
     private readonly ExpressionEvaluator _expressionEvaluator;
+    private readonly Dictionary<string, NGCommandDefinition> _ngCommandDefinitions;
     private bool _languageFileLoaded;
 
     private readonly List<string> _sectionNames =
@@ -40,6 +41,9 @@ public sealed class ScriptParser
         _expressionEvaluator = new ExpressionEvaluator(ResolveConstantForExpression);
         _defineManager = new DefineManager(globals, _expressionEvaluator);
 
+        // Cache NG command definitions for lookup
+        _ngCommandDefinitions = NGCommandDefinitions.GetAllDefinitions();
+
         // Pass components to NG parser
         _ngParser.SetExpressionEvaluator(_expressionEvaluator);
 
@@ -61,7 +65,7 @@ public sealed class ScriptParser
         // Step 2: Find the script-assigned ID from Plugin= commands
         foreach (var plugin in _scriptData.NGData.Plugins)
         {
-            if (plugin.PluginName.Equals(pluginName, StringComparison.OrdinalIgnoreCase))
+            if (plugin.Name.Equals(pluginName, StringComparison.OrdinalIgnoreCase))
             {
                 if (plugin.PluginId != defineId)
                     Logger.LogVerbose($"\t\tConverted TriggerGroup plugin ID: {defineId} ({pluginName}) -> {plugin.PluginId}");
@@ -383,7 +387,7 @@ public sealed class ScriptParser
                                 if (ngCommand.CommandCode == 0)
                                 {
                                     // Find definition to get flag values
-                                    if (NGCommandDefinitions.GetAllDefinitions().TryGetValue(command, out var def))
+                                    if (_ngCommandDefinitions.TryGetValue(command, out var def))
                                     {
                                         bool isEnabled = (bool)ngCommand.Arguments[0];
                                         int flagValue = isEnabled ? def.BoolEnabledValue : def.BoolDisabledValue;
@@ -400,12 +404,14 @@ public sealed class ScriptParser
                         else
                         {
                             // Classic command - add to lines
-                            section.Lines.Add(line);
-                            section.LineNumbers.Add(lineNumber);
-                            section.SourceFiles.Add(Path.GetFileName(currentFile.FileName));
+                            section.Lines.Add(new ScriptLine
+                            {
+                                Text = line,
+                                LineNumber = lineNumber,
+                                SourceFile = Path.GetFileName(currentFile.FileName)
+                            });
                         }
 
-                        // Extract level name if this is a Name= command
                         if (command == "Name=" && arguments.Count >= 1)
                             section.LevelName = arguments[0];
 
@@ -468,7 +474,7 @@ public sealed class ScriptParser
                 if (ngCommand.CommandCode == 0)
                 {
                     // Find definition to get flag values
-                    if (NGCommandDefinitions.GetAllDefinitions().TryGetValue(command, out var def))
+                    if (_ngCommandDefinitions.TryGetValue(command, out var def))
                     {
                         bool isEnabled = (bool)ngCommand.Arguments[0];
                         int flagValue = isEnabled ? def.BoolEnabledValue : def.BoolDisabledValue;
@@ -509,27 +515,27 @@ public sealed class ScriptParser
         switch (command)
         {
             case "LoadSave=":
-                if (IsEnabled(arguments))
+                if (StringUtilities.IsEnabled(arguments))
                     _scriptData.Options.Flags |= ScriptMainFlags.LoadSave;
                 break;
 
             case "Title=":
-                if (IsEnabled(arguments))
+                if (StringUtilities.IsEnabled(arguments))
                     _scriptData.Options.Flags |= ScriptMainFlags.Title;
                 break;
 
             case "PlayAnyLevel=":
-                if (IsEnabled(arguments))
+                if (StringUtilities.IsEnabled(arguments))
                     _scriptData.Options.Flags |= ScriptMainFlags.PlayAnyLevel;
                 break;
 
             case "FlyCheat=":
-                if (IsEnabled(arguments))
+                if (StringUtilities.IsEnabled(arguments))
                     _scriptData.Options.Flags |= ScriptMainFlags.FlyCheat;
                 break;
 
             case "DemoDisc=":
-                if (IsEnabled(arguments))
+                if (StringUtilities.IsEnabled(arguments))
                     _scriptData.Options.Flags |= ScriptMainFlags.DemoDisk;
                 break;
 
@@ -635,18 +641,10 @@ public sealed class ScriptParser
         return true;
     }
 
-    private static bool IsEnabled(List<string> arguments)
-    {
-        if (arguments.Count == 0)
-            return false;
-
-        return string.Equals(arguments[0], "ENABLED", StringComparison.OrdinalIgnoreCase);
-    }
-
     /// <summary>
     /// Checks if a command is an NG command (not a classic TRLE command).
     /// </summary>
-    private static bool IsNGCommand(string command)
+    private bool IsNGCommand(string command)
     {
         // Classic Options commands
         if (command
@@ -673,9 +671,8 @@ public sealed class ScriptParser
             return false;
         }
 
-        // Check if command exists in NG command definitions
-        return NGCommandDefinitions.GetAllDefinitions()
-            .Any(def => def.Value.Name.Equals(command, StringComparison.OrdinalIgnoreCase));
+        // Check if command exists in cached NG command definitions
+        return _ngCommandDefinitions.ContainsKey(command);
     }
 
     /// <summary>
@@ -729,10 +726,10 @@ public sealed class ScriptParser
         Logger.LogVerbose($"Registered plugin: {pluginName} with ID {pluginId}");
 
         // Add to script data plugins
-        _scriptData.NGData.Plugins.Add(new NGPlugin
+        _scriptData.NGData.Plugins.Add(new PluginInfo
         {
             PluginId = pluginId,
-            PluginName = pluginName
+            Name = pluginName
         });
     }
 

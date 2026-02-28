@@ -258,32 +258,13 @@ public static class StringUtilities
     }
 
     /// <summary>
-    /// Converts a value to a formatted hex string.
+    /// Checks if the first argument equals "ENABLED" (case-insensitive).
     /// </summary>
-    public static string FormatHex(long value, int digits)
-        => value.ToString($"X{digits}");
+    public static bool IsEnabled(List<string> arguments)
+    {
+        if (arguments.Count == 0)
+            return false;
 
-    /// <summary>
-    /// Gets filename without path.
-    /// </summary>
-    public static string GetFileName(string path)
-        => Path.GetFileName(path);
-
-    /// <summary>
-    /// Gets filename without extension.
-    /// </summary>
-    public static string GetFileNameWithoutExtension(string path)
-        => Path.GetFileNameWithoutExtension(path);
-
-    /// <summary>
-    /// Gets directory from path.
-    /// </summary>
-    public static string GetDirectory(string path)
-        => Path.GetDirectoryName(path) ?? string.Empty;
-
-    /// <summary>
-    /// Changes file extension.
-    /// </summary>
-    public static string ChangeExtension(string path, string newExtension)
-        => Path.ChangeExtension(path, newExtension);
+        return string.Equals(arguments[0], "ENABLED", StringComparison.OrdinalIgnoreCase);
+    }
 }

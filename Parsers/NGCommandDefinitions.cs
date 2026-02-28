@@ -1,5 +1,5 @@
-using System.Globalization;
 using TRNGScriptCompiler.Models;
+using TRNGScriptCompiler.Utilities;
 
 namespace TRNGScriptCompiler.Parsers;
 
@@ -124,8 +124,8 @@ public static class NGCommandDefinitions
         // Parse bool flags if present
         int boolEnabled = 0, boolDisabled = 0;
 
-        if (parts.Length >= 4 && TryParseHexOrDec(parts[3], out boolEnabled) && parts.Length >= 5)
-            TryParseHexOrDec(parts[4], out boolDisabled);
+        if (parts.Length >= 4 && NumberParser.TryParseHexOrDec(parts[3], out boolEnabled) && parts.Length >= 5)
+            NumberParser.TryParseHexOrDec(parts[4], out boolDisabled);
 
         return new NGCommandDefinition
         {
@@ -157,16 +157,5 @@ public static class NGCommandDefinitions
             "ARRAYLONG" => NGArgumentType.ArrayLong,
             _ => NGArgumentType.None
         };
-    }
-
-    private static bool TryParseHexOrDec(string value, out int result)
-    {
-        if (value.StartsWith('$') || value.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
-        {
-            var hexValue = value.StartsWith('$') ? value[1..] : value[2..];
-            return int.TryParse(hexValue, NumberStyles.HexNumber, null, out result);
-        }
-
-        return int.TryParse(value, out result);
     }
 }

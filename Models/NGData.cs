@@ -3,7 +3,7 @@ namespace TRNGScriptCompiler.Models;
 /// <summary>
 /// Represents an NG (Next Generation) command with its arguments.
 /// </summary>
-public class NGCommand
+public sealed class NGCommand
 {
     public string CommandName { get; set; } = string.Empty;
     public NGCommandCode CommandCode { get; set; }
@@ -16,7 +16,7 @@ public class NGCommand
 /// <summary>
 /// Group of NG commands for a section (Options or Level).
 /// </summary>
-public class NGCommandGroup
+public sealed class NGCommandGroup
 {
     public List<NGCommand> Commands { get; set; } = [];
     public NGMainFlags OptionFlags { get; set; }
@@ -28,7 +28,7 @@ public class NGCommandGroup
 /// <summary>
 /// Definition of an NG command (from scripter_constants.txt).
 /// </summary>
-public class NGCommandDefinition
+public sealed class NGCommandDefinition
 {
     public string Name { get; set; } = string.Empty;
     public NGCommandCode Code { get; set; }
@@ -44,7 +44,7 @@ public class NGCommandDefinition
 /// <summary>
 /// Import file data (for ImportFile= commands).
 /// </summary>
-public class NGImportFile
+public sealed class NGImportFile
 {
     public int ImportId { get; set; }
     public string FileName { get; set; } = string.Empty;
@@ -64,27 +64,14 @@ public enum NGImportMode
 }
 
 /// <summary>
-/// Plugin information.
-/// </summary>
-public class NGPlugin
-{
-    public int PluginId { get; set; }
-    public string PluginName { get; set; } = string.Empty;
-    public int MainSettings { get; set; }
-    public List<int> DisabledFeatures { get; set; } = [];
-    public Dictionary<string, int> Constants { get; set; } = []; // Plugin constants
-    public string ScriptFile { get; set; } = string.Empty; // Path to plugin*.script file
-}
-
-/// <summary>
 /// Extended NG data for ScriptData.
 /// </summary>
-public class NGScriptData
+public sealed class NGScriptData
 {
     public NGCommandGroup OptionsCommands { get; set; } = new();
     public List<NGCommandGroup> LevelCommands { get; set; } = [];
     public List<NGImportFile> ImportFiles { get; set; } = [];
-    public List<NGPlugin> Plugins { get; set; } = [];
+    public List<PluginInfo> Plugins { get; set; } = [];
     public Dictionary<string, NGCommandDefinition> CommandDefinitions { get; set; } = [];
     public bool EnableScriptEncryption { get; set; }
     public int NGSettings { get; set; }
@@ -93,7 +80,7 @@ public class NGScriptData
 /// <summary>
 /// Trigger Group data (TriggerGroup= command).
 /// </summary>
-public class NGTriggerGroup
+public sealed class NGTriggerGroup
 {
     public int GroupId { get; set; }
     public int ExportValue1 { get; set; } // Includes TGROUP_ flags
@@ -105,7 +92,7 @@ public class NGTriggerGroup
 /// <summary>
 /// Global Trigger data (GlobalTrigger= command).
 /// </summary>
-public class NGGlobalTrigger
+public sealed class NGGlobalTrigger
 {
     public int TriggerId { get; set; }
     public int Flags { get; set; } // FGT_ flags
@@ -119,7 +106,7 @@ public class NGGlobalTrigger
 /// <summary>
 /// Organizer data (Organizer= command).
 /// </summary>
-public class NGOrganizer
+public sealed class NGOrganizer
 {
     public int OrganizerId { get; set; }
     public int Flags { get; set; }  // FO_ flags
@@ -130,7 +117,7 @@ public class NGOrganizer
 /// <summary>
 /// Customize data (Customize= command).
 /// </summary>
-public class NGCustomize
+public sealed class NGCustomize
 {
     public CustomizeType CustomizeType { get; set; }
     public List<object> Parameters { get; set; } = [];
@@ -139,7 +126,7 @@ public class NGCustomize
 /// <summary>
 /// Test Position data (TestPosition= command).
 /// </summary>
-public class NGTestPosition
+public sealed class NGTestPosition
 {
     public int TestId { get; set; }
     public int Flags { get; set; } // TPOS_ flags
