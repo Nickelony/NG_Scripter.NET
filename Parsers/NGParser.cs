@@ -721,29 +721,18 @@ public sealed class NGParser
             return binIndex;
 
         // Search in language strings
-        for (int i = 0; i < _languageData.Strings.Count; i++)
-        {
-            if (string.Equals(_languageData.Strings[i], text, StringComparison.Ordinal))
-                return i;
-        }
+        int index = _languageData.FindStringIndex(text);
+
+        if (index >= 0)
+            return index;
 
         // Search in NG extra strings
-        for (int i = 0; i < _languageData.ExtraStrings.Count; i++)
-        {
-            if (string.Equals(_languageData.ExtraStrings[i].Text, text, StringComparison.Ordinal))
-                return 32768 + _languageData.ExtraStrings[i].Index;
-        }
+        index = _languageData.FindExtraStringIndex(text);
+
+        if (index >= 0)
+            return index;
 
         Logger.LogWarning($"String not found in language file: {text}");
         return 0;
-    }
-
-    /// <summary>
-    /// Reset occurrence counters for all commands.
-    /// </summary>
-    public void ResetOccurrenceCounters()
-    {
-        foreach (var definition in _commandDefinitions.Values)
-            definition.OccurrenceCount = 0;
     }
 }

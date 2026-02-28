@@ -27,10 +27,7 @@ public sealed class LanguageParser
         _languageData.TotalPCStrings = 0;
         _languageData.TotalPSXStrings = 0;
         _languageData.TotalStrings = 0;
-        _languageData.TotalAllStrings = 0;
-        _languageData.TotalSpecials = 0;
         _languageData.TotalNGExtra = 0;
-        _languageData.UseCCodes = true;
 
         var lines = File.ReadAllLines(filePath, Encoding.GetEncoding(1252));
         int currentSection = -1;
@@ -129,8 +126,6 @@ public sealed class LanguageParser
             _languageData.SectionSizes[currentSection] = sectionSize;
             _languageData.TotalSectionSizes++;
         }
-
-        _languageData.TotalAllStrings = _languageData.Strings.Count;
 
         // Calculate offsets
         int offset = 0;

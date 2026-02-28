@@ -5,7 +5,7 @@ namespace TRNGScriptCompiler.Utilities;
 /// <summary>
 /// Manages TRNG plugin discovery and constant loading.
 /// </summary>
-public class PluginManager
+public sealed class PluginManager
 {
     private readonly CompilerGlobals _globals;
     private readonly List<PluginInfo> _discoveredPlugins = [];
@@ -132,7 +132,7 @@ public class PluginManager
                         : remainder.Trim();
 
                     if (!string.IsNullOrEmpty(constantName) && !string.IsNullOrEmpty(valueStr)
-                        && TryParseConstantValue(valueStr, out int value))
+                        && NumberParser.TryParseHexOrDec(valueStr, out int value))
                     {
                         constants[constantName] = value;
                         Logger.LogVerboseIf(_globals.Verbose, $"  {constantName} = {value}");
@@ -179,17 +179,5 @@ public class PluginManager
             return false;
 
         return plugin.Constants.TryGetValue(constantName, out value);
-    }
-
-    private static bool TryParseConstantValue(string valueStr, out int value)
-    {
-        // Handle hex values
-        if (valueStr.StartsWith('$'))
-            return int.TryParse(valueStr[1..], System.Globalization.NumberStyles.HexNumber, null, out value);
-        if (valueStr.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
-            return int.TryParse(valueStr[2..], System.Globalization.NumberStyles.HexNumber, null, out value);
-
-        // Handle decimal values
-        return int.TryParse(valueStr, out value);
     }
 }

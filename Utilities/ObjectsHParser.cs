@@ -5,7 +5,7 @@ namespace TRNGScriptCompiler.Utilities;
 /// <summary>
 /// Parses Objects.h file to extract slot constants.
 /// </summary>
-public class ObjectsHParser
+public sealed class ObjectsHParser
 {
     private readonly Dictionary<string, int> _slotConstants = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, int> _staticConstants = new(StringComparer.OrdinalIgnoreCase);
@@ -87,15 +87,8 @@ public class ObjectsHParser
                 // Explicit value
                 var valueStr = parts[1].Trim();
 
-                if (int.TryParse(valueStr, out int explicitValue))
-                {
+                if (NumberParser.TryParseHexOrDec(valueStr, out int explicitValue))
                     currentValue = explicitValue;
-                }
-                else if (valueStr.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (int.TryParse(valueStr[2..], System.Globalization.NumberStyles.HexNumber, null, out int hexValue))
-                        currentValue = hexValue;
-                }
             }
 
             if (!string.IsNullOrEmpty(constantName))

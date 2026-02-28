@@ -22,13 +22,38 @@ public sealed class LanguageData
     public int[] SectionStartIndexes { get; set; } = new int[MaxLanguageSections];
     public int TotalSectionSizes { get; set; }
 
-    public List<string> SpecialNames { get; set; } = [];
-    public List<int> SpecialIndexes { get; set; } = [];
-
-    public int TotalSpecials { get; set; }
-    public int TotalAllStrings { get; set; }
+    public int TotalAllStrings => Strings.Count;
     public List<int> Offsets { get; set; } = [];
 
-    public bool UseCCodes { get; set; } = true;
     public string LanguageFile { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Finds the index of a string using ordinal comparison.
+    /// Returns -1 if not found.
+    /// </summary>
+    public int FindStringIndex(string text)
+    {
+        for (int i = 0; i < Strings.Count; i++)
+        {
+            if (string.Equals(Strings[i], text, StringComparison.Ordinal))
+                return i;
+        }
+
+        return -1;
+    }
+
+    /// <summary>
+    /// Finds the index of an extra NG string using ordinal comparison.
+    /// Returns -1 if not found. On success, returns 32768 + extraString.Index.
+    /// </summary>
+    public int FindExtraStringIndex(string text)
+    {
+        for (int i = 0; i < ExtraStrings.Count; i++)
+        {
+            if (string.Equals(ExtraStrings[i].Text, text, StringComparison.Ordinal))
+                return 32768 + ExtraStrings[i].Index;
+        }
+
+        return -1;
+    }
 }

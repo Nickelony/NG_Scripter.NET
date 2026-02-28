@@ -7,19 +7,6 @@ public sealed class DefineRecord
     public string FileName { get; set; } = string.Empty;
 }
 
-public sealed class NewTag
-{
-    public string Name { get; set; } = string.Empty;
-    public int ArgumentCount { get; set; }
-    public int BoolEnabled { get; set; }
-    public int BoolDisabled { get; set; }
-    public List<ArgumentType> ArgumentTypes { get; set; } = [];
-    public bool OptionsOnly { get; set; }
-    public NewTagCode TagCode { get; set; }
-    public int MaxOccurrences { get; set; } = -1; // -1 = unlimited
-    public int Occurrences { get; set; }
-}
-
 public sealed class CompilerError
 {
     public int LineNumber { get; set; }
@@ -50,6 +37,5 @@ public sealed class CompilerGlobals
     public string CurrentSourceFile { get; set; } = string.Empty;
     public string LogOutput { get; set; } = string.Empty;
     public List<DefineRecord> Defines { get; set; } = [];
-    public List<NewTag> NewTags { get; set; } = [];
     public bool Verbose { get; set; }
 }

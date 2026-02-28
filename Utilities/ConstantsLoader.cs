@@ -1,4 +1,3 @@
-using System.Globalization;
 using TRNGScriptCompiler.Models;
 
 namespace TRNGScriptCompiler.Utilities;
@@ -91,7 +90,7 @@ public sealed class ConstantsLoader
                     continue;
 
                 // Parse value (can be decimal or hex with $)
-                if (TryParseConstantValue(valueStr, out int value))
+                if (NumberParser.TryParseHexOrDec(valueStr, out int value))
                 {
                     _constants[constantName] = value;
                     loadedCount++;
@@ -125,20 +124,4 @@ public sealed class ConstantsLoader
     /// </summary>
     public IReadOnlyDictionary<string, int> GetAllConstants()
         => _constants;
-
-    private static bool TryParseConstantValue(string valueStr, out int value)
-    {
-        valueStr = valueStr.Trim().ToUpperInvariant();
-
-        // Handle hex values with $
-        if (valueStr.StartsWith('$'))
-            return int.TryParse(valueStr[1..], NumberStyles.HexNumber, null, out value);
-
-        // Handle hex values with 0x
-        if (valueStr.StartsWith("0X"))
-            return int.TryParse(valueStr[2..], NumberStyles.HexNumber, null, out value);
-
-        // Handle decimal
-        return int.TryParse(valueStr, out value);
-    }
 }
