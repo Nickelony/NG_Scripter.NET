@@ -1,0 +1,19 @@
+; Corpus workspace for one escape whose VB6 result the source does not settle.
+; Windows-1252 defines no character for byte 0x81, and VB6 decodes \x81 through the ANSI code page,
+; in a classic string and in an ExtraNG text.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Uncertain Level
+Level= data\uncertain,1
+LoadCamera= 0,0,0,0,0,0,0
+WindowTitle= !100

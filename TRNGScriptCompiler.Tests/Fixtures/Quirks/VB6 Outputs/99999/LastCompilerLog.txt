@@ -1,0 +1,132 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 12 standard strings
+	Found 3 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks
+      Remove: French.dat
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+Scanning English.txt
+	Found 12 standard strings
+	Found 3 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:4
+	Level: "data\title"
+	Level: "data\quirk1"
+	Level: "data\quirk2"
+	Level: "data\quirk1"
+Saving Header NG Data...
+[OPTIONS] Section ...
+	Scanning: Settings= SET_BLIND_SAVEGAMES
+	Scanning: Plugin= 2,PluginDemo,IGNORE
+	Scanning: LogItem= 1,2
+	Scanning: ImportFile= 10,extras\data046.bin,FTYPE_USERFILE,0
+	Scanning: ImportFile= 11,extras\data048.bin,FTYPE_USERFILE,IMPORT_MEMORY
+	Scanning: ImportFile= 12,extras\data049.bin,FTYPE_USERFILE,IMPORT_TEMPORARY
+	Scanning: DiagnosticType= 1,2
+	Scanning: WorldFarView= 20480
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\quirk1
+	Scanning: WindowsFont= 1,!120,2,3,4,5
+	Scanning: TextureSequence= 1,2,3
+	Scanning: AssignSlot= 470,1234
+	Scanning: TriggerGroup= 1,$2000,IGNORE,1
+	Scanning: Customize= PLUGIN_DEMO_CONST,1,2
+	Scanning: TestPosition= 1,0,LARA,0,0,0,0,0,0,0,0,0,0,0,0
+------- Statistic about amount of multiple commands in current level section -------
+[1/400] AssignSlot=
+[1/99] TextureSequence=
+[1/Unlimited] Customize=
+[1/999] TriggerGroup=
+[1/99] TestPosition=
+[1/99] WindowsFont=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\quirk2
+	Scanning: Image= 1,4,IF_CRYPTIC,IGNORE,IGNORE,IGNORE,IGNORE,IGNORE,IGNORE
+		Crypting image4.bmp
+		Image4.bmp has been crypted
+	Scanning: #define @PluginDemo 7
+	Scanning: TriggerGroup= 2,$70001,406,1
+		Converted Id for exported trigger. From id 7 (PluginDemo) to scritp-id 2
+	Scanning: #define @plugins clear
+	Scanning: TriggerGroup= 3,$90001,406,1
+	Scanning: StaticMIP= PLANT1,4,PLANT2,8,PLANT3
+------- Statistic about amount of multiple commands in current level section -------
+[2/999] TriggerGroup=
+[1/199] Image=
+[1/160] StaticMIP=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\quirk1
+	Scanning: WindowTitle= !$82
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+
+Files to import: 3
+---------------------------------------------------------
+??? UNKNOWN IMPORT MODE importing file 'extras\data046.bin' ID=10 Size: 46 bytes
+MEMORY importing file 'extras\data048.bin' ID=11 Size: 48 bytes
+TEMPORARY importing file 'extras\data049.bin' ID=12 Size: 49 bytes
+---------------------------------------------------------
+Total amount for files imported in memory: 48 bytes
+
+
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\English.DAT
+Scanning English.txt
+	Found 12 standard strings
+	Found 3 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\English.DAT
+	Number of words for extra strings = 32
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\English.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\French.DAT
+Scanning French.txt
+	Found 12 standard strings
+	Found 3 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\French.DAT
+	Number of words for extra strings = 31
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\French.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\German.DAT
+Scanning German.txt
+	Found 12 standard strings
+	Found 3 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\German.DAT
+	Number of words for extra strings = 33
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script\German.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142609\Quirks\French.dat
+******** COMPLETED ********
+Completed compilation

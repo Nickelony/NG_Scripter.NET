@@ -1,0 +1,4 @@
+; Include depth 15
+#DEFINE CORPUS_DEPTH 15
+ResetHUB= CORPUS_DEPTH
+#INCLUDE "depth16.txt"

@@ -1,0 +1,13 @@
+[Strings]
+NG Options Level
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+100: Plugin_CorpusOne
+101: Plugin_CorpusTwo
+102: Plugin_CorpusThree

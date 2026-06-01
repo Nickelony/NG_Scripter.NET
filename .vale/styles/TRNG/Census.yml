@@ -1,0 +1,13 @@
+# A count of a set that can grow goes stale when the set grows, from rule 4 of STYLEGUIDE.md.
+extends: existence
+message: "Name the set instead of counting it in '%s'."
+level: error
+ignorecase: true
+nonword: true
+tokens:
+  - \bevery rule\b
+  - \ball rules\b
+  - \bthe following rules\b
+  - \ball three\b
+  - \bboth (?:readmes?|packages?|products?|providers?|projects?|hosts?|layers?|frameworks?|runners?)\b
+  - \bthe (?:two|three|four|five) (?:rules?|keys?|options?|packages?|products?|providers?|projects?|states?|tiers?|hosts?|layers?|frameworks?|runners?)(?:[^\w-]|$)

@@ -1,0 +1,40 @@
+[Strings]
+Classic Coverage Level
+NG Coverage Level
+Include Variation Level
+Exotic Features Level
+Alpha Legend
+Exotic Legend
+Key Inventory Label
+Key With Tabs
+Puzzle Inventory Label
+Puzzle Double Space
+Pickup Label
+Pickup Double Space
+Examine Label
+Examine Exotic
+Combo Label
+Combo Exotic
+Damage String
+Damage Exotic
+Debug Window
+Font String
+Font With Spaces
+Diary String
+Diary Exotic
+Savegame String
+Standby String
+Demo One
+Demo Two
+
+[PSXStrings]
+PSX Only Text
+
+[PCStrings]
+PC Only Text
+
+[ExtraNG]
+100: PluginDemo
+120: Key Extra Label
+130: @intro.txt
+140: File Backed Marker

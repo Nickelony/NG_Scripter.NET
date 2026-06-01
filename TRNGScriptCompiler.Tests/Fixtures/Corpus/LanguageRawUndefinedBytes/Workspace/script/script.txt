@@ -1,0 +1,19 @@
+; Corpus workspace for one line whose VB6 result the source does not settle.
+; A classic string and an ExtraNG text hold the raw bytes 0x81, 0x8D, 0x8F, 0x90 and 0x9D, which
+; Windows-1252 leaves undefined, as a language file saved in another code page does.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Uncertain Level
+Level= data\uncertain,1
+LoadCamera= 0,0,0,0,0,0,0
+WindowTitle= !100

@@ -1,0 +1,108 @@
+; Corpus workspace: the order VB6 writes a section's classic commands in.
+; VB6 sorts them with an exchange sort that swaps only on a strictly greater key, and only inventory
+; commands make the key unique, so lines that share a key come out reversed when a lower-key line follows.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+; === Two LoadCamera= lines, then a lower-key Fog= ===
+LoadCamera= 1,1,1,1,1,1,1
+LoadCamera= 2,2,2,2,2,2,2
+Level= data\title,0
+Fog= 10,20,30
+
+[Level]
+; === Level= first and Name= last: both move ===
+Level= data\sort one,1
+; === Three LoadCamera= lines, then lower-key lines ===
+LoadCamera= 3,3,3,3,3,3,3
+LoadCamera= 4,4,4,4,4,4,4
+LoadCamera= 5,5,5,5,5,5,5
+; === Three AnimatingMIP= slots, then a lower-key Layer1= ===
+AnimatingMIP= 1,1
+AnimatingMIP= 2,2
+AnimatingMIP= 3,3
+Layer1= 1,2,3,4
+; === Two ResidentCut= slots, then a lower-key Legend= ===
+ResidentCut= 1,10
+ResidentCut= 2,20
+Legend= Sort Legend One
+; === Two FMV= lines, then inventory lines whose items run backward ===
+FMV= 1,0
+FMV= 2,1
+Examine= 3,Sort Examine,1,2,3,4,5,6
+Key= 2,Sort Key Two,1,2,3,4,5,6
+Key= 1,Sort Key One,1,2,3,4,5,6
+Name= Sort Level One
+
+[Level]
+; === The [Level] example of the VB6 help, tabs included ===
+Name=		Sort Level Two
+Legend=		Sort Legend Two
+Horizon=	ENABLED
+Layer1=		160,160,192,7
+PuzzleCombo=	3,1,Cartouche Piece 1,	$0000,$0400,$0000,$0000,$0000,$0002
+PuzzleCombo=	3,2,Cartouche Piece 2,	$0000,$0400,$0000,$0000,$0000,$0002
+Puzzle=		3,Ba Cartouche,		$0000,$0400,$0000,$c000,$8000,$0002
+Puzzle=		5,Eye Of Horus,		$0017,$0500,$0000,$0000,$0000,$0002
+PuzzleCombo=	5,1,Eye Piece,		$0017,$0500,$0000,$0000,$0000,$0002
+PuzzleCombo=	5,2,Eye Piece,		$0017,$0500,$0000,$0000,$0000,$0002
+Puzzle=		6,The Hand Of Orion,	$0000,$0400,$8000,$c000,$0000,$0002
+Puzzle=		8,The Hand Of Sirius,	$0000,$0400,$8000,$c000,$0000,$0002
+LoadCamera=	0,0,0,0,0,0,255
+LoadCamera=	11088,-1100,28896,11119,-1399,31486,0
+Level=		DATA\TUT1,107
+
+[Level]
+; === Every command in reverse key order, with one key each ===
+Level= data\sort three,2
+NoLevel= ENABLED
+ResetHUB= 9
+LoadCamera= 8,8,8,8,8,8,8
+RemoveAmulet= ENABLED
+Timer= ENABLED
+ColAddHorizon= ENABLED
+Pulse= ENABLED
+Train= ENABLED
+Lightning= ENABLED
+StarField= ENABLED
+Horizon= ENABLED
+Cut= 4
+ResidentCut= 3,30
+YoungLara= ENABLED
+Legend= Sort Legend Three
+AnimatingMIP= 4,4
+Mirror= 5,6
+Fog= 7,8,9
+LensFlare= 256,512,768,1,2,3
+Layer2= 4,5,6,7
+Layer1= 8,9,10,11
+UVRotate= 12
+FMV= 13,0
+Examine= 2,Sort Examine,7,8,9,10,11,12
+PickupCombo= 2,1,Sort Pickup Piece,1,2,3,4,5,6
+Pickup= 2,Sort Pickup,1,2,3,4,5,6
+PuzzleCombo= 2,2,Sort Puzzle Piece,1,2,3,4,5,6
+Puzzle= 2,Sort Puzzle,1,2,3,4,5,6
+KeyCombo= 2,1,Sort Key Piece,1,2,3,4,5,6
+Key= 3,Sort Key Three,1,2,3,4,5,6
+Name= Sort Level Three
+
+[Level]
+Name= Sort Level Four
+; === FMV= lines apart from each other, with lower keys between them ===
+FMV= 21,0
+Key= 4,Sort Key Four,1,2,3,4,5,6
+FMV= 22,1
+UVRotate= 1
+FMV= 23,0
+LoadCamera= 9,9,9,9,9,9,9
+; === Two LoadCamera= lines with a Level= between them, then a lower-key line ===
+LoadCamera= 10,10,10,10,10,10,10
+Level= data\sort four,3
+LoadCamera= 11,11,11,11,11,11,11
+Fog= 1,1,1

@@ -1,0 +1,31 @@
+[Strings]
+Sort Level One
+Sort Level Two
+Sort Level Three
+Sort Level Four
+Sort Legend One
+Sort Legend Two
+Sort Legend Three
+Sort Examine
+Sort Key One
+Sort Key Two
+Sort Key Three
+Sort Key Four
+Sort Key Piece
+Sort Puzzle
+Sort Puzzle Piece
+Sort Pickup
+Sort Pickup Piece
+Cartouche Piece 1
+Cartouche Piece 2
+Ba Cartouche
+Eye Of Horus
+Eye Piece
+The Hand Of Orion
+The Hand Of Sirius
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

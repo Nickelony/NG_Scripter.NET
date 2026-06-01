@@ -1,0 +1,12 @@
+[Strings]
+Long Level
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+200: @long_text.txt
+201: Long Window

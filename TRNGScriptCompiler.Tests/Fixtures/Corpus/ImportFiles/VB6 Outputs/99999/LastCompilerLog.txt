@@ -1,0 +1,99 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ImportFiles\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ImportFiles
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:2
+	Level: "data\title"
+	Level: "data\imports"
+Saving Header NG Data...
+[OPTIONS] Section ...
+	Scanning: ImportFile= 0,extras\size1.bin,FTYPE_USERFILE,IMPORT_MEMORY
+	Scanning: ImportFile= 1,extras\size2.bin,FTYPE_SOUND,IMPORT_TEMPORARY
+	Scanning: ImportFile= 2,extras\size3.bin,FTYPE_SETTINGS,0
+	Scanning: ImportFile= 3,extras\size4.bin,1,1
+	Scanning: ImportFile= 4,extras\size5.bin,2,2
+	Scanning: ImportFile= 5,extras\size7.bin,3,0
+	Scanning: ImportFile= 6,extras\size51.bin,FTYPE_USERFILE,IMPORT_MEMORY
+	Scanning: ImportFile= 7,extras\size256.bin,FTYPE_USERFILE,IMPORT_TEMPORARY
+	Scanning: ImportFile= 8,extras\item32767.bin,FTYPE_USERFILE,0
+	Scanning: ImportFile= 9,extras\nodigits.bin,FTYPE_USERFILE,0
+	Scanning: ImportFile= 10,extras\a.b12.bin,FTYPE_USERFILE,0
+	Scanning: ImportFile= 11,extras\deep\chunk0012.bin,FTYPE_USERFILE,0
+	Scanning: ImportFile= 12,root13.raw,FTYPE_USERFILE,0
+	Scanning: ImportFile= 65535,extras\my file 14.bin,FTYPE_USERFILE,0
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\imports
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+
+Files to import: 14
+---------------------------------------------------------
+MEMORY importing file 'extras\size1.bin' ID=0 Size: 1 bytes
+TEMPORARY importing file 'extras\size2.bin' ID=1 Size: 2 bytes
+??? UNKNOWN IMPORT MODE importing file 'extras\size3.bin' ID=2 Size: 3 bytes
+MEMORY importing file 'extras\size4.bin' ID=3 Size: 4 bytes
+TEMPORARY importing file 'extras\size5.bin' ID=4 Size: 5 bytes
+??? UNKNOWN IMPORT MODE importing file 'extras\size7.bin' ID=5 Size: 7 bytes
+MEMORY importing file 'extras\size51.bin' ID=6 Size: 51 bytes
+TEMPORARY importing file 'extras\size256.bin' ID=7 Size: 256 bytes
+??? UNKNOWN IMPORT MODE importing file 'extras\item32767.bin' ID=8 Size: 6 bytes
+??? UNKNOWN IMPORT MODE importing file 'extras\nodigits.bin' ID=9 Size: 8 bytes
+??? UNKNOWN IMPORT MODE importing file 'extras\a.b12.bin' ID=10 Size: 9 bytes
+??? UNKNOWN IMPORT MODE importing file 'extras\deep\chunk0012.bin' ID=11 Size: 10 bytes
+??? UNKNOWN IMPORT MODE importing file 'root13.raw' ID=12 Size: 11 bytes
+??? UNKNOWN IMPORT MODE importing file 'extras\my file 14.bin' ID=-1 Size: 15 bytes
+---------------------------------------------------------
+Total amount for files imported in memory: 56 bytes
+
+
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ImportFiles\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ImportFiles\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ImportFiles\script\English.DAT
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ImportFiles\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ImportFiles\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ImportFiles\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 2 errors
+Last error: 
+
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0

@@ -1,0 +1,26 @@
+[Strings]
+Strings Level One
+Strings Level Two
+Strings Title Window
+Arial
+Diary First Page
+Savegame Info Format
+Stand By Text
+Demo Info Text
+Demo Legend Text
+_
+Strings Level Two Window
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+130: Strings Window
+131: Strings Font
+132: Strings Stand By
+140: Arial
+141: Courier New
+142: Extra Damage Bar

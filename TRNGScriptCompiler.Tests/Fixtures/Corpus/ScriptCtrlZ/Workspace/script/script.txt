@@ -1,0 +1,19 @@
+; Corpus workspace for one line whose VB6 result the source does not settle.
+; A Ctrl-Z byte follows the last line; VB6 should read it as the end of the file.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Uncertain Level
+Level= data\uncertain,1
+LoadCamera= 0,0,0,0,0,0,0
+Fog= 1,2,3
+

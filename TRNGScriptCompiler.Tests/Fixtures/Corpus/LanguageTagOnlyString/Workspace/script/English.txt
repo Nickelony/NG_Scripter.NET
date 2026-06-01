@@ -1,0 +1,11 @@
+[Strings]
+Uncertain Level
+NOTE:
+After Text
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+

@@ -1,0 +1,16 @@
+[Strings]
+Niveau multiple
+Légende multiple
+Clé multiple
+Ça déjà été où
+Typographic \x93Français\x94 \x96 \x85
+
+[PSXStrings]
+PSX Français
+
+[PCStrings]
+PC Français
+
+[ExtraNG]
+100: Français Window
+101: \x93Français\x94 Extra

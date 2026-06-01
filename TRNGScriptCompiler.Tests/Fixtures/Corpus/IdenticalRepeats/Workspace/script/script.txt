@@ -1,0 +1,50 @@
+; Corpus workspace: settings repeated with the same value.
+; VB6 writes them as given; the port accepts each with a warning.
+
+[Language]
+File= 0,English.txt
+
+[PCExtensions]
+; === An extension line given twice ===
+Level= .TR4
+Level= .TR4
+FMV= .BIK
+Cut= .TR4
+
+[Options]
+Title= ENABLED
+; === Options given twice ===
+LoadSave= ENABLED
+LoadSave= ENABLED
+InputTimeOut= 30
+InputTimeOut= 30
+Security= 5
+Security= 5
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+; === Classic commands given twice in one level ===
+Name= Repeat Level
+Name= Repeat Level
+Key= 1,Repeat Key,1,2,3,4,5,6
+Key= 1,Repeat Key,1,2,3,4,5,6
+FMV= 1,0
+FMV= 1,0
+UVRotate= 4
+UVRotate= 4
+Fog= 1,2,3
+Fog= 1,2,3
+Legend= Repeat Legend
+Legend= Repeat Legend
+Horizon= ENABLED
+Horizon= ENABLED
+LoadCamera= 0,0,0,0,0,0,0
+LoadCamera= 0,0,0,0,0,0,0
+Level= data\repeat,1
+; === A #DEFINE given twice in one file ===
+#DEFINE CORPUS_TWICE 9
+#DEFINE CORPUS_TWICE 9
+Cut= CORPUS_TWICE

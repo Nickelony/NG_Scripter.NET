@@ -1,0 +1,19 @@
+; Corpus workspace for one line whose VB6 result the source does not settle.
+; [Strings] holds the tag NOTE: alone, which VB6 counts as a string and writes, without its tag, through a
+; routine that fails on an empty string.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Uncertain Level
+Level= data\uncertain,1
+LoadCamera= 0,0,0,0,0,0,0
+

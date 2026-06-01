@@ -1,0 +1,7 @@
+# A longer item is split, or its fact moves to the page that owns it, as STYLEGUIDE.md says.
+extends: occurrence
+message: "Split this list item of %s words, or move its fact to the page that owns it."
+level: error
+scope: list
+max: 50
+token: '[^\s]+'

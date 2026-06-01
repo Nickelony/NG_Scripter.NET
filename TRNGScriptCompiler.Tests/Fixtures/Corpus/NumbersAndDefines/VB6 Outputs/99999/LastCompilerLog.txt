@@ -1,0 +1,97 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 5 standard strings
+	Found 5 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 5 standard strings
+	Found 5 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:3
+	Level: "data\title"
+	Level: "data\numbers one"
+	Level: "data\numbers two"
+Saving Header NG Data...
+[OPTIONS] Section ...
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\numbers one
+	Scanning: Snow= SNOW_ALL_OUTSIDE+0
+	Scanning: LevelFarView= $FFFF
+	Scanning: FogRange= -32768,65535
+	Scanning: TextFormat= CL_RED,FT_SIZE_DOUBLE_CHAR+FT_CENTER_CENTER,&H10,CORPUS_FROM_CONST
+	Scanning: ColorRGB= 1,#FF,&HFF,&O377
+	Scanning: ColorRGB= 2,CORPUS_RED,PLANT5,LARA
+	Scanning: Turbo= TRB_SELECTIVE_VIEW+TRB_HIGH_PRIORITY,ignore
+	Scanning: Equipment= $1D2,CORPUS_RED
+	Scanning: Equipment= FROG_MAN_HARPOON,1
+	Scanning: AssignSlot= 465,OBJ_MOTOR_BOAT
+	Scanning: Customize= CUST_SET_SECRET_NUMBER,CORPUS_HEX
+	Scanning: Parameters= PARAM_MOVE_ITEM,&H10,1,-1,$FFFF
+	Scanning: WindowTitle= !CORPUS_STRING_ID
+	Scanning: WindowsFont= 1,!$83,0,10,1,0
+	Scanning: Diary= 1,2,3,4,5,!&H84,6,7
+	Scanning: StandBy= 1,0,0,0,!&O205,1,0,0,0,0,0,0
+	Scanning: SavegamePanel= 0,0,0,0,0,!0,0,0,0
+------- Statistic about amount of multiple commands in current level section -------
+[2/100] Equipment=
+[2/199] ColorRGB=
+[1/Unlimited] Customize=
+[1/400] AssignSlot=
+[1/Unlimited] Parameters=
+[1/99] WindowsFont=
+[1/99] Diary=
+[1/49] StandBy=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\numbers two
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines\script\English.DAT
+Scanning English.txt
+	Found 5 standard strings
+	Found 5 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines\script\English.DAT
+	Number of words for extra strings = 48
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NumbersAndDefines\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 2 errors
+Last error: 
+
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0

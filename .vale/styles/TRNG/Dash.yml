@@ -1,0 +1,7 @@
+# The docs write " - ", never a typographic dash such as an em or en dash.
+extends: existence
+message: "Write ' - ' in place of the typographic dash '%s'."
+level: error
+nonword: true
+tokens:
+  - '[^\-\P{Pd}]'

@@ -1,0 +1,13 @@
+[Strings]
+Uncertain Level
+Raw  bytes
+After Text
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+100: Raw  bytes

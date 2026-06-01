@@ -1,0 +1,4 @@
+; Include depth 1
+#INCLUDE "depth02.txt"
+; A line after the nested chain has closed, in depth01.txt
+Mirror= 1,1

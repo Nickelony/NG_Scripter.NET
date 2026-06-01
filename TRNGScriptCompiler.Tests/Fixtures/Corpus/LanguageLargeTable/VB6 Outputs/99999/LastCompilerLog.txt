@@ -1,0 +1,76 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 310 standard strings
+	Found 0 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageLargeTable\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageLargeTable
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 310 standard strings
+	Found 0 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:3
+	Level: "data\title"
+	Level: "data\large one"
+	Level: "data\large two"
+Saving Header NG Data...
+[OPTIONS] Section ...
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\large one
+	Scanning: WindowTitle= Large String 280
+	Scanning: Damage= 0,1,1,0,Large String 256,1
+	Scanning: Diary= 1,0,0,0,0,PC String 4,1,2
+------- Statistic about amount of multiple commands in current level section -------
+[1/2] Damage=
+[1/99] Diary=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\large two
+	Scanning: WindowTitle= PSX String 0
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageLargeTable\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageLargeTable\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageLargeTable\script\English.DAT
+Scanning English.txt
+	Found 310 standard strings
+	Found 0 extra ng strings
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageLargeTable\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageLargeTable\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageLargeTable\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 2 errors
+Last error: 
+
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0

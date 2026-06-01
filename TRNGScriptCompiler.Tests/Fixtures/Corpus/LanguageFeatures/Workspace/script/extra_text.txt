@@ -1,0 +1,3 @@
+First line of an @file text
+Second line with \x93escapes\x94 and\ta tab
+Third line with a \x3B semicolon escape

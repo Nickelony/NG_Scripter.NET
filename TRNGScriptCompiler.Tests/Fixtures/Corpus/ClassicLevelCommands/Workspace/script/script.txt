@@ -1,0 +1,126 @@
+; Corpus workspace: every classic [Level] command, with the boundary values both compilers accept.
+; The lines of each section already follow VB6's sort order, so the sort cannot move them.
+
+[Language]
+File= 0,English.txt
+
+[PSXExtensions]
+Level= .PSX
+FMV= .FMV
+Cut= .CUT
+
+[PCExtensions]
+Level= .TR4
+FMV= .BIK
+Cut= .TR4
+
+[Options]
+LoadSave= ENABLED
+Title= ENABLED
+PlayAnyLevel= ENABLED
+FlyCheat= ENABLED
+DemoDisc= ENABLED
+; === The largest InputTimeOut= and Security= values ===
+InputTimeOut= 2147483647
+Security= 255
+
+[Title]
+; === Name= in a stored [Title] is looked up but writes nothing ===
+Name= Corpus Title
+Layer1= 0,64,128,-128
+Fog= 255,255,255
+Legend= Title Legend
+Horizon= ENABLED
+; === LoadCamera= coordinates take 4 bytes; the room is a byte ===
+LoadCamera= -2147483647,2147483647,0,-1,1,65536,255
+Level= data\title,255
+
+[Level]
+Name= Classic Level One
+; === Inventory commands at their lowest and highest item numbers, and word values at both ends ===
+Key= 1,Brass Key,0,0,0,0,0,0
+Key= 12,Iron Key,65535,-32768,$FFFF,32767,1,-1
+KeyCombo= 1,1,Key Half,1,2,3,4,5,6
+KeyCombo= 8,2,Key Half,7,8,9,10,11,12
+Puzzle= 1,First Puzzle,$0000,$0400,$0000,$c000,$8000,$0002
+Puzzle= 12,Last Puzzle,13,14,15,16,17,18
+PuzzleCombo= 1,1,Puzzle Piece,19,20,21,22,23,24
+PuzzleCombo= 8,2,Puzzle Piece,25,26,27,28,29,30
+Pickup= 1,First Pickup,31,32,33,34,35,36
+Pickup= 4,Last Pickup,37,38,39,40,41,42
+PickupCombo= 1,1,Pickup Piece,43,44,45,46,47,48
+PickupCombo= 4,2,Pickup Piece,49,50,51,52,53,54
+Examine= 1,First Examine,55,56,57,58,59,60
+Examine= 3,Last Examine,61,62,63,64,65,66
+; === FMV= index 0-127 and trigger 0-1 ===
+FMV= 0,0
+FMV= 127,1
+; === Signed speeds at the bottom of their range ===
+UVRotate= -128
+Layer1= 0,0,0,-128
+Layer2= 255,255,255,127
+; === LensFlare= coordinates divided by 256 fill a signed word; -257 divides to -1 ===
+LensFlare= 8388607,-8388608,-257,0,0,0
+Fog= 0,0,0
+Mirror= 0,0
+; === AnimatingMIP= slot 1-16 and distance 0-15 ===
+AnimatingMIP= 1,0
+AnimatingMIP= 16,15
+Legend= Level One Legend
+YoungLara= ENABLED
+; === ResidentCut= slots 1 and 4, rooms 0 and 255 ===
+ResidentCut= 1,0
+ResidentCut= 4,255
+Cut= 0
+Horizon= ENABLED
+StarField= ENABLED
+Lightning= ENABLED
+Train= ENABLED
+Pulse= ENABLED
+ColAddHorizon= ENABLED
+Timer= ENABLED
+RemoveAmulet= ENABLED
+LoadCamera= 0,0,0,0,0,0,0
+ResetHUB= 0
+NoLevel= ENABLED
+; === A level path holding a space ===
+Level= data\classic one,0
+
+[Level]
+Name= Classic Level Two
+Key= 6,Middle Key,1,1,1,1,1,1
+FMV= 64,0
+; === Speeds and colors at the top of their range ===
+UVRotate= 255
+Layer1= 255,128,1,255
+Layer2= 1,2,3,0
+; === The help's LensFlare= example ===
+LensFlare= 225792,-1600000,588544,255,255,255
+Fog= 210,176,99
+; === Mirror= room 255 and the largest X origin ===
+Mirror= 255,2147483647
+AnimatingMIP= 8,7
+Legend= Level Two Legend
+YoungLara= DISABLED
+ResidentCut= 2,128
+Cut= 31
+; === Every level flag set to DISABLED, which sets no bit ===
+Horizon= DISABLED
+Starfield= DISABLED
+Lightning= DISABLED
+Train= DISABLED
+Pulse= DISABLED
+ColAddHorizon= DISABLED
+Timer= DISABLED
+RemoveAmulet= DISABLED
+LoadCamera= 87075,-14188,26581,89090,-15443,25670,29
+ResetHUB= 255
+NoLevel= DISABLED
+Level= data\classic two,107
+
+[Level]
+Name= Classic Level Three
+; === LensFlare= coordinates below one step of 256: 255 and -255 divide to 0, 256 to 1 ===
+LensFlare= 255,256,-255,1,2,3
+LoadCamera= 1,2,3,4,5,6,7
+Level= DATA\TUT1,1

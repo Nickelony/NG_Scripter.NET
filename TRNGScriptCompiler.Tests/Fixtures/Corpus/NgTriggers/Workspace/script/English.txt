@@ -1,0 +1,8 @@
+[Strings]
+Trigger Level One
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

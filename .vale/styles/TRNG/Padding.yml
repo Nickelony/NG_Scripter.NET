@@ -1,0 +1,18 @@
+# Words that add length but no fact, from rule 3 of STYLEGUIDE.md.
+extends: existence
+message: "Remove '%s', or reword the sentence without it."
+level: error
+ignorecase: true
+tokens:
+  - note that
+  - keep in mind
+  - it is worth (?:noting|mentioning|saying|stating)
+  - in other words
+  - simply
+  - basically
+  - just
+  - in order to
+  - as well as
+  - the fact that
+  - is able to
+  - it(?:'s| is) important to note

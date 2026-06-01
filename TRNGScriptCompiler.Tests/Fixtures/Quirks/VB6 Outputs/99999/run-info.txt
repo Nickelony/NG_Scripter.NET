@@ -1,0 +1,6 @@
+NG Center: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\NG_Center.exe
+NG Center file version: 1.05.0049
+Windows ANSI code page: 1252
+System locale: en-US
+Culture: en-GB
+Run: 2026-10-23 14:26:09

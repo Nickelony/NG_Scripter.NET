@@ -1,0 +1,11 @@
+[Strings]
+NG Level One
+NG Level Two
+Damage Bar
+NG Window Title
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

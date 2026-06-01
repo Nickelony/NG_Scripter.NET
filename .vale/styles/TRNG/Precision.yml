@@ -1,0 +1,11 @@
+# A line number goes stale with the next edit, and "switch on or off" hides which state a key sets.
+extends: existence
+message: "Replace '%s' with the member's name or the state it sets."
+level: error
+ignorecase: true
+nonword: true
+tokens:
+  - '\b\w+\.(?:cs|ps1|md|yml|json|props|targets):\d+\b'
+  - '\bswitch(?:es|ed|ing)\b(?:[\s-]+\S+){0,3}?[\s-]+(?:on|off)\b'
+  - '\bswitch(?:es|ed|ing)?\s+(?:on|off)\b'
+  - '\bswitch\s+(?:the|this|these|those|it|them|its|their)\b(?:[\s-]+\S+){0,3}?[\s-]+(?:on|off)\b'

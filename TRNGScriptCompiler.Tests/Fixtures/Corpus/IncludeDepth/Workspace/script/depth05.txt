@@ -1,0 +1,3 @@
+; Include depth 5
+Fog= 5,5,5
+#INCLUDE "depth06.txt"

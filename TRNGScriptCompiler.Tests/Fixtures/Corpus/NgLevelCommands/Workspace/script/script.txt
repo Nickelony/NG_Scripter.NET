@@ -1,0 +1,73 @@
+; Corpus workspace: the NG level commands without an array or a string argument of note, with values at
+; the ends of their ranges. NgArrays, NgStrings and NgTriggers cover the rest.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+; === NG switches in [Title] ===
+ForceVolumetricFX= ENABLED
+CutScene= ENABLED
+
+[Level]
+Name= NG Level One
+Level= data\ng one,1
+LoadCamera= 0,0,0,0,0,0,0
+; === The level switches: ForceVolumetricFX= sets a bit for DISABLED too ===
+ForceVolumetricFX= DISABLED
+CutScene= DISABLED
+PreserveInventory= ENABLED
+; === AssignSlot= with a slot name and a slot number ===
+AssignSlot= BADDY_1,OBJ_RUBBER_BOAT
+AssignSlot= 490,OBJ_MOTOR_BOAT_ANIM
+Snow= SNOW_SINGLE_ROOM
+LevelFarView= 127
+FogRange= 0,65535
+TextFormat= CL_GOLD,FT_TOP_LEFT,0,SC_NORMAL
+Rain= RAIN_ALL_OUTSIDE
+; === Damage= twice, with a long color and with * for the bar name ===
+Damage= DMG_INDIRECT_BAR+DMG_ALERT_BEEP,30,10,$FF0000,Damage Bar,25
+Damage= DMG_COLD_WATER,60,0,0,*,0
+KeyPad= 1,2,3,4
+; === An empty array ===
+Detector= DTF_RADAR_MODE+DTF_ENGAGE_ALWAYS,100,10
+Equipment= UZI_ITEM,2
+Equipment= 0,-1
+ColorRGB= 1,0,0,0
+ColorRGB= 199,255,255,255
+Turbo= TRB_SELECTIVE_VIEW,30
+LaraStartPos= 255,65535
+StaticMIP= ARCHITECTURE5,10,EXTRA99,20,SHATTER0
+StaticMIP= 159,1024,0,2048,1
+; === CombineItems= never counts a repeat ===
+CombineItems= 1,2,3
+CombineItems= 1,2,3
+ItemGroup= 1,2
+ItemGroup= 99,1,2,3,4
+Switch= 1,2,SWT_BASE_ZERO
+Switch= 127,3,SWT_RANDOM_MODE,1,2,3
+; === Image= without IF_CRYPTIC needs no image file ===
+Image= 1,7,IF_FULL_SCREEN+IF_QUIT_ESCAPE,1000,IGNORE,0,0,1000,1000
+WindowTitle= NG Window Title
+
+[Level]
+Name= NG Level Two
+Level= data\ng two,2
+LoadCamera= 0,0,0,0,0,0,0
+ForceVolumetricFX= ENABLED
+PreserveInventory= DISABLED
+Snow= SNOW_DISABLED
+LevelFarView= -32768
+FogRange= -32768,-1
+TextFormat= 65535,-32768,1,2
+Rain= 0
+KeyPad= -1,-1,-1,-1
+Detector= 0,0,0,1,2,3
+Turbo= 0,0
+LaraStartPos= 0,0
+Image= 2,0,0,0,0,0,0,0,0

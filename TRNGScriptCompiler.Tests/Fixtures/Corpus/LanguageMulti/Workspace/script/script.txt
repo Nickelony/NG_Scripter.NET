@@ -1,0 +1,31 @@
+; Corpus workspace: eight languages, the most [Language] holds.
+; The File= indexes are written as a number, a $ value, a sum, an &H value and a define. NG Center's
+; command line picks English as the main language, because its file is named english and no .dat file
+; sits in the TRLE folder yet.
+
+#DEFINE CORPUS_FIVE 5
+
+[Language]
+File= 0,English.txt
+File= $1,French.txt
+File= 1+1,German.txt
+File= &H3,Italian.txt
+File= CORPUS_FIVE-1,Spanish.txt
+File= CORPUS_FIVE,US.txt
+File= 6,JAPAN.TXT
+File= 7,DUTCH.TXT
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Multi Level
+Legend= Multi Legend
+Key= 1,Multi Key,1,2,3,4,5,6
+Level= data\multi,1
+LoadCamera= 0,0,0,0,0,0,0
+WindowTitle= !100

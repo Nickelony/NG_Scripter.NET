@@ -1,0 +1,15 @@
+[Strings]
+Order Level One
+Order Level Two
+Order Title Window
+Order Damage Bar
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+300: Order Diary Text
+301: Order Level Window

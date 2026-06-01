@@ -1,0 +1,16 @@
+[Strings]
+Multi Level
+Multi Legend
+Multi Key
+Plain American text
+Typographic \x93US\x94 \x96 \x85
+
+[PSXStrings]
+PSX US
+
+[PCStrings]
+PC US
+
+[ExtraNG]
+100: US Window
+101: \x93US\x94 Extra

@@ -1,0 +1,4 @@
+; Included by two levels: CORPUS_SCOPE is 50 in this file
+#DEFINE CORPUS_SCOPE 50
+Layer1= CORPUS_SCOPE,2,3,4
+TriggerGroup= 1,$2000,CORPUS_SCOPE,1

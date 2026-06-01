@@ -1,0 +1,16 @@
+[Strings]
+Nivel múltiple
+Leyenda múltiple
+Llave múltiple
+Año niño ¿qué? ¡sí!
+Typographic \x93Español\x94 \x96 \x85
+
+[PSXStrings]
+PSX Español
+
+[PCStrings]
+PC Español
+
+[ExtraNG]
+100: Español Window
+101: \x93Español\x94 Extra

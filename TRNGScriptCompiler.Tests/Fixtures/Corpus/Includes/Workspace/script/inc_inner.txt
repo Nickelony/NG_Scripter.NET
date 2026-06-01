@@ -1,0 +1,5 @@
+; Included by inc_outer.txt: CORPUS_SCOPE is 70 in this file
+#DEFINE CORPUS_SCOPE 70
+Cut= 5
+ResidentCut= 1,CORPUS_SCOPE
+TriggerGroup= 3,$2000,CORPUS_SCOPE,3

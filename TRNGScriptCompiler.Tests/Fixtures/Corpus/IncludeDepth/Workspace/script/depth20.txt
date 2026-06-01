@@ -1,0 +1,4 @@
+; Include depth 20
+#DEFINE CORPUS_DEPTH 20
+UVRotate= CORPUS_DEPTH
+TriggerGroup= 1,$2000,CORPUS_DEPTH,1

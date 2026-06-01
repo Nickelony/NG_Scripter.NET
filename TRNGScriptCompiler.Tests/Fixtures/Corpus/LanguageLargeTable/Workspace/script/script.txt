@@ -1,0 +1,34 @@
+; Corpus workspace: a language file of 300 strings, so string indexes pass 255.
+; Name= and Legend= write the index as one byte, so they name strings below 256; inventory names and NG
+; string arguments write a word.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+; === The highest index Name= and Legend= can write, and the one below it ===
+Name= Large String 255
+Legend= Large String 254
+; === Inventory names past 255 ===
+Key= 1,Large String 299,1,2,3,4,5,6
+PuzzleCombo= 1,2,Large String 256,1,2,3,4,5,6
+Level= data\large one,1
+LoadCamera= 0,0,0,0,0,0,0
+; === NG string arguments past 255, in [Strings] and in [PCStrings] ===
+WindowTitle= Large String 280
+Damage= 0,1,1,0,Large String 256,1
+Diary= 1,0,0,0,0,PC String 4,1,2
+
+[Level]
+Name= Large String 000
+Level= data\large two,2
+LoadCamera= 0,0,0,0,0,0,0
+; === A string of [PSXStrings] ===
+WindowTitle= PSX String 0

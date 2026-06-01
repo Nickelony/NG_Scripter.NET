@@ -1,0 +1,11 @@
+[Strings]
+Include Level One
+Include Level Two
+Include Level Three
+Included Legend
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

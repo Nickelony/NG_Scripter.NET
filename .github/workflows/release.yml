@@ -1,0 +1,97 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true
+
+jobs:
+  build:
+    # Each runner packages the host for its own system, so the zip keeps the file mode of the executable.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+          - os: ubuntu-latest
+            rid: linux-x64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          dotnet-version: 8.0.x
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      - name: Build
+        run: dotnet build TRNGScriptCompiler.slnx -c Release
+
+      - name: Test
+        run: dotnet test TRNGScriptCompiler.slnx -c Release --no-build
+
+      # The release ships the net8.0 host, because the readme asks for the .NET 8 runtime.
+      - name: Publish and package
+        shell: pwsh
+        run: |
+          $version = (dotnet msbuild TRNGScriptCompiler/TRNGScriptCompiler.csproj -getProperty:Version).Trim()
+          $name = "NG_Scripter-$version-${{ matrix.rid }}"
+
+          dotnet publish TRNGScriptCompiler.Cli -c Release -f net8.0 -r ${{ matrix.rid }} --self-contained false -o "dist/$name"
+
+          if ($IsWindows) {
+            Compress-Archive -Path "dist/$name" -DestinationPath "dist/$name.zip"
+          } else {
+            Push-Location dist
+            zip -r "$name.zip" "$name"
+            Pop-Location
+          }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.rid }}
+          path: dist/*.zip
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # A tag that disagrees with the build version would publish artifacts whose reported version is not the tag.
+      - name: Check the tag against the build version
+        run: |
+          version=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props | head -n 1)
+
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "The tag $GITHUB_REF_NAME does not match <Version>$version</Version> in Directory.Build.props."
+            exit 1
+          fi
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: zips
+          merge-multiple: true
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" zips/*.zip \
+            --verify-tag \
+            --title "NG_Scripter ${GITHUB_REF_NAME#v}" \
+            --notes "A framework-dependent build for .NET 8: install the .NET 8 runtime before you run the host. The zip holds the console host, its library and scripter_constants.txt, and README.md describes the engine folder it compiles."

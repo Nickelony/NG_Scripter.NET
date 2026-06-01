@@ -1,0 +1,36 @@
+; Corpus workspace: ImportFile= with files of many sizes, every file type and import mode, and the
+; import-file number VB6 reads from the digits before the last dot of the name.
+; VB6 pads an import whose size is 3 more than a multiple of 4 with one zero word.
+; Paths are relative to the TRLE folder.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+; === Sizes of 1 to 5 bytes, 7, 51 and 256 bytes ===
+ImportFile= 0,extras\size1.bin,FTYPE_USERFILE,IMPORT_MEMORY
+ImportFile= 1,extras\size2.bin,FTYPE_SOUND,IMPORT_TEMPORARY
+ImportFile= 2,extras\size3.bin,FTYPE_SETTINGS,0
+ImportFile= 3,extras\size4.bin,1,1
+ImportFile= 4,extras\size5.bin,2,2
+ImportFile= 5,extras\size7.bin,3,0
+ImportFile= 6,extras\size51.bin,FTYPE_USERFILE,IMPORT_MEMORY
+ImportFile= 7,extras\size256.bin,FTYPE_USERFILE,IMPORT_TEMPORARY
+; === Import-file numbers: the largest, none, the digits before the last dot, and leading zeros ===
+ImportFile= 8,extras\item32767.bin,FTYPE_USERFILE,0
+ImportFile= 9,extras\nodigits.bin,FTYPE_USERFILE,0
+ImportFile= 10,extras\a.b12.bin,FTYPE_USERFILE,0
+ImportFile= 11,extras\deep\chunk0012.bin,FTYPE_USERFILE,0
+; === A file in the TRLE folder itself, and a name holding spaces under the highest id ===
+ImportFile= 12,root13.raw,FTYPE_USERFILE,0
+ImportFile= 65535,extras\my file 14.bin,FTYPE_USERFILE,0
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Import Level
+Level= data\imports,1
+LoadCamera= 0,0,0,0,0,0,0

@@ -1,0 +1,34 @@
+; Corpus workspace: an encrypted Script.dat.
+; SET_CRYPT_SCRIPT makes VB6 add the level paths as one text joined by "|", padded to an even length
+; with a space, and scramble the first 64 bytes of the file.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+Settings= SET_CRYPT_SCRIPT+SET_DISABLE_CHEATS
+CryptPersonalKey= 1234567
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Crypt Level One
+Level= data\a,1
+LoadCamera= 1,2,3,4,5,6,7
+Fog= 1,2,3
+TriggerGroup= 1,$2000,406,1
+
+[Level]
+Name= Crypt Level Two
+; === A path holding a space ===
+Level= data\level b,2
+LoadCamera= 0,0,0,0,0,0,0
+Snow= SNOW_ALL_OUTSIDE
+
+[Level]
+Name= Crypt Level Three
+Level= data\c,3
+LoadCamera= 0,0,0,0,0,0,0

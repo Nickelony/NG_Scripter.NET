@@ -1,0 +1,2 @@
+   This text comes from a file-backed ExtraNG string.
+It is intended to exercise @file loading and CRLF/LF normalization.

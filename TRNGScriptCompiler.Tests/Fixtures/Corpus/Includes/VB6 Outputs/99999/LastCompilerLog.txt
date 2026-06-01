@@ -1,0 +1,101 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 6 standard strings
+	Found 0 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\Includes\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\Includes
+------------ PARSING FILE <SCRIPT.TXT> ----------
+======== Start scanning of #include file: inc_options.txt  ==========
+------------ END FILE <inc_options.txt> ----------
+------------ PARSING FILE <SCRIPT.TXT> ----------
+======== Start scanning of #include file: inc_common.txt  ==========
+------------ END FILE <inc_common.txt> ----------
+------------ PARSING FILE <SCRIPT.TXT> ----------
+======== Start scanning of #include file: inc_outer.txt  ==========
+======== Start scanning of #include file: inc_inner.txt  ==========
+------------ END FILE <inc_inner.txt> ----------
+------------ PARSING FILE <inc_outer.txt> ----------
+------------ END FILE <inc_outer.txt> ----------
+------------ PARSING FILE <SCRIPT.TXT> ----------
+======== Start scanning of #include file: inc_section.txt  ==========
+------------ END FILE <inc_section.txt> ----------
+------------ PARSING FILE <SCRIPT.TXT> ----------
+======== Start scanning of #include file: inc_common.txt  ==========
+------------ END FILE <inc_common.txt> ----------
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 6 standard strings
+	Found 0 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:4
+	Level: "data\title"
+	Level: "data\include one"
+	Level: "data\include two"
+	Level: "data\include three"
+Saving Header NG Data...
+[OPTIONS] Section ...
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\include one
+	Scanning: TriggerGroup= 1,$2000,CORPUS_SCOPE,1
+	Scanning: TriggerGroup= 3,$2000,CORPUS_SCOPE,3
+	Scanning: TriggerGroup= 2,$2000,CORPUS_SCOPE,2
+------- Statistic about amount of multiple commands in current level section -------
+[3/999] TriggerGroup=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\include two
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\include three
+	Scanning: TriggerGroup= 1,$2000,CORPUS_SCOPE,1
+------- Statistic about amount of multiple commands in current level section -------
+[1/999] TriggerGroup=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\Includes\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\Includes\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\Includes\script\English.DAT
+Scanning English.txt
+	Found 6 standard strings
+	Found 0 extra ng strings
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\Includes\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\Includes\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\Includes\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 2 errors
+Last error: 
+
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0

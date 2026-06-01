@@ -1,0 +1,5 @@
+<Solution>
+	<Project Path="TRNGScriptCompiler.Cli/TRNGScriptCompiler.Cli.csproj" />
+	<Project Path="TRNGScriptCompiler.Tests/TRNGScriptCompiler.Tests.csproj" />
+	<Project Path="TRNGScriptCompiler/TRNGScriptCompiler.csproj" />
+</Solution>

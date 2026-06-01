@@ -1,0 +1,39 @@
+; Corpus workspace: TriggerGroup= in its word form and its long form, GlobalTrigger= with seven and six
+; arguments, and TestPosition= with each form of its slot argument.
+; VB6 writes TriggerGroup= in long form when some $ value of the line has a bit set in bits 16-23.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Trigger Level One
+Level= data\triggers one,1
+LoadCamera= 0,0,0,0,0,0,0
+; === Word form ===
+TriggerGroup= 1,$2000,406,1
+TriggerGroup= 2,TGROUP_OR+$2000,406,2,$8000,$FFFF,3
+TriggerGroup= 3,IGNORE,IGNORE,IGNORE
+TriggerGroup= 4, $2000 , 406 , 4
+; === Word form with 84 triplets, 253 words ===
+TriggerGroup= 5,$2000,2,1,$2000,3,2,$2000,4,3,$2000,5,4,$2000,6,5,$2000,7,6,$2000,8,7,$2000,9,8,$2000,10,9,$2000,11,10,$2000,12,11,$2000,13,12,$2000,14,13,$2000,15,14,$2000,16,15,$2000,17,16,$2000,18,17,$2000,19,18,$2000,20,19,$2000,21,20,$2000,22,21,$2000,23,22,$2000,24,23,$2000,25,24,$2000,26,25,$2000,27,26,$2000,28,27,$2000,29,28,$2000,30,29,$2000,31,30,$2000,32,31,$2000,33,32,$2000,34,33,$2000,35,34,$2000,36,35,$2000,37,36,$2000,38,37,$2000,39,38,$2000,40,39,$2000,41,40,$2000,42,41,$2000,43,42,$2000,44,43,$2000,45,44,$2000,46,45,$2000,47,46,$2000,48,47,$2000,49,48,$2000,50,49,$2000,51,50,$2000,52,51,$2000,53,52,$2000,54,53,$2000,55,54,$2000,56,55,$2000,57,56,$2000,58,57,$2000,59,58,$2000,60,59,$2000,61,60,$2000,62,61,$2000,63,62,$2000,64,63,$2000,65,64,$2000,66,65,$2000,67,66,$2000,68,67,$2000,69,68,$2000,70,69,$2000,71,70,$2000,72,71,$2000,73,72,$2000,74,73,$2000,75,74,$2000,76,75,$2000,77,76,$2000,78,77,$2000,79,78,$2000,80,79,$2000,81,80,$2000,82,81,$2000,83,82,$2000,84,83,$2000,85,84
+; === Long form: a plugin id in bits 16-23 of the first triplet, then of a later triplet ===
+TriggerGroup= 10,$10001,406,1
+TriggerGroup= 11,$2000,406,1,$FF0002,$12345678,-1
+; === Long form with 42 triplets, 253 words ===
+TriggerGroup= 12,$20001,100001,-1,$30002,100002,-2,$40003,100003,-3,$50004,100004,-4,$60005,100005,-5,$70006,100006,-6,$80007,100007,-7,$90008,100008,-8,$A0009,100009,-9,$B000A,100010,-10,$C000B,100011,-11,$D000C,100012,-12,$E000D,100013,-13,$F000E,100014,-14,$1000F,100015,-15,$20010,100016,-16,$30011,100017,-17,$40012,100018,-18,$50013,100019,-19,$60014,100020,-20,$70015,100021,-21,$80016,100022,-22,$90017,100023,-23,$A0018,100024,-24,$B0019,100025,-25,$C001A,100026,-26,$D001B,100027,-27,$E001C,100028,-28,$F001D,100029,-29,$1001E,100030,-30,$2001F,100031,-31,$30020,100032,-32,$40021,100033,-33,$50022,100034,-34,$60023,100035,-35,$70024,100036,-36,$80025,100037,-37,$90026,100038,-38,$A0027,100039,-39,$B0028,100040,-40,$C0029,100041,-41,$D002A,100042,-42
+; === GlobalTrigger= with seven arguments, and with six, where VB6 adds -1 ===
+GlobalTrigger= 1,FGT_SINGLE_SHOT,GT_ENEMY_KILLED,SKELETON,IGNORE,1,2
+GlobalTrigger= 2,IGNORE,GT_SCREEN_TIMER_REACHED,$7FFFFFFF,IGNORE,3
+; === Organizer= that performs the groups above ===
+Organizer= 1,FO_ENABLED,0,0,1,30,2,60,3
+; === TestPosition= with a slot name, a $ slot and an item index above the slots ===
+TestPosition= 1,0,LARA,-512,512,0,0,-256,256,0,0,0,0,0,0
+TestPosition= 2,TPOS_TEST_ITEM_INDEX,1000,0,0,0,0,0,0,-32768,65535,0,0,0,0
+TestPosition= 3,TPOS_DOUBLE_HORIENT,$1EA,1,2,3,4,5,6,7,8,9,10,11,12

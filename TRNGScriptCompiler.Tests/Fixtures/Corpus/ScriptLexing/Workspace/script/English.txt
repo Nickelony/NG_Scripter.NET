@@ -1,0 +1,14 @@
+[Strings]
+Lexing Level, With Comma
+Lexing Level Two
+Continued Legend
+Spaced Key Name
+The "Lexing" Pickup
+7" Note
+A Legend With Spaces
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

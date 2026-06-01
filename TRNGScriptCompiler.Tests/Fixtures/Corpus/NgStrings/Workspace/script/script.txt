@@ -1,0 +1,48 @@
+; Corpus workspace: the NG commands with string arguments.
+; A string argument names a classic string, which wins, or an ExtraNG string; !NNN gives an ExtraNG index,
+; and * or IGNORE give -1.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+; === DefaultWindowsFont= works only in [Title] ===
+DefaultWindowsFont= 1,0,10,0,1,2,3,4,5,6,7,8,9,10
+WindowTitle= Strings Title Window
+; === Arial is both a classic and an ExtraNG string: the classic one wins ===
+WindowsFont= 1,Arial,WFF_BOLD+WFF_ITALIC,12,1,0
+
+[Level]
+Name= Strings Level One
+Level= data\strings one,1
+LoadCamera= 0,0,0,0,0,0,0
+; === An ExtraNG index ===
+WindowTitle= !130
+; === Font names: an ExtraNG index, an ExtraNG text, IGNORE, *, and _ looked up as text ===
+WindowsFont= 1,!131,0,10,1,0
+WindowsFont= 2,Courier New,WFF_SHADOW,-1,65535,0
+WindowsFont= 3,IGNORE,0,0,0,0
+WindowsFont= 4,*,0,0,0,0
+WindowsFont= 5,_,0,0,0,0
+Diary= 1,MEMCARD_LOAD_INV_ITEM,LDF_SILENT,0,PL_DOUBLE_PAGE,Diary First Page,1,2
+SavegamePanel= SPF_SCROLL_PAGE,0,32,8,SPL_LEFT_IMAGE_RIGHT_INFO,Savegame Info Format,1,2,3
+StandBy= 1,TSB_MATRIX,30,FSB_EXIT_ON_ATTACK,Stand By Text,1,IGNORE,0,0,0,IGNORE,IGNORE
+StandBy= 2,TSB_PORTRAIT,30,0,!132,2,0,0,0,0,0,0
+Demo= DEMF_PLAY_LEVEL_SEQUENCE,0,Demo Info Text,Demo Legend Text,30,1,2,3
+; === A Damage= bar name that only [ExtraNG] holds ===
+Damage= 0,10,10,0,Extra Damage Bar,10
+
+[Level]
+Name= Strings Level Two
+Level= data\strings two,2
+LoadCamera= 0,0,0,0,0,0,0
+; === A string named in another letter case ===
+WindowTitle= STRINGS LEVEL TWO WINDOW
+Diary= 2,0,0,0,0,*,0,0
+SavegamePanel= 0,0,0,0,0,IGNORE,0,0,0
+Demo= 0,0,*,IGNORE,0

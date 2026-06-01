@@ -1,0 +1,6 @@
+# Git checks out every text file with CRLF, the line ending .editorconfig sets, whatever the system or core.autocrlf,
+# so a test that hashes or compares a shipped text file, such as scripter_constants.txt, reads the same bytes on Linux.
+* text=auto eol=crlf
+# The fixtures hold the exact bytes the VB6 compiler read and wrote, so git never converts their line endings.
+TRNGScriptCompiler.Tests/Fixtures/** -text
+TRNGScriptCompiler.Tests/Fixtures/**/*.md text

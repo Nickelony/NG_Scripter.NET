@@ -1,0 +1,82 @@
+; Corpus workspace: number forms, constants, slot and static names, #DEFINE values and sums,
+; in classic and NG arguments.
+
+; === #DEFINE values: decimal, hexadecimal, negative, a sum with a constant and a define, tabs, a comment ===
+#DEFINE CORPUS_RED 200
+#DEFINE CORPUS_HEX $1F
+#DEFINE CORPUS_NEG -5
+#DEFINE CORPUS_FROM_CONST FT_CENTER_CENTER+1
+#DEFINE CORPUS_SUM CORPUS_RED+5
+#DEFINE	CORPUS_TAB	8
+#DEFINE CORPUS_COMMENTED 9 ; the comment is not part of the value
+#define corpus_lower 12
+#DEFINE CORPUS_STRING_ID 130
+
+[Language]
+; === A File= index written as a hexadecimal number ===
+File= $0,English.txt
+
+[Options]
+Title= ENABLED
+; === InputTimeOut= and Security= as sums of defines ===
+InputTimeOut= CORPUS_RED+100
+Security= CORPUS_HEX
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Numbers Level One
+; === Inventory word values: $, &H, &O, a negative, a sum with spaces and a define sum ===
+Key= 1,Number Key,$7FFF,&H7FFF,&O77777,-1,1 + 2 + 3,CORPUS_SUM
+Key= 2,Number Key,#7FFF,$ffff,10-3,CORPUS_TAB,CORPUS_COMMENTED,CORPUS_LOWER
+; === A define, a lower-case hexadecimal value and an octal value in byte fields ===
+UVRotate= CORPUS_NEG
+Layer1= $FF,$ff,#1F,-$10
+Layer2= &H10,&O17,&H7F,&O177
+; === LensFlare= coordinates as hexadecimal values and sums, colors as static names ===
+LensFlare= $100,-$200,1024+256,PLANT5,ROCK9,EXTRA99
+; === Defines, including one defined at the end of the file ===
+Fog= CORPUS_RED,CORPUS_HEX,CORPUS_LATE
+; === A slot name in a sum, and the largest X origin in hexadecimal ===
+Mirror= LARA+1,$7FFFFFFF
+AnimatingMIP= 4-1,10-2
+ResidentCut= 1+1,CORPUS_HEX
+; === Constant names in a sum ===
+Cut= ENABLED+DISABLED+2
+; === 4-byte values at both ends, written as sums, hexadecimal and octal ===
+LoadCamera= -2147483647+1,2147483647-1,$7FFFFFFF,-$7FFFFFFF,&H7FFFFFFF,&O17777777777,0
+Level= data\numbers one,CORPUS_HEX+1
+; === NG word arguments: constants, sums, the ends of the word range ===
+Snow= SNOW_ALL_OUTSIDE+0
+LevelFarView= $FFFF
+FogRange= -32768,65535
+TextFormat= CL_RED,FT_SIZE_DOUBLE_CHAR+FT_CENTER_CENTER,&H10,CORPUS_FROM_CONST
+ColorRGB= 1,#FF,&HFF,&O377
+; === A define, a static name and a slot name in NG word arguments ===
+ColorRGB= 2,CORPUS_RED,PLANT5,LARA
+; === A constant name in lower case ===
+Turbo= TRB_SELECTIVE_VIEW+TRB_HIGH_PRIORITY,ignore
+; === Slot arguments: a $ literal and a number in the range 465-490, and a slot name ===
+Equipment= $1D2,CORPUS_RED
+Equipment= FROG_MAN_HARPOON,1
+AssignSlot= 465,OBJ_MOTOR_BOAT
+; === NG long arguments ===
+Customize= CUST_SET_SECRET_NUMBER,CORPUS_HEX
+Parameters= PARAM_MOVE_ITEM,&H10,1,-1,$FFFF
+; === String indexes as a define, a $ value, an &H value, an &O value and a decimal value ===
+WindowTitle= !CORPUS_STRING_ID
+WindowsFont= 1,!$83,0,10,1,0
+Diary= 1,2,3,4,5,!&H84,6,7
+StandBy= 1,0,0,0,!&O205,1,0,0,0,0,0,0
+SavegamePanel= 0,0,0,0,0,!0,0,0,0
+
+[Level]
+Name= Numbers Level Two
+LoadCamera= 0,0,0,0,0,0,0
+Level= data\numbers two,2
+; === The define that a Fog= line further up uses ===
+#DEFINE CORPUS_LATE 77
+; === #FIRST_ID only guides the NG Center editor, so a compile skips it ===
+#FIRST_ID Organizer=10

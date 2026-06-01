@@ -1,0 +1,115 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 7 standard strings
+	Found 2 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 7 standard strings
+	Found 2 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:2
+	Level: "data\title"
+	Level: "data\multi"
+Saving Header NG Data...
+[OPTIONS] Section ...
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\multi
+	Scanning: WindowTitle= !100
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\English.DAT
+Scanning English.txt
+	Found 7 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\English.DAT
+	Number of words for extra strings = 21
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\English.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\French.DAT
+Scanning French.txt
+	Found 7 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\French.DAT
+	Number of words for extra strings = 22
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\French.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\German.DAT
+Scanning German.txt
+	Found 7 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\German.DAT
+	Number of words for extra strings = 21
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\German.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\Italian.DAT
+Scanning Italian.txt
+	Found 7 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\Italian.DAT
+	Number of words for extra strings = 22
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\Italian.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\Spanish.DAT
+Scanning Spanish.txt
+	Found 7 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\Spanish.DAT
+	Number of words for extra strings = 21
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\Spanish.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\US.DAT
+Scanning US.txt
+	Found 7 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\US.DAT
+	Number of words for extra strings = 16
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\US.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\JAPAN.DAT
+Scanning JAPAN.TXT
+	Found 7 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\JAPAN.DAT
+	Number of words for extra strings = 19
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\JAPAN.DAT
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\DUTCH.DAT
+Scanning DUTCH.TXT
+	Found 7 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\DUTCH.DAT
+	Number of words for extra strings = 24
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script\DUTCH.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\LanguageMulti\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 2 errors
+Last error: 
+
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0

@@ -1,0 +1,9 @@
+# "used to" tells history; after a form of "be" it means "accustomed to" or names a purpose, which stays.
+extends: existence
+message: "Remove the history in '%s', and state what the code does now."
+level: error
+ignorecase: true
+tokens:
+  - \w+\s+used to
+exceptions:
+  - (?:is|are|was|were|be|been|being)\s+used to

@@ -1,0 +1,19 @@
+; Corpus workspace for one @file text whose VB6 result the source does not settle.
+; Its second line starts with spaces, and its last line ends with spaces and no line break; the VB6
+; build that made the goldens trims the spaces at the end of a line, which its source does not.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Uncertain Level
+Level= data\uncertain,1
+LoadCamera= 0,0,0,0,0,0,0
+WindowTitle= !100

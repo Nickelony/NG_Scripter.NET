@@ -1,0 +1,16 @@
+[Strings]
+Multi Level JP
+Multi Legend JP
+Multi Key JP
+Plain text JP
+Typographic \x93Japan\x94 \x96 \x85
+
+[PSXStrings]
+PSX Japan
+
+[PCStrings]
+PC Japan
+
+[ExtraNG]
+100: Japan Window
+101: \x93Japan\x94 Extra

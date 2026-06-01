@@ -1,0 +1,91 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 26 standard strings
+	Found 0 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ClassicSortOrder\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ClassicSortOrder
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 26 standard strings
+	Found 0 extra ng strings
+WARNING: there are 2 instances of command 'LoadCamera' in level '0' . It will be used only last instance
+WARNING: there are 3 instances of command 'LoadCamera' in level 'Sort Level One' . It will be used only last instance
+WARNING: there are 2 instances of command 'LoadCamera' in level 'Sort Level Two' . It will be used only last instance
+WARNING: there are 3 instances of command 'LoadCamera' in level 'Sort Level Four' . It will be used only last instance
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:5
+	Level: "data\title"
+	Level: "data\sort one"
+	Level: "DATA\TUT1"
+	Level: "data\sort three"
+	Level: "data\sort four"
+Saving Header NG Data...
+[OPTIONS] Section ...
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\sort one
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : DATA\TUT1
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\sort three
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\sort four
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ClassicSortOrder\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ClassicSortOrder\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ClassicSortOrder\script\English.DAT
+Scanning English.txt
+	Found 26 standard strings
+	Found 0 extra ng strings
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ClassicSortOrder\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ClassicSortOrder\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\ClassicSortOrder\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 6 errors
+Last error: 
+
+WARNING: there are 3 instances of command 'LoadCamera' in level 'Sort Level Four' . It will be used only last instance

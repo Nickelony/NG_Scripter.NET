@@ -1,0 +1,19 @@
+; Corpus workspace: script.txt and a chain of 20 nested include files, the most VB6 holds open at once.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Depth Level
+Level= data\depth,1
+LoadCamera= 0,0,0,0,0,0,0
+#INCLUDE "depth01.txt"
+; === A line after the whole chain has closed ===
+Cut= 21

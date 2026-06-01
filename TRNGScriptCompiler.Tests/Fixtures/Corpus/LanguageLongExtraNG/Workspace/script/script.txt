@@ -1,0 +1,18 @@
+; Corpus workspace: an [ExtraNG] chunk of more than 32767 words, which VB6 sizes with two words.
+; One @file text of about 66,000 characters fills the chunk.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Long Level
+Level= data\long,1
+LoadCamera= 0,0,0,0,0,0,0
+WindowTitle= !201

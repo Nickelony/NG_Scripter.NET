@@ -1,0 +1,26 @@
+[Strings]
+Corpus Title
+Title Legend
+Classic Level One
+Classic Level Two
+Classic Level Three
+Brass Key
+Iron Key
+Key Half
+First Puzzle
+Last Puzzle
+Puzzle Piece
+First Pickup
+Last Pickup
+Pickup Piece
+First Examine
+Last Examine
+Level One Legend
+Middle Key
+Level Two Legend
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

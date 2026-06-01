@@ -1,0 +1,105 @@
+; Quirks workspace: every line compiles in the VB6 NG_Scripter.
+; Each "===" comment names the quirk that the lines below it exercise.
+
+; === Section order differs from the standard one: [Language] first, [PSXExtensions] after [Options] ===
+[Language]
+File= 0,English.txt
+File= 1,French.txt
+File= 2,German.txt
+
+[PCExtensions]
+Level= .TR4
+FMV= .BIK
+Cut= .TR4
+
+[Options]
+Title= ENABLED
+LoadSave= ENABLED
+PlayAnyLevel= DISABLED
+DemoDisc= DISABLED
+InputTimeOut= 0
+Security= 0
+; === No script encryption: Settings= leaves out SET_CRYPT_SCRIPT ===
+Settings= SET_BLIND_SAVEGAMES
+Plugin= 2,PluginDemo,IGNORE
+LogItem= 1,2
+; === Imports of 46, 48 and 49 bytes, with import modes 0, 1 and 2 ===
+ImportFile= 10,extras\data046.bin,FTYPE_USERFILE,0
+ImportFile= 11,extras\data048.bin,FTYPE_USERFILE,IMPORT_MEMORY
+ImportFile= 12,extras\data049.bin,FTYPE_USERFILE,IMPORT_TEMPORARY
+
+[PSXExtensions]
+Level= .PSX
+FMV= .FMV
+Cut= .CUT
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Quirk Level One
+Level= data\quirk1,1
+LoadCamera= 0,0,0,0,0,0,0
+; === Lines that share a sort key, which VB6's exchange sort reverses because lower-key lines follow ===
+ResidentCut= 1,3
+ResidentCut= 2,4
+FMV= 1,0
+FMV= 2,1
+; === A command that sorts before the one above it ===
+Fog= 1,2,3
+UVRotate= 7
+; === &H7400: a VB hex literal that reads the same as $7400 ===
+Mirror= 1,&H7400
+; === Quotes and an inch mark inside names ===
+Key= 1,The "Eye" of Horus,1,2,3,4,5,6
+Puzzle= 1,12" Ruler,1,2,3,4,5,6
+; === A leading ':' tag, looked up by its raw key ===
+Legend= :Hello
+; === !NNN in an NG STRING argument ===
+WindowsFont= 1,!120,2,3,4,5
+; === An empty nybble array ===
+TextureSequence= 1,2,3
+; === A slot above 464 that the stock Objects.h defines, written as a number ===
+AssignSlot= 470,1234
+; === A TriggerGroup with IGNORE ===
+TriggerGroup= 1,$2000,IGNORE,1
+; === A plugin constant in a high-word position ===
+Customize= PLUGIN_DEMO_CONST,1,2
+; === TestPosition= ===
+TestPosition= 1,0,LARA,0,0,0,0,0,0,0,0,0,0,0,0
+
+[Level]
+Name= Quirk Level Two
+Level= data\quirk2,2
+LoadCamera= 0,0,0,0,0,0,0
+; === Negative speeds, which the engine reads as signed ===
+Layer1= 1,2,3,-4
+Layer2= 5,6,7,-8
+UVRotate= -1
+; === A source image4.bmp that Image= encrypts ===
+Image= 1,4,IF_CRYPTIC,IGNORE,IGNORE,IGNORE,IGNORE,IGNORE,IGNORE
+; === A positional @plugin block: plugin id 7 in the trigger becomes the Plugin= id 2 ===
+#define @PluginDemo 7
+TriggerGroup= 2,$70001,406,1
+#define @plugins clear
+; === A plugin id that no @plugin define names stays as written ===
+TriggerGroup= 3,$90001,406,1
+; === Static names that Objects.h lists several to a line ===
+StaticMIP= PLANT1,4,PLANT2,8,PLANT3
+
+[Level]
+Name= Quirk Level Three
+; === Duplicate Level= paths: the path of the first level again ===
+Level= data\quirk1,3
+; === A > continuation after a comma, which both compilers join with nothing between ===
+LoadCamera= 0,0,0,0,0,0,>
+0
+; === A hexadecimal string index: !$82 is ExtraNG index 130 ===
+WindowTitle= !$82
+
+[Options]
+; === A second [Options] section that repeats no NG option key ===
+FlyCheat= ENABLED
+DiagnosticType= 1,2
+WorldFarView= 20480

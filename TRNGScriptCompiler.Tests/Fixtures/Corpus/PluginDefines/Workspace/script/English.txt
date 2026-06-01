@@ -1,0 +1,13 @@
+[Strings]
+Plugin Level One
+Plugin Level Two
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+100: Plugin_CorpusAlpha
+101: Plugin_CorpusBeta

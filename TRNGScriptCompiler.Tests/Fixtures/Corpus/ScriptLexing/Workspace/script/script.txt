@@ -1,0 +1,66 @@
+; Corpus workspace: script lines that both compilers read alike.
+; It covers > continuations next to a comma or right after "=", comments, tabs, runs of spaces,
+; the letter case of section names, commands and keywords, and a comma inside Name=.
+
+// A comment line of the // kind above the first section
+
+[language]
+File= 0,English.txt
+
+[OPTIONS]
+Title= enabled
+LoadSave= Enabled
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+; === A comma in Name= belongs to the name ===
+Name= Lexing Level, With Comma
+Level= data\lexing,1
+; === A > continuation after a comma, before a comma and right after "=" ===
+LoadCamera= 1,2,3,>
+4,5,6,7
+Fog= 10,20>
+,30
+Legend=>
+Continued Legend
+; === Three pieces joined into one line ===
+Layer1= 1,>
+2,>
+3,4
+; === A > inside a ; comment does not continue the line ===
+UVRotate= 5 ; a > b
+; === // comments: a whole line, and the end of a command line ===
+// a comment line
+ResetHUB= 6 // a trailing comment
+; === A ; comment ends the line before a // does ===
+Cut= 7 ; first // second
+; === Tabs and runs of spaces between arguments ===
+Mirror=	8,	   9
+ResidentCut=   1 ,   2
+; === No space after "=" ===
+AnimatingMIP=3,4
+; === Command names and keywords in other letter cases ===
+fmv= 5,0
+LENSFLARE= 256,512,768,1,2,3
+horizon= ENABLED
+TRAIN= disabled
+; === Runs of spaces inside an item name collapse to one ===
+Key= 1,  Spaced   Key  Name  ,1,2,3,4,5,6
+; === Double quotes and an inch mark inside item names ===
+Pickup= 1,The "Lexing" Pickup,1,2,3,4,5,6
+Examine= 1,7" Note,1,2,3,4,5,6
+; === Blanks and tabs at both ends of a line ===
+   	Lightning= ENABLED
+
+[level]
+Name= Lexing Level Two
+Level= data\lexing two,2
+LoadCamera= 0,0,0,0,0,0,0
+; === Runs of spaces inside Legend= collapse to one ===
+Legend= A  Legend   With    Spaces
+; === An NG line continues the same way ===
+TriggerGroup= 1,$2000,>
+406,1

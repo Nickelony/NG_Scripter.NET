@@ -1,0 +1,34 @@
+; Corpus workspace: the classic [Options] settings and the extension sections, in shapes both compilers accept.
+
+[Language]
+File= 0,English.txt
+
+; === A lower-case section name and command names, in reverse slot order; the values fill all 20 bytes ===
+[pcextensions]
+cut= .CUTA
+fmv= .BIKAB
+level= .TR4AB
+
+; === One extension only: VB6 warns about the count and writes slot 0 ===
+[PSXExtensions]
+Level= .PSX
+
+[Options]
+; === Every switch but Title= set to DISABLED, in letter cases VB6 compares without regard to case ===
+LoadSave= disabled
+Title= ENABLED
+PlayAnyLevel= Disabled
+FlyCheat= DISABLED
+DemoDisc= DISABLED
+; === Hexadecimal InputTimeOut= and Security= values, as in the VB6 help ===
+InputTimeOut= $4650
+Security= $55
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Options Level
+Level= data\options,1
+LoadCamera= 0,0,0,0,0,0,0

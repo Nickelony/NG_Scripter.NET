@@ -1,0 +1,25 @@
+<Project>
+	<!--
+		The recommended CA rules apply to the shipped projects; a test name keeps its underscores.
+		No level is set, so the SDK checks each target at the level of its own framework.
+	-->
+	<PropertyGroup Condition="'$(IsTestProject)' != 'true'">
+		<EnableNETAnalyzers Condition="'$(EnableNETAnalyzers)' == ''">true</EnableNETAnalyzers>
+		<AnalysisMode Condition="'$(AnalysisMode)' == ''">Recommended</AnalysisMode>
+	</PropertyGroup>
+
+	<!--
+		The strict scan fails on any finding, so it stays off Build and runs on request,
+		from the Stanza checkout rather than a package, so no rule is stale.
+	-->
+	<PropertyGroup>
+		<StanzaMarkupProject>$(StanzaRepoRoot)\src\Nickelony.Stanza.Markup\Nickelony.Stanza.Markup.csproj</StanzaMarkupProject>
+	</PropertyGroup>
+
+	<Target Name="StanzaMarkupCheck" Condition="Exists('$(StanzaMarkupProject)')">
+		<Exec
+			Command="dotnet run --project &quot;$(StanzaMarkupProject)&quot; -c Debug -- check . --format msbuild --strict"
+			WorkingDirectory="$(MSBuildThisFileDirectory)"
+		/>
+	</Target>
+</Project>

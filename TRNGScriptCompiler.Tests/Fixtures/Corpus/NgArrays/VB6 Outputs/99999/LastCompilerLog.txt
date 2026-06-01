@@ -1,0 +1,100 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgArrays\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgArrays
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:2
+	Level: "data\title"
+	Level: "data\arrays one"
+Saving Header NG Data...
+[OPTIONS] Section ...
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\arrays one
+	Scanning: Enemy= SKELETON,1000,NEF_EXPLODE+NEF_HIT_BLOOD,TCF_CREATURE,0,1,2,3
+	Scanning: Enemy= 490,-1,0,0,0
+	Scanning: Animation= 100,0,0,FAN_SET_FREE_HANDS,ENV_HOLE_FLOOR_IN_FRONT,1024,0,1,-2,3
+	Scanning: Animation= 100,1,1,0,0,0,0
+	Scanning: MirrorEffect= 1,2,ANIMATING1,ANIMATING16
+	Scanning: MirrorEffect= 1,2
+	Scanning: Elevator= 1,1024,4,0,1,2,3
+	Scanning: Elevator= 2,1024,4,0,1,2,3,10,11,12
+	Scanning: AddEffect= 1,ADD_FLAME,FADD_NO_SOUND,JOINT_LEFT_KNEE,0,-128,0,30,0
+	Scanning: AddEffect= 2,ADD_SMOKE,0,0,0,0,0,0,0,1,2,3
+	Scanning: TextureSequence= 1,2,SEQ_LOOP,0,15,$F,$0,7
+	Scanning: TextureSequence= 2,3,0,1,2
+	Scanning: TextureSequence= 3,4,SEQ_LOOP_INVERSE,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14
+	Scanning: MultEnvCondition= 1,ENV_HOLE_FLOOR_IN_FRONT,1024,0,ENV_NO_BLOCK_IN_FRONT,0,0,ENV_MONKEY_CEILING,0,0
+	Scanning: MultEnvCondition= 2,ENV_ONLAND,0,0
+	Scanning: Customize= CUST_SET_SECRET_NUMBER,70
+	Scanning: Customize= CUST_SET_SECRET_NUMBER,71
+	Scanning: Customize= $7FFFFFFF
+	Scanning: Organizer= 1,FO_ENABLED+FO_LOOP,0,30,1,60,2
+	Scanning: Organizer= 2,FO_ENABLED,0,0,1
+	Scanning: Parameters= PARAM_MOVE_ITEM,1,10,20
+	Scanning: Parameters= PARAM_MOVE_ITEM,2,30
+	Scanning: Parameters= PARAM_ROTATE_ITEM,1
+	Scanning: AnimationSlot= LARA,0,100,0,0,0,0,0,0
+	Scanning: AnimationSlot= SKELETON,1,10,0,0,0,0,0,0,1,2
+	Scanning: ItemGroup= 1,2,7,14,21,28,35,42,49,56,63,70,77,84,91,98,105,112,119,126,133,140,147,154,161,168,175,182,189,196,203,210,217,224,231,238,245,252,259,266,273,280,287,294,301,308,315,322,329,336,343,350,357,364,371,378,385,392,399,406,413,420,427,434,441,448,455,462,469,476,483,490,497,504,511,518,525,532,539,546,553,560,567,574,581,588,595,602,609,616,623,630,637,644,651,658,665,672,679,686,693,700,707,714,721,728,735,742,749,756,763,770,777,784,791,798,805,812,819,826,833,840,847,854,861,868,875,882,889,896,903,910,917,924,931,938,945,952,959,966,973,980,987,994,1,8,15,22,29,36,43,50,57,64,71,78,85,92,99,106,113,120,127,134,141,148,155,162,169,176,183,190,197,204,211,218,225,232,239,246,253,260,267,274,281,288,295,302,309,316,323,330,337,344,351,358,365,372,379,386,393,400,407,414,421,428,435,442,449,456,463,470,477,484,491,498,505,512,519,526,533,540,547,554,561,568,575,582,589,596,603,610,617,624,631,638,645,652,659,666,673,680,687,694,701,708,715,722,729,736,743,750,757,764,771
+------- Statistic about amount of multiple commands in current level section -------
+[3/99] TextureSequence=
+[3/Unlimited] Customize=
+[3/Unlimited] Parameters=
+[2/20] Elevator=
+[2/99] AddEffect=
+[2/100] Enemy=
+[2/255] MultEnvCondition=
+[2/256] Animation=
+[2/499] Organizer=
+[2/100] MirrorEffect=
+[2/511] AnimationSlot=
+[1/99] ItemGroup=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgArrays\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgArrays\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgArrays\script\English.DAT
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgArrays\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgArrays\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgArrays\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 2 errors
+Last error: 
+
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0

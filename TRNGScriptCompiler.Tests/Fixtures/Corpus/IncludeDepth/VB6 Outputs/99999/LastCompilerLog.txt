@@ -1,0 +1,124 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\IncludeDepth\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\IncludeDepth
+------------ PARSING FILE <SCRIPT.TXT> ----------
+======== Start scanning of #include file: depth01.txt  ==========
+======== Start scanning of #include file: depth02.txt  ==========
+======== Start scanning of #include file: depth03.txt  ==========
+======== Start scanning of #include file: depth04.txt  ==========
+======== Start scanning of #include file: depth05.txt  ==========
+======== Start scanning of #include file: depth06.txt  ==========
+======== Start scanning of #include file: depth07.txt  ==========
+======== Start scanning of #include file: depth08.txt  ==========
+======== Start scanning of #include file: depth09.txt  ==========
+======== Start scanning of #include file: depth10.txt  ==========
+======== Start scanning of #include file: depth11.txt  ==========
+======== Start scanning of #include file: depth12.txt  ==========
+======== Start scanning of #include file: depth13.txt  ==========
+======== Start scanning of #include file: depth14.txt  ==========
+======== Start scanning of #include file: depth15.txt  ==========
+======== Start scanning of #include file: depth16.txt  ==========
+======== Start scanning of #include file: depth17.txt  ==========
+======== Start scanning of #include file: depth18.txt  ==========
+======== Start scanning of #include file: depth19.txt  ==========
+======== Start scanning of #include file: depth20.txt  ==========
+------------ END FILE <depth20.txt> ----------
+------------ PARSING FILE <depth19.txt> ----------
+------------ END FILE <depth19.txt> ----------
+------------ PARSING FILE <depth18.txt> ----------
+------------ END FILE <depth18.txt> ----------
+------------ PARSING FILE <depth17.txt> ----------
+------------ END FILE <depth17.txt> ----------
+------------ PARSING FILE <depth16.txt> ----------
+------------ END FILE <depth16.txt> ----------
+------------ PARSING FILE <depth15.txt> ----------
+------------ END FILE <depth15.txt> ----------
+------------ PARSING FILE <depth14.txt> ----------
+------------ END FILE <depth14.txt> ----------
+------------ PARSING FILE <depth13.txt> ----------
+------------ END FILE <depth13.txt> ----------
+------------ PARSING FILE <depth12.txt> ----------
+------------ END FILE <depth12.txt> ----------
+------------ PARSING FILE <depth11.txt> ----------
+------------ END FILE <depth11.txt> ----------
+------------ PARSING FILE <depth10.txt> ----------
+------------ END FILE <depth10.txt> ----------
+------------ PARSING FILE <depth09.txt> ----------
+------------ END FILE <depth09.txt> ----------
+------------ PARSING FILE <depth08.txt> ----------
+------------ END FILE <depth08.txt> ----------
+------------ PARSING FILE <depth07.txt> ----------
+------------ END FILE <depth07.txt> ----------
+------------ PARSING FILE <depth06.txt> ----------
+------------ END FILE <depth06.txt> ----------
+------------ PARSING FILE <depth05.txt> ----------
+------------ END FILE <depth05.txt> ----------
+------------ PARSING FILE <depth04.txt> ----------
+------------ END FILE <depth04.txt> ----------
+------------ PARSING FILE <depth03.txt> ----------
+------------ END FILE <depth03.txt> ----------
+------------ PARSING FILE <depth02.txt> ----------
+------------ END FILE <depth02.txt> ----------
+------------ PARSING FILE <depth01.txt> ----------
+------------ END FILE <depth01.txt> ----------
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:2
+	Level: "data\title"
+	Level: "data\depth"
+Saving Header NG Data...
+[OPTIONS] Section ...
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\depth
+	Scanning: TriggerGroup= 1,$2000,CORPUS_DEPTH,1
+------- Statistic about amount of multiple commands in current level section -------
+[1/999] TriggerGroup=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\IncludeDepth\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\IncludeDepth\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\IncludeDepth\script\English.DAT
+Scanning English.txt
+	Found 3 standard strings
+	Found 0 extra ng strings
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\IncludeDepth\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\IncludeDepth\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\IncludeDepth\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 2 errors
+Last error: 
+
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0

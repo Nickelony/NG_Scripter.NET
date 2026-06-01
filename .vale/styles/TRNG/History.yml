@@ -1,0 +1,12 @@
+# A doc states what the code does, never how it got there, from rule 3 of STYLEGUIDE.md.
+extends: existence
+message: "Remove the history in '%s', and state what the code does now."
+level: error
+ignorecase: true
+tokens:
+  - previously
+  - no longer
+  - we decided
+  - (?:was|were|has been|have been) renamed
+  - legacy
+  - migrated

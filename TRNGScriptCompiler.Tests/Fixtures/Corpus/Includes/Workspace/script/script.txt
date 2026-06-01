@@ -1,0 +1,39 @@
+; Corpus workspace: #INCLUDE files that both compilers read alike.
+; It covers an include above the first section, includes inside a level, a nested include, an include
+; that opens a section, one include used by two levels, and defines that each file keeps to itself.
+; [Language] stays in script.txt, because NG Center looks for the language files there before it compiles.
+
+#DEFINE CORPUS_SCOPE 1
+
+; === An include above the first section that opens the [Options] section ===
+#INCLUDE "inc_options.txt"
+
+[Language]
+File= 0,English.txt
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Include Level One
+Level= data\include one,1
+LoadCamera= 0,0,0,0,0,0,0
+; === CORPUS_SCOPE is 1 in this file ===
+UVRotate= CORPUS_SCOPE
+; === An include that two levels use ===
+#INCLUDE "inc_common.txt"
+; === A lower-case directive and a nested include ===
+#include "inc_outer.txt"
+; === Lines after an include belong to this file again ===
+Fog= CORPUS_SCOPE,2,3
+
+; === An include that opens a [Level] section of its own ===
+#INCLUDE "inc_section.txt"
+
+[Level]
+Name= Include Level Three
+Level= data\include three,3
+LoadCamera= 0,0,0,0,0,0,0
+#INCLUDE "inc_common.txt"
+Layer2= CORPUS_SCOPE,4,5,6

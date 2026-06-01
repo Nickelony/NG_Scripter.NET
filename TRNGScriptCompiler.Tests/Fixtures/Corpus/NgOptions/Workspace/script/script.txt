@@ -1,0 +1,40 @@
+; Corpus workspace: every NG command of [Options] except ImportFile=, which ImportFiles covers.
+; The commands are spread over three [Options] sections, which VB6 joins into one list with one
+; duplicate table, so no command repeats.
+; The Plugin= lines name plugins NG Center does not have installed; their names are ExtraNG strings.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+; === The switches: ENABLED and DISABLED set different bits, and the case of the keyword does not matter ===
+Diagnostic= ENABLED
+CRS= disabled
+ForceBumpMapping= DISABLED
+ShowLaraInTitle= ENABLED
+NewSoundEngine= DISABLED
+WorldFarView= 127
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Options]
+LoadSave= ENABLED
+Settings= SET_DISABLE_CHEATS+SET_BLIND_SAVEGAMES+SET_PERFORM_FROM_CD
+SoundSettings= SQ_HIGH_QUALITY,100,65535
+LogItem= FLI_SHOW_DIFFERENCES+FLI_SHOW_BOUND,-1
+DiagnosticType= DGX_LARA+DGX_ANIMATION+DGX_FAR_VIEW,EDGX_CONCISE_SCRIPT_LOG+EDGX_TRIGGER_TIMING
+
+[Level]
+Name= NG Options Level
+Level= data\ngoptions,1
+LoadCamera= 0,0,0,0,0,0,0
+
+[Options]
+CryptPersonalKey= $7FFFFFFF
+; === Plugin= with a constant, with a feature array, and with a $ id ===
+Plugin= 1,Plugin_CorpusOne,MPS_DISABLE
+Plugin= 2,Plugin_CorpusTwo,0,1,2,65535
+Plugin= $3,Plugin_CorpusThree,IGNORE

@@ -1,0 +1,8 @@
+[Strings]
+Array Level One
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

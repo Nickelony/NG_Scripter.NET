@@ -1,0 +1,19 @@
+; Corpus workspace for one ExtraNG line whose VB6 result the source does not settle.
+; Its text ends in a ; comment: the source cuts the comment and keeps the space before it, while the
+; VB6 build that made the goldens trims the spaces that end each line of an @file text.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Uncertain Level
+Level= data\uncertain,1
+LoadCamera= 0,0,0,0,0,0,0
+WindowTitle= !100

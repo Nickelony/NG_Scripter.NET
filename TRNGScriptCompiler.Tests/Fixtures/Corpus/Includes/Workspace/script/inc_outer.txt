@@ -1,0 +1,7 @@
+; Includes inc_inner.txt: CORPUS_SCOPE is 60 in this file
+#DEFINE CORPUS_SCOPE 60
+Mirror= CORPUS_SCOPE,1
+#INCLUDE "inc_inner.txt"
+; Lines after the nested include belong to this file again
+ResetHUB= CORPUS_SCOPE
+TriggerGroup= 2,$2000,CORPUS_SCOPE,2

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<!--
+			The executable keeps the name of the VB6 compiler it replaces. CA1707 checks public names alone,
+			and the host declares no public type, so the rule would reject this name only.
+		-->
+		<AssemblyName>NG_Scripter</AssemblyName>
+		<Product>NG_Scripter</Product>
+		<Description>Console host of the TRNG script compiler, a drop-in for NG Center's NG_Scripter.</Description>
+		<NoWarn>$(NoWarn);CA1707</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\TRNGScriptCompiler\TRNGScriptCompiler.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- The tests drive the internal console types. -->
+		<InternalsVisibleTo Include="TRNGScriptCompiler.Tests" />
+	</ItemGroup>
+</Project>

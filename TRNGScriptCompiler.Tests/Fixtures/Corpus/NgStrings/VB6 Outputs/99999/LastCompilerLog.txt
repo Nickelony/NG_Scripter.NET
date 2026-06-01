@@ -1,0 +1,95 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 13 standard strings
+	Found 6 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 13 standard strings
+	Found 6 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:3
+	Level: "data\title"
+	Level: "data\strings one"
+	Level: "data\strings two"
+Saving Header NG Data...
+[OPTIONS] Section ...
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+	Scanning: DefaultWindowsFont= 1,0,10,0,1,2,3,4,5,6,7,8,9,10
+	Scanning: WindowTitle= Strings Title Window
+	Scanning: WindowsFont= 1,Arial,WFF_BOLD+WFF_ITALIC,12,1,0
+------- Statistic about amount of multiple commands in current level section -------
+[1/99] WindowsFont=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\strings one
+	Scanning: WindowTitle= !130
+	Scanning: WindowsFont= 1,!131,0,10,1,0
+	Scanning: WindowsFont= 2,Courier New,WFF_SHADOW,-1,65535,0
+	Scanning: WindowsFont= 3,IGNORE,0,0,0,0
+	Scanning: WindowsFont= 4,*,0,0,0,0
+	Scanning: WindowsFont= 5,_,0,0,0,0
+	Scanning: Diary= 1,MEMCARD_LOAD_INV_ITEM,LDF_SILENT,0,PL_DOUBLE_PAGE,Diary First Page,1,2
+	Scanning: SavegamePanel= SPF_SCROLL_PAGE,0,32,8,SPL_LEFT_IMAGE_RIGHT_INFO,Savegame Info Format,1,2,3
+	Scanning: StandBy= 1,TSB_MATRIX,30,FSB_EXIT_ON_ATTACK,Stand By Text,1,IGNORE,0,0,0,IGNORE,IGNORE
+	Scanning: StandBy= 2,TSB_PORTRAIT,30,0,!132,2,0,0,0,0,0,0
+	Scanning: Demo= DEMF_PLAY_LEVEL_SEQUENCE,0,Demo Info Text,Demo Legend Text,30,1,2,3
+	Scanning: Damage= 0,10,10,0,Extra Damage Bar,10
+------- Statistic about amount of multiple commands in current level section -------
+[5/99] WindowsFont=
+[2/49] StandBy=
+[1/99] Diary=
+[1/2] Damage=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\strings two
+	Scanning: WindowTitle= STRINGS LEVEL TWO WINDOW
+	Scanning: Diary= 2,0,0,0,0,*,0,0
+	Scanning: SavegamePanel= 0,0,0,0,0,IGNORE,0,0,0
+	Scanning: Demo= 0,0,*,IGNORE,0
+------- Statistic about amount of multiple commands in current level section -------
+[1/99] Diary=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings\script\English.DAT
+Scanning English.txt
+	Found 13 standard strings
+	Found 6 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings\script\English.DAT
+	Number of words for extra strings = 55
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\NgStrings\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 2 errors
+Last error: 
+
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0

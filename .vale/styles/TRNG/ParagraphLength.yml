@@ -1,0 +1,7 @@
+# A longer run is split, or its fact moves to the page that owns it, as STYLEGUIDE.md says.
+extends: occurrence
+message: "Split this paragraph of %s words, or move its fact to the page that owns it."
+level: error
+scope: paragraph
+max: 80
+token: '[^\s]+'

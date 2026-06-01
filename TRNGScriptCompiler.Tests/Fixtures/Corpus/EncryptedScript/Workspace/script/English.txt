@@ -1,0 +1,10 @@
+[Strings]
+Crypt Level One
+Crypt Level Two
+Crypt Level Three
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

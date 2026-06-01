@@ -1,0 +1,12 @@
+[Strings]
+Uncertain Level
+
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+100: @edge_spaces.txt

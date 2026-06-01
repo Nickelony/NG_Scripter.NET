@@ -1,0 +1,22 @@
+[Strings]
+Niveau étrange un
+Niveau étrange deux
+Niveau étrange trois
+L'"Œil" d'Horus
+Règle de 12"
+Rue
+Rue large
+:Bonjour
+Guillemets \x93typographiques\x94, \x96tirets\x97 et le signe \x80
+Le signe \x9F ferme la plage
+
+[PSXStrings]
+Texte PSX
+
+[PCStrings]
+Texte PC
+
+[ExtraNG]
+100: PluginDemo
+120: Police supplémentaire
+130: Texte \x93cité\x94

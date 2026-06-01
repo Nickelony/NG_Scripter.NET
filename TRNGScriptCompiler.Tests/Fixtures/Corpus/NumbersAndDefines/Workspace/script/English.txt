@@ -1,0 +1,17 @@
+[Strings]
+Numbers Level One
+Numbers Level Two
+Number Key
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+0: Zero Index
+130: Numbers Window
+131: Numbers Font
+132: Numbers Diary
+133: Numbers Stand By

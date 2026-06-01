@@ -1,0 +1,13 @@
+[Strings]
+Uncertain Level
+Byte \x8F escape
+After Text
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+100: Byte \x8F escape

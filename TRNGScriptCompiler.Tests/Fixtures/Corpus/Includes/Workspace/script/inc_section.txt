@@ -1,0 +1,6 @@
+; Opens a [Level] section between two sections of script.txt
+[Level]
+Name= Include Level Two
+Level= data\include two,2
+LoadCamera= 0,0,0,0,0,0,0
+Legend= Included Legend

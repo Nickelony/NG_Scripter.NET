@@ -1,0 +1,41 @@
+; Corpus workspace: the language-file features both compilers read alike.
+; English.txt covers comments above the first header, tags, escapes, raw Windows-1252 characters, an empty
+; [PSXStrings] section, ExtraNG index forms, @file texts and the end-of-section sentinel.
+; The script names strings by their raw language line, without regard to case, and takes the first of
+; two equal strings.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Language Level One
+; === A tagged string, named with its tag ===
+Legend= NOTE: Tagged Legend
+; === The first of two equal strings ===
+Key= 1,Repeated Item,1,2,3,4,5,6
+; === A string named in another letter case ===
+Puzzle= 1,LOWER CASE LOOKUP,1,2,3,4,5,6
+; === Strings named with their escapes ===
+Pickup= 1,Smart \x93quotes\x94,1,2,3,4,5,6
+Examine= 1,Semi\x3Bcolon,1,2,3,4,5,6
+Level= data\language one,1
+LoadCamera= 0,0,0,0,0,0,0
+; === NG strings: an ExtraNG text, the lowest and highest ExtraNG indexes, and an @file entry by its text ===
+WindowTitle= Extra Window Title
+WindowsFont= 1,!0,0,10,1,0
+WindowsFont= 2,!32767,0,10,1,0
+WindowsFont= 3,@extra_text.txt,0,10,1,0
+
+[Level]
+Name= Language Level Two
+; === A string of [PCStrings] ===
+Legend= PC Only Text
+Level= data\language two,2
+LoadCamera= 0,0,0,0,0,0,0

@@ -1,0 +1,49 @@
+; Corpus workspace: sections in an order other than the usual one.
+; [Options] comes in three parts that share one list, [Language] follows the levels, and NG string
+; arguments name strings of that later [Language] section, because VB6 reads the first language
+; before it compiles any NG command.
+
+[Options]
+Title= ENABLED
+LoadSave= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+WindowTitle= Order Title Window
+
+; === Two extensions: VB6 warns about the count and writes slots 0 and 1 ===
+[PCExtensions]
+Level= .TR4
+FMV= .BIK
+
+[Level]
+Name= Order Level One
+Level= data\order one,1
+LoadCamera= 0,0,0,0,0,0,0
+Damage= 0,10,10,0,Order Damage Bar,10
+Diary= 1,0,0,0,0,!300,0,0
+
+[Options]
+PlayAnyLevel= ENABLED
+WorldFarView= 100
+Diagnostic= ENABLED
+
+[Level]
+Name= Order Level Two
+Level= data\order two,2
+LoadCamera= 0,0,0,0,0,0,0
+WindowTitle= Order Level Window
+
+[Language]
+File= 0,English.txt
+
+[PSXExtensions]
+Level= .PSX
+FMV= .FMV
+Cut= .CUT
+
+[Options]
+FlyCheat= ENABLED
+Settings= SET_BLIND_SAVEGAMES
+LogItem= FLI_SHOW_DIFFERENCES,5

@@ -1,0 +1,8 @@
+[Strings]
+Depth Level
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

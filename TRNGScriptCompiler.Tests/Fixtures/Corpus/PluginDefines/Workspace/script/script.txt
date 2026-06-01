@@ -1,0 +1,42 @@
+; Corpus workspace: positional @plugin define blocks that turn the plugin id of an exported trigger into
+; the id of a Plugin= line.
+; VB6 reads the Plugin= lines of script.txt at startup, so the plugins need not be installed. The block
+; holds from its #define to the next clear, across levels, because VB6 empties it only before the first level.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+Plugin= 5,Plugin_CorpusAlpha,IGNORE
+Plugin= $6,Plugin_CorpusBeta,0,1,2
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Plugin Level One
+Level= data\plugin one,1
+LoadCamera= 0,0,0,0,0,0,0
+; === Ids 7 and 9 become the Plugin= ids 5 and 6 ===
+#define @Plugin_CorpusAlpha 7
+#define @Plugin_CorpusBeta $9
+TriggerGroup= 1,$70001,406,1,$90002,406,2
+; === An id the block does not name stays as written ===
+TriggerGroup= 2,$30003,406,3
+
+[Level]
+Name= Plugin Level Two
+Level= data\plugin two,2
+LoadCamera= 0,0,0,0,0,0,0
+; === The block of the level above still holds ===
+TriggerGroup= 1,$70004,406,4
+; === After a clear, id 7 stays as written ===
+#define @plugins clear
+TriggerGroup= 2,$70005,406,5
+; === Naming a plugin again replaces its id, with a VB6 warning ===
+#define @Plugin_CorpusAlpha 8
+#define @Plugin_CorpusAlpha 11
+TriggerGroup= 3,$B0006,406,6
+TriggerGroup= 4,$80007,406,7

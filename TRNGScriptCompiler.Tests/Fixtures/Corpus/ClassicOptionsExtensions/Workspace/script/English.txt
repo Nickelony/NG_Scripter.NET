@@ -1,0 +1,8 @@
+[Strings]
+Options Level
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

@@ -1,0 +1,10 @@
+# A comment never addresses its reader; a page may, where the imperative does not fit.
+extends: existence
+message: "Write the comment without '%s'."
+level: error
+scope: comment
+ignorecase: true
+tokens:
+  - you
+  - your
+  - yours

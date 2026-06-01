@@ -1,0 +1,22 @@
+[Strings]
+Seltsame Ebene eins
+Seltsame Ebene zwei
+Seltsame Ebene drei
+Das "Auge" des Horus
+12" Lineal
+Strasse
+Straße
+:Hallo
+Typografische \x93Anführung\x94, \x96Striche\x97 und das \x80 Zeichen
+Das Zeichen \x9F schließt den Bereich
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+100: PluginDemo
+120: Zusätzliche Schrift
+130: Zusätzlicher \x93Text\x94

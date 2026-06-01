@@ -1,0 +1,54 @@
+; Comment and blank lines above the first header
+
+[Strings]
+Language Level One
+Language Level Two
+NOTE: Tagged Legend
+Repeated Item
+Repeated Item
+lower case lookup
+Smart \x93quotes\x94
+Semi\x3Bcolon
+; A comment line between strings is not a string
+Note: lower-case tag
+12:30
+A:B:C
+:Empty tag
+Escapes \x80\x82\x83\x84\x85\x86\x87\x88\x89\x8A\x8B\x8C\x8E
+Escapes \x91\x92\x93\x94\x95\x96\x97\x98\x99\x9A\x9B\x9C\x9E\x9F
+Upper \X41 and lower \x4a hex digits
+Tab\tand\nline feed
+Upper \T and \N escapes
+Dir \\new
+Raw €‚ƒ„…†‡ˆ‰Š‹ŒŽ characters
+Raw ‘’“”•–—˜™š›œžŸ characters
+Raw accents àéîõü ßÆØ
+Raw	tab inside
+[Bracketed Note]
+T: Tagged ; with a comment
+
+[PSXStrings]
+
+[PCStrings]
+PC Only Text
+
+[ExtraNG]
+0: Zero Index
+   ; an indented comment
+1: Extra Window Title
+
+12: Time 12:30
+  13  : Spaced index
+0014: Leading zeros
+&O17: Octal index
+&H7FFE: Hex index
+20: Escapes \x93in\x94 \t extra
+21: @extra_text.txt
+22: @extra_text.txt
+23:
+26: [Strings]
+32767: Highest index
+THE LAST STRING ENTRY
+Text after the sentinel without a colon
+[Strings]
+27: never read

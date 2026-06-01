@@ -417,5 +417,17 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
+# The maintainer's own notes and process, kept out of the repository.
+AGENTS.md
+BACKLOG.md
+RELEASING.md
+REVIEWING.md
+
+# Local tool state.
+.claude/
+.codebase-memory/
+.cursor/
+
+# Original Compiler and VGE local testing environment.
 Original Compiler/*
 VGE/*

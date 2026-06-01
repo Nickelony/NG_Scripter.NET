@@ -1,0 +1,51 @@
+; Corpus workspace: the NG commands that end in an array, with empty arrays, odd and even nybble counts,
+; and the largest arrays both compilers accept.
+
+[Language]
+File= 0,English.txt
+
+[Options]
+Title= ENABLED
+
+[Title]
+Level= data\title,0
+LoadCamera= 0,0,0,0,0,0,0
+
+[Level]
+Name= Array Level One
+Level= data\arrays one,1
+LoadCamera= 0,0,0,0,0,0,0
+; === Enemy= with an array and with an empty array, the second for the highest slot ===
+Enemy= SKELETON,1000,NEF_EXPLODE+NEF_HIT_BLOOD,TCF_CREATURE,0,1,2,3
+Enemy= 490,-1,0,0,0
+; === Animation= and MirrorEffect= never count a repeat of one id ===
+Animation= 100,0,0,FAN_SET_FREE_HANDS,ENV_HOLE_FLOOR_IN_FRONT,1024,0,1,-2,3
+Animation= 100,1,1,0,0,0,0
+MirrorEffect= 1,2,ANIMATING1,ANIMATING16
+MirrorEffect= 1,2
+Elevator= 1,1024,4,0,1,2,3
+Elevator= 2,1024,4,0,1,2,3,10,11,12
+AddEffect= 1,ADD_FLAME,FADD_NO_SOUND,JOINT_LEFT_KNEE,0,-128,0,30,0
+AddEffect= 2,ADD_SMOKE,0,0,0,0,0,0,0,1,2,3
+; === Nybble arrays: an odd count, an even count, $ elements, and 255 elements, the most the count byte holds ===
+TextureSequence= 1,2,SEQ_LOOP,0,15,$F,$0,7
+TextureSequence= 2,3,0,1,2
+TextureSequence= 3,4,SEQ_LOOP_INVERSE,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14
+; === MultEnvCondition= in whole triples, and with none ===
+MultEnvCondition= 1,ENV_HOLE_FLOOR_IN_FRONT,1024,0,ENV_NO_BLOCK_IN_FRONT,0,0,ENV_MONKEY_CEILING,0,0
+MultEnvCondition= 2,ENV_ONLAND,0,0
+; === Customize= never counts a repeat ===
+Customize= CUST_SET_SECRET_NUMBER,70
+Customize= CUST_SET_SECRET_NUMBER,71
+Customize= $7FFFFFFF
+; === Organizer= in whole pairs, and with none ===
+Organizer= 1,FO_ENABLED+FO_LOOP,0,30,1,60,2
+Organizer= 2,FO_ENABLED,0,0,1
+; === Parameters= counts a repeat on its first two values ===
+Parameters= PARAM_MOVE_ITEM,1,10,20
+Parameters= PARAM_MOVE_ITEM,2,30
+Parameters= PARAM_ROTATE_ITEM,1
+AnimationSlot= LARA,0,100,0,0,0,0,0,0
+AnimationSlot= SKELETON,1,10,0,0,0,0,0,0,1,2
+; === ItemGroup= with 255 words, the most one command holds ===
+ItemGroup= 1,2,7,14,21,28,35,42,49,56,63,70,77,84,91,98,105,112,119,126,133,140,147,154,161,168,175,182,189,196,203,210,217,224,231,238,245,252,259,266,273,280,287,294,301,308,315,322,329,336,343,350,357,364,371,378,385,392,399,406,413,420,427,434,441,448,455,462,469,476,483,490,497,504,511,518,525,532,539,546,553,560,567,574,581,588,595,602,609,616,623,630,637,644,651,658,665,672,679,686,693,700,707,714,721,728,735,742,749,756,763,770,777,784,791,798,805,812,819,826,833,840,847,854,861,868,875,882,889,896,903,910,917,924,931,938,945,952,959,966,973,980,987,994,1,8,15,22,29,36,43,50,57,64,71,78,85,92,99,106,113,120,127,134,141,148,155,162,169,176,183,190,197,204,211,218,225,232,239,246,253,260,267,274,281,288,295,302,309,316,323,330,337,344,351,358,365,372,379,386,393,400,407,414,421,428,435,442,449,456,463,470,477,484,491,498,505,512,519,526,533,540,547,554,561,568,575,582,589,596,603,610,617,624,631,638,645,652,659,666,673,680,687,694,701,708,715,722,729,736,743,750,757,764,771

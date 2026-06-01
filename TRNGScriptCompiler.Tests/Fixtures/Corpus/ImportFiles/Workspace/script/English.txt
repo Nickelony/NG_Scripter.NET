@@ -1,0 +1,8 @@
+[Strings]
+Import Level
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text

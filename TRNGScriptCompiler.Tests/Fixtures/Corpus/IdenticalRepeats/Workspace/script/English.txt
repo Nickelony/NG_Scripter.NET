@@ -1,0 +1,15 @@
+[Strings]
+Repeat Level
+Repeat Key
+Repeat Legend
+
+[PSXStrings]
+PSX Text
+
+[PCStrings]
+PC Text
+
+[ExtraNG]
+; === One index given twice with the same text ===
+100: Repeat Extra
+100: Repeat Extra

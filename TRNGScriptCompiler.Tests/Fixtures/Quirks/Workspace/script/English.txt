@@ -1,0 +1,22 @@
+[Strings]
+Quirk Level One
+Quirk Level Two
+Quirk Level Three
+The "Eye" of Horus
+12" Ruler
+Strasse
+Straﬂe
+:Hello
+Typographic \x93quotes\x94, \x96dashes\x97 and the \x80 sign
+The \x9F sign closes the range
+
+[PSXStrings]
+PSX Quirk Text
+
+[PCStrings]
+PC Quirk Text
+
+[ExtraNG]
+100: PluginDemo
+120: Extra Font Label
+&H82: Extra \x93quoted\x94 text

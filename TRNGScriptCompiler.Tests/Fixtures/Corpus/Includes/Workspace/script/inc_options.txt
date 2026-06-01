@@ -1,0 +1,4 @@
+; Included above the first section of script.txt
+[Options]
+Title= ENABLED
+LoadSave= ENABLED

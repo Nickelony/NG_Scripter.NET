@@ -1,0 +1,128 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true
+
+jobs:
+  build-test:
+    # Windows is the system NG Center runs on, and Linux runs the suite on a file system that tells names apart by case (PD-29).
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          # global.json pins the SDK band, whose runtime runs the net10.0 tests; the 8.0 SDK brings the runtime of the net8.0 tests.
+          global-json-file: global.json
+          dotnet-version: 8.0.x
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      # The runner has no Stanza checkout, so Directory.Build.props drops the analyzer reference and the ZA rules do not run.
+      - name: Restore
+        run: dotnet restore TRNGScriptCompiler.slnx
+
+      - name: Build
+        run: dotnet build TRNGScriptCompiler.slnx --no-restore
+
+      - name: Test with coverage
+        # One run of the suite per target framework: each writes its TRX log and coverage report to
+        # artifacts/test-results/<framework>.
+        shell: pwsh
+        run: ./Run-Coverage.ps1
+
+      - name: Check that the parity tests ran on every target framework
+        # A filter or category typo would otherwise pass with zero parity tests.
+        shell: pwsh
+        run: |
+          $frameworks = @((dotnet msbuild TRNGScriptCompiler.Tests/TRNGScriptCompiler.Tests.csproj -getProperty:TargetFrameworks).Trim() -split ';' | Where-Object { $_ })
+          $ns = @{ t = 'http://microsoft.com/schemas/VisualStudio/TeamTest/2010' }
+          foreach ($framework in $frameworks) {
+            $trx = @(Get-ChildItem (Join-Path artifacts/test-results $framework) -Filter *.trx -Recurse)
+            if ($trx.Count -ne 1) { throw "Expected one TRX log for $framework, found $($trx.Count)." }
+            [xml]$log = Get-Content $trx[0].FullName
+            $parityIds = Select-Xml -Xml $log -Namespace $ns -XPath "//t:UnitTest[t:TestCategory/t:TestCategoryItem/@TestCategory='Parity']" |
+              ForEach-Object { $_.Node.id }
+            $passed = @(Select-Xml -Xml $log -Namespace $ns -XPath "//t:UnitTestResult[@outcome='Passed']" |
+              Where-Object { $parityIds -contains $_.Node.testId })
+            if ($passed.Count -eq 0) { throw "No test in the Parity category passed on $framework." }
+            Write-Host "${framework}: $($passed.Count) parity results passed."
+          }
+
+      - name: Build Release
+        # The README tells a user to build -c Release, so a fault that only this configuration shows fails here.
+        run: dotnet build TRNGScriptCompiler.slnx -c Release --no-restore
+
+      - name: Smoke test the console host
+        # The built host of each target framework compiles a copy of the fixture workspace, never the fixtures themselves,
+        # and must exit with 0 and write Script.dat. The paths are joined by .NET, so the step runs on every runner;
+        # the folder form never waits for a key, and -NoWait says so again.
+        shell: pwsh
+        run: |
+          $hostName = if ($env:OS -eq 'Windows_NT') { 'NG_Scripter.exe' } else { 'NG_Scripter' }
+          $workspace = [System.IO.Path]::Combine((Get-Location).Path, 'TRNGScriptCompiler.Tests', 'Fixtures', 'Workspace')
+          $frameworks = @((dotnet msbuild TRNGScriptCompiler.Cli/TRNGScriptCompiler.Cli.csproj -getProperty:TargetFrameworks).Trim() -split ';' | Where-Object { $_ })
+          if ($frameworks.Count -eq 0) { throw 'No target framework found for the console host.' }
+          foreach ($framework in $frameworks) {
+            $engine = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "smoke-$framework")
+            if (Test-Path $engine) { Remove-Item -Recurse -Force $engine }
+            Copy-Item -Recurse $workspace $engine
+            $executable = [System.IO.Path]::Combine((Get-Location).Path, 'TRNGScriptCompiler.Cli', 'bin', 'Release', $framework, $hostName)
+            & $executable $engine --quiet -NoWait
+            if ($LASTEXITCODE -ne 0) { throw "The console host of $framework exited with $LASTEXITCODE." }
+            if (-not (Test-Path ([System.IO.Path]::Combine($engine, 'Script.dat')))) { throw "The console host of $framework wrote no Script.dat." }
+            Write-Host "${framework}: the console host exited with 0 and wrote Script.dat."
+          }
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}
+          path: artifacts/test-results
+
+      - name: Format check
+        # .gitattributes checks out every source with CRLF, so each runner reads the same bytes and the check runs
+        # once, on Windows.
+        if: runner.os == 'Windows'
+        run: dotnet format TRNGScriptCompiler.slnx --verify-no-changes --no-restore
+
+  # The pages and the comments follow STYLEGUIDE.md, which the Vale style in .vale/styles/TRNG checks.
+  prose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      VALE_VERSION: 3.25.1
+      VALE_SHA256: 4bf5c5176b682b1da0830f471584d3494f1c2e27ee3029e1ad6f6661d4962182
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # A pinned release whose checksum matches, so a changed download cannot run.
+      - name: Install Vale
+        run: |
+          archive="vale_${VALE_VERSION}_Linux_64-bit.tar.gz"
+          curl --fail --silent --show-error --location --output "$RUNNER_TEMP/$archive" "https://github.com/vale-cli/vale/releases/download/v${VALE_VERSION}/$archive"
+          echo "$VALE_SHA256  $RUNNER_TEMP/$archive" | sha256sum --check --strict
+          mkdir -p "$RUNNER_TEMP/vale"
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP/vale" vale
+          echo "$RUNNER_TEMP/vale" >> "$GITHUB_PATH"
+
+      - name: Check the prose
+        run: vale --glob='!{**/bin/**,**/obj/**,**/TestResults/**,artifacts/**,Original Compiler/**,.codebase-memory/**,.vs/**}' .

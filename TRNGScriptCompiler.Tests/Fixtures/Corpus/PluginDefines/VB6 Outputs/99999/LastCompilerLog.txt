@@ -1,0 +1,91 @@
+'=========== INIZIALIZZA PER ENCODER WMV =====================
+' =================== IMPOSTAZIONE CARTELLA TRLE ==============================
+' ================== IMPOSTAZIONE CARTELLE TEMP TRLE ===============================
+'============ INIZIALIZZA PLUGINS =====================
+'=========== DECOMPRIME FILE .RAR ===========================
+AnalisiPrimaEsecuzione(): missing JUST_INSTALLED.txt file
+'=========== SPOSTA help_ButtonsWindow.txt =================
+'============ Initialise global arrays ===========================
+No translation file. Missing in root folder: C:\Users\Nicke\AppData\Local\Temp\NGCenter-99999\My_Scripter_Constants.txt
+Scanning English.txt
+	Found 4 standard strings
+	Found 2 extra ng strings
+**** START COMPILING ****
+* NG Scripter v. 1.5.49
+Remove old .dat files from folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines\script
+Remove old language.dat file from base trle folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines
+------------ PARSING FILE <SCRIPT.TXT> ----------
+------------ END FILE <SCRIPT.TXT> ----------
+WARNING: unexpected number of extensions in [PCExtensions] section: 0
+WARNING: unexpected number of extensions in [PSXExtensions] section: 0
+Scanning English.txt
+	Found 4 standard strings
+	Found 2 extra ng strings
+Scanning SCRIPT.TXT completed: OK
+Writing header script.dat...
+	Number of Levels:3
+	Level: "data\title"
+	Level: "data\plugin one"
+	Level: "data\plugin two"
+Saving Header NG Data...
+[OPTIONS] Section ...
+	Scanning: Plugin= 5,Plugin_CorpusAlpha,IGNORE
+	Scanning: Plugin= $6,Plugin_CorpusBeta,0,1,2
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\title
+------- Statistic about amount of multiple commands in current level section -------
+<No multiple commands in current level section>
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\plugin one
+	Scanning: #define @Plugin_CorpusAlpha 7
+	Scanning: #define @Plugin_CorpusBeta $9
+	Scanning: TriggerGroup= 1,$70001,406,1,$90002,406,2
+		Converted Id for exported trigger. From id 7 (Plugin_CorpusAlpha) to scritp-id 5
+		Converted Id for exported trigger. From id 9 (Plugin_CorpusBeta) to scritp-id 6
+	Scanning: TriggerGroup= 2,$30003,406,3
+------- Statistic about amount of multiple commands in current level section -------
+[2/999] TriggerGroup=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+
+========== START LEVEL PARSING ==========
+[LEVEL] : data\plugin two
+	Scanning: TriggerGroup= 1,$70004,406,4
+		Converted Id for exported trigger. From id 7 (Plugin_CorpusAlpha) to scritp-id 5
+	Scanning: #define @plugins clear
+	Scanning: TriggerGroup= 2,$70005,406,5
+	Scanning: #define @Plugin_CorpusAlpha 8
+	Scanning: #define @Plugin_CorpusAlpha 11
+WARNING: same plugin name [Plugin_CorpusAlpha] had already been defined. Perhaps you forgot a [#define @plugins clear] line to clear previous definition
+	Scanning: TriggerGroup= 3,$B0006,406,6
+		Converted Id for exported trigger. From id 11 (Plugin_CorpusAlpha) to scritp-id 5
+	Scanning: TriggerGroup= 4,$80007,406,7
+------- Statistic about amount of multiple commands in current level section -------
+[4/999] TriggerGroup=
+---------------- End Statistics --------------------
+========= END LEVEL PARSING =========
+Verifing extra ng header structure...
+
+
+Saving script.dat file in folder: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines\script
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines\script\SCRIPT.DAT
+SAVE LANGUAGES.DAT ...
+	Saving: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines\script\English.DAT
+Scanning English.txt
+	Found 4 standard strings
+	Found 2 extra ng strings
+Save extra ng header for file: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines\script\English.DAT
+	Number of words for extra strings = 24
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines\script\English.DAT
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines\script.dat
+Created: C:\Users\Nicke\AppData\Local\Temp\NGCorpusRun-20261023-142430\PluginDefines\English.dat
+******** COMPLETED ********
+Completed compilation
+Failed the compiling, there are 3 errors
+Last error: 
+
+WARNING: same plugin name [Plugin_CorpusAlpha] had already been defined. Perhaps you forgot a [#define @plugins clear] line to clear previous definition

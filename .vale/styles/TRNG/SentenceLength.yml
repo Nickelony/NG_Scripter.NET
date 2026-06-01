@@ -1,0 +1,7 @@
+# A sentence aims for 25 words, and one past the max below is split, as STYLEGUIDE.md says.
+extends: occurrence
+message: "Split this sentence of %s words, or move its fact to the page that owns it."
+level: error
+scope: sentence
+max: 40
+token: '[^\s]+'

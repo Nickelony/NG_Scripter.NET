@@ -1,0 +1,71 @@
+<Project>
+	<!--
+		Repository-wide build settings. Project-specific settings stay in each .csproj.
+		Analyzer/style severities are curated in .editorconfig.
+	-->
+	<PropertyGroup>
+		<!--
+			Every project builds for each target framework, and the suite runs on each. net8.0 stays while TombIDE,
+			which loads the library, targets it.
+		-->
+		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+
+		<!--
+			Every target framework compiles the same sources, and the default language of net8.0 is C# 12. The pin keeps a
+			newer target's build and the IDE from accepting newer syntax that the net8.0 build rejects.
+		-->
+		<LangVersion>12.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!--
+			Every compiler and analyzer warning fails the build. The IDE style and naming rules do not run in the
+			build, because format.ps1 applies them; Directory.Build.targets sets the CA rule set.
+		-->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<!--
+		The release identity: one version for every project, and the metadata a build or a package reports.
+	-->
+	<PropertyGroup>
+		<Version>1.0.0</Version>
+		<Authors>Kewin Kupilas</Authors>
+		<Company>Nickelony</Company>
+		<Copyright>Copyright (c) 2025-2026 Kewin Kupilas</Copyright>
+		<RepositoryUrl>https://github.com/Nickelony/NG_Scripter.NET</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<!-- So the version option prints the version alone, without the source revision the SDK appends by default. -->
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+	</PropertyGroup>
+
+	<!--
+		Both references are conditional, so a missing checkout silently turns off the ZA pins in .editorconfig.
+		The code fixes need their own reference, or dotnet format finds no fix for a ZA diagnostic.
+		The Stanza projects stay out of the solution, so dotnet format never rewrites that checkout.
+		CONTRIBUTING.md owns the checkout, the StanzaRepoRoot override and what CI runs.
+	-->
+	<PropertyGroup>
+		<StanzaRepoRoot Condition="'$(StanzaRepoRoot)' == ''"
+			>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\Stanza'))</StanzaRepoRoot>
+	</PropertyGroup>
+
+	<ItemGroup Condition="Exists('$(StanzaRepoRoot)\src\Nickelony.Stanza.Analyzers\Nickelony.Stanza.Analyzers.csproj')">
+		<ProjectReference
+			Include="$(StanzaRepoRoot)\src\Nickelony.Stanza.Analyzers\Nickelony.Stanza.Analyzers.csproj"
+			OutputItemType="Analyzer"
+			ReferenceOutputAssembly="false"
+			PrivateAssets="all"
+		/>
+	</ItemGroup>
+
+	<ItemGroup Condition="Exists('$(StanzaRepoRoot)\src\Nickelony.Stanza.Analyzers.CodeFixes\Nickelony.Stanza.Analyzers.CodeFixes.csproj')">
+		<ProjectReference
+			Include="$(StanzaRepoRoot)\src\Nickelony.Stanza.Analyzers.CodeFixes\Nickelony.Stanza.Analyzers.CodeFixes.csproj"
+			OutputItemType="Analyzer"
+			ReferenceOutputAssembly="false"
+			PrivateAssets="all"
+		/>
+	</ItemGroup>
+</Project>
